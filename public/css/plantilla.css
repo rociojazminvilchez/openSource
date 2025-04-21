@@ -1,0 +1,16 @@
+html {
+    min-height: 100%;
+    position: relative;    
+}
+
+footer a {
+    border: none;
+    text-decoration: none;
+    outline: none;
+  }
+
+  nav a {
+    border: none;
+    text-decoration: none;
+    outline: none;
+  }

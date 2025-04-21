@@ -1,0 +1,48 @@
+html {
+    min-height: 100%;
+    position: relative;    
+}
+
+#carouselExampleIndicators {
+    max-width: 900px; /* Ancho máximo deseado */
+    height: 500px;    /* Altura deseada */
+    margin: auto;     /* Centrar el carrusel */
+    overflow: hidden; /* Evitar desbordamientos */
+
+    .carousel-control-prev, .carousel-control-next {
+    border-radius: 50%; /* Hacer los botones redondos */
+    margin-left: -23px; /* Mover el botón hacia el borde izquierdo */
+    margin-right: -23px; /* Mover el botón hacia el borde derecho */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #df7718; /* Color del icono */
+    border-radius: 50%; /* Hacer el icono redondo */
+    padding: 5px; /* Espacio alrededor del icono */
+}
+
+}
+
+
+html, body {
+    height: 100%; /* Asegúrate de que el body ocupe el 100% de la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en una columna */
+}
+
+.main-content {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    padding: 20px; /* Espaciado alrededor del contenido */
+}
+
+footer {
+    background-color: #f2f2f2; /* Color de fondo del footer */
+    text-align: center; /* Centrar el texto del footer */
+    padding: 10px; /* Espaciado interno del footer */
+    position: relative; /* Posición relativa para evitar que cubra el contenido */
+}

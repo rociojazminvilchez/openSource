@@ -1,0 +1,109 @@
+html {
+    min-height: 100%;
+    position: relative;    
+}
+
+/*HEADER*/
+header {
+    position: sticky !important ; 
+	top: 0 !important;
+    background-color: f6fafa;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
+
+.grid-item {
+    padding: 5px;
+    text-align: center;
+}
+
+/*FOOTER*/
+footer {
+    position:absolute;
+    background-color: #f6fafa;
+    /*text-align:center;*/
+    left:0;
+    width:100%;
+    bottom: 0;
+}
+
+.grid-container-footer {
+    color:#3366cc;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+  }
+  
+
+.grid-item-footer{
+    padding: 5px;
+}
+
+/*CARRUSEL*/
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+  }
+  
+/*FORMULARIOS*/
+.form {
+background-color: #ededed83;
+padding: 50px 20px;
+margin: calc(20% + 100px);
+margin-top: 20px;
+margin-bottom: 100px;
+padding-top: 28px;
+}
+
+input {
+	padding: 9px;
+	margin: auto;
+	margin-top: 12px;
+	font-size: 16px;
+}
+
+
+input[type='submit']{
+	background-color: #df7718;
+	color: #fff;
+	width: calc(80% - 20px);
+	margin: 0 5%;
+	margin-top: 12px;
+	border: none;
+    text-decoration-style: solid;
+}
+/*no me lo toma*/
+input[type='reset']{
+	background-color: rgb(242, 248, 248);
+	color: #fff;
+	width: calc(80% - 20px);
+	margin: 0 5%;
+	margin-top: 12px;
+	border: none;
+    text-decoration-style: solid;
+}
+.error{
+	color:red;
+}
+
+.valido{
+	color: gray;
+}
+
+input[type=text],input[type=number],input[type=date], select, textarea {
+    width: 50%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+

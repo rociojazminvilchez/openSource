@@ -2,7 +2,5 @@
 
 use CodeIgniter\Router\RouteCollection;
 
-/**
- * @var RouteCollection $routes
- */
+/*Pagina principal*/
 $routes->get('/', 'Home::index');
