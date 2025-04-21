@@ -24,10 +24,17 @@
         <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Inicio</button> 
       </a>
       
-      <!-- Mostrar "Panel" solo si el usuario ha iniciado sesión -->
+      <!-- SESION INICIADA -->
       <?php if (session()->has('usuario')): ?>
-        <a href="<?= base_url('/usuario/panel'); ?>">
+
+        <a href="<?= base_url('/barra/panel'); ?>">
           <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Panel</button>
+        </a>
+        <a href="<?= base_url('/barra/tarea'); ?>">
+          <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Tareas</button>
+        </a>
+        <a href="<?= base_url('/barra/historial'); ?>">
+          <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Historial</button>
         </a>
       <?php endif; ?>
     </div>
@@ -40,8 +47,8 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="max-width: 200px;">
         <?php if (session()->has('usuario')): ?>
-          <li><a class="dropdown-item" href="<?= base_url('/usuario/perfil'); ?>">Perfil</a></li>
-          <li><a class="dropdown-item" href="<?= base_url('/usuario/membresias'); ?>">Historial</a></li>
+          <li><a class="dropdown-item" href="<?= base_url('/usuario/membresias'); ?>">Crear tarea</a></li>
+          <li><a class="dropdown-item" href="<?= base_url('/usuario/membresias'); ?>">Crear subtarea</a></li>
           <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
         <?php else: ?>
           <li><a class="dropdown-item" href="<?= base_url('/formularios/registro'); ?>">Registrarse</a></li>

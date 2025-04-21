@@ -23,56 +23,54 @@
 <?php endif; ?>
 
 <section style="text-align: center;">
-  <h3>Organizá tus tareas como un profesional </h3>
+  <h3>Organiz&aacute tus tareas como un profesional </h3>
   Bienvenida a tu nueva herramienta para la organización personal y en equipo.<br>
   Nuestro sistema te permite crear, gestionar y compartir tareas de forma simple, ordenada y eficiente.<br>
 </section>
 
-
 <div class="container px-4 py-5" id="featured-3">
-  <h2 class="pb-2 border-bottom text-center">¿Qué podés hacer con esta plataforma?</h2>
+  <h2 class="pb-2 border-bottom text-center">¿Qu&eacute pod&eacutes hacer con esta plataforma?</h2>
   <div class="row g-4 py-5 row-cols-1 row-cols-md-2 row-cols-lg-3">
-
-    <!-- Gestión de cuentas -->
+    <!-- Gestión de cuentas de usuario-->
     <div class="feature col text-center">
       <div class="fs-1 mb-3">👤</div>
-      <h3 class="fs-4">Gestión de cuentas</h3>
-      <p>Creá tu cuenta personal y accedé a tus tareas desde cualquier lugar. Todo tu trabajo, siempre a mano.</p>
+      <h3 class="fs-4">Gesti&oacuten de cuentas</h3>
+      <p>Cre&aacute tu cuenta personal y accedé a tus tareas desde cualquier lugar. Todo tu trabajo, siempre a mano.</p>
     </div>
 
-    <!-- Tareas -->
+    <!-- Creacion y gestion de tareas -->
     <div class="feature col text-center">
       <div class="fs-1 mb-3">📝</div>
-      <h3 class="fs-4">Gestión de tareas</h3>
-      <p>Generá tareas fácilmente, asignales prioridad, fechas de vencimiento y colores para una mejor visualización.</p>
+      <h3 class="fs-4">Gesti&oacuten de tareas</h3>
+      <p>Generá tareas f&aacutecilmente, asignales prioridad, fechas de vencimiento y colores para una mejor visualizaci&oacuten.</p>
     </div>
 
-    <!-- Subtareas -->
+    <!-- Creacion y gestion de subtareas -->
     <div class="feature col text-center">
       <div class="fs-1 mb-3">🧩</div>
       <h3 class="fs-4">Subtareas inteligentes</h3>
-      <p>Dividí tus tareas en pasos más pequeños, asigná responsables y hacé seguimiento del estado de cada una.</p>
+      <p>Divid&iacute tus tareas en pasos m&aacutes pequeños, asign&aacute responsables y hac&eacute seguimiento del estado de cada una.</p>
     </div>
 
-    <!-- Cambio de estado -->
+    <!-- Cambio de estado de las tareas -->
     <div class="feature col text-center">
       <div class="fs-1 mb-3">🔄</div>
       <h3 class="fs-4">Cambio de estado</h3>
-      <p>Marcá tareas como "en proceso" o "completadas" con un solo clic. Visualizá tu progreso en tiempo real.</p>
+      <p>Marc&aacute tareas como "en proceso" o "completadas" con un solo clic. Visualiz&aacute tu progreso en tiempo real.</p>
     </div>
 
-    <!-- Colaboración -->
+    <!-- Interaccion con colaboradores -->
     <div class="feature col text-center">
       <div class="fs-1 mb-3">🤝</div>
       <h3 class="fs-4">Colaboración en equipo</h3>
-      <p>Compartí tareas con otros usuarios por correo electrónico. Trabajá de manera clara y organizada.</p>
+      <p>Compart&iacute tareas con otros usuarios por correo electr&oacutenico. Trabaj&aacute de manera clara y organizada.</p>
     </div>
 
-    <!-- Archivado -->
+    <!-- Archivadar tareas completadas -->
     <div class="feature col text-center">
       <div class="fs-1 mb-3">📁</div>
       <h3 class="fs-4">Archivado</h3>
-      <p>Archivá tareas finalizadas para mantener tu panel limpio. Podés consultarlas cuando las necesites.</p>
+      <p>Archiv&aacute tareas finalizadas para mantener tu panel limpio. Pod&eacutes consultarlas cuando las necesites.</p>
     </div>
 
   </div>
