@@ -17,7 +17,7 @@ html {
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-color: #df7718; /* Color del icono */
+    background-color: #262e5b; /* Color del icono */
     border-radius: 50%; /* Hacer el icono redondo */
     padding: 5px; /* Espacio alrededor del icono */
 }
