@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use App\Models\IngresoModel;
+use App\Models\RegistroUsuarioModel;
 
 class Home extends Controller
 {
@@ -10,40 +12,104 @@ class Home extends Controller
     {
         return view('inicio');
     }
-   
-        #USUARIO
-        public function ingreso(){
-            return view('formularios/ingreso');
-        }
     
-        public function login(){
-            $usuario = $this->request->getPost('usuario');    
-            $contra = $this->request->getPost('contra');
+#USUARIO
+    public function ingreso(){
+      return view('formularios/ingreso');
+    }
+    
+    public function login(){
+        $usuario = $this->request->getPost('usuario');    
+        $contra = $this->request->getPost('contra');
            
-            $ingresoModel = new IngresoModel();
-    
-            $data = $ingresoModel->obtenerUsuario(['correo' => $usuario,'contraseña' => $contra]);
+        $ingresoModel = new IngresoModel();
+        $data = $ingresoModel->obtenerUsuario(['correo' => $usuario,'contra' => $contra]);
         
-            if(count($data) > 0){
-               // MANEJO DE SESION
-               $data = [
-                    'usuario' => $usuario,
-                    'tipo' => 'Usuario',
-               ];
-                $session = session();
-                $session -> set($data);
+        if(count($data) > 0){
+        // MANEJO DE SESION
+            $data = [
+                'usuario' => $usuario,
+            ];
+            $session = session();
+            $session -> set($data);
                 
-                return redirect()->to('inguz/index')->with('mensaje', '¡Bienvenido nuevamente!');
-            }else{
-                ?>
-                
-                <?php
-               return redirect()->to('formularios/ingreso')->with('mensajeError', 'Datos incorrectos. Ingrese nuevamente'); 
-            }
+            return redirect()->to('/')->with('mensaje', '¡Bienvenido nuevamente!');
+        }else{
+        ?> <?php
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Datos incorrectos. Ingrese nuevamente'); 
         }
-    
-        public function registro(){
-            return view('formularios/registro');
-        }
+    }
 
+#REGISTRAR USUARIO
+    public function registro(){
+         return view('formularios/registro');
+    }
+
+    public function create(){
+        $reglas = [
+            'nombre' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                    'required' => 'El campo nombre es obligatorio.',
+                    'min_length' => 'El nombre debe tener al menos 3 caracteres.'
+               ]
+            ],
+            'apellido' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                    'required' => 'El campo apellido es obligatorio.',
+                    'min_length' => 'El nombre debe tener al menos 3 caracteres.'
+               ]
+            ],
+            'email' => [
+                'rules' => 'required|valid_email|is_unique[registro_usuario.correo]',
+                'errors' => [
+                    'required' => 'El campo email es obligatorio.',
+                    'valid_email' => 'Debes proporcionar un correo electrónico válido.',
+                     'is_unique' => 'Este correo electrónico ya está registrado.'
+                ]
+            ],
+            'contra'     => [
+                'rules' => 'required|min_length[7]',
+                'errors' => [
+                    'required' => 'La contraseña es obligatoria.',
+                    'min_length' => 'La contraseña debe tener al menos 7 caracteres.'
+                ]
+            ],
+            'contra2' => [ 
+                'rules' => 'required|matches[contra]',
+                'errors' => [
+                    'required' => 'Debes confirmar la contraseña.',
+                    'matches' => 'Las contraseñas no coinciden.'
+               ]
+           ],
+        ];
+        
+        // Si la validación falla, redirigir de vuelta con los datos ingresados
+       
+        if (!$this->validate($reglas)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+        
+        $post = $this->request->getPost(['nombre', 'apellido', 'email','contra','contra2']);    
+        $registroUsuarioModel = new RegistroUsuarioModel();
+
+    
+        $registroUsuarioModel->insert([
+            'nombre' => ucfirst(trim($post['nombre'])),
+            'apellido' => ucfirst(trim($post['apellido'])),
+            'correo' => $post['email'],
+            'contra' => $post['contra'],
+            'contra2' => $post['contra2'],
+        ]);
+           
+    return redirect()->to('/')->with('mensaje', 'Usuario registrado exitosamente.');
+   }
+
+#SALIR
+    public function salir() {
+        $session = session();
+        session->destroy();
+        return redirect()->to(base_url('/'));
+    }   
 }
