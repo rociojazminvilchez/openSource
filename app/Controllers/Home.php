@@ -5,14 +5,15 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\IngresoModel;
 use App\Models\RegistroUsuarioModel;
-
+use App\Models\RegistroTareaModel;
+use App\Models\RegistroSubtareaModel;
 class Home extends Controller
 {
     public function index(): string
     {
         return view('inicio');
     }
-    
+
 #USUARIO
     public function ingreso(){
       return view('formularios/ingreso');
@@ -42,7 +43,7 @@ class Home extends Controller
 
 #REGISTRAR USUARIO
     public function registro(){
-         return view('formularios/registro');
+        return view('formularios/registro');
     }
 
     public function create(){
@@ -94,7 +95,6 @@ class Home extends Controller
         $post = $this->request->getPost(['nombre', 'apellido', 'email','contra','contra2']);    
         $registroUsuarioModel = new RegistroUsuarioModel();
 
-    
         $registroUsuarioModel->insert([
             'nombre' => ucfirst(trim($post['nombre'])),
             'apellido' => ucfirst(trim($post['apellido'])),
@@ -106,10 +106,74 @@ class Home extends Controller
     return redirect()->to('/')->with('mensaje', 'Usuario registrado exitosamente.');
    }
 
+#Formularios - Tareas | Subtarea
+    public function tarea() {
+        return view('formularios-tarea/tarea');
+    }   
+
+    public function subtarea() {
+        return view('formularios-tarea/subtarea');
+    }  
+
+#Menu
+    public function panel() {
+        $RegistroTareaModel = new RegistroTareaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+        $data = [
+            'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo])
+        ];
+        return view('menu/panel',$data);
+    }   
+
+    public function tareas() {
+        $RegistroTareaModel = new RegistroTareaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+        $data = [
+            'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo])
+        ];
+        return view('menu/tareas',$data);
+    }   
+
+    public function subtareas() {
+        $RegistroSubtareaModel = new RegistroSubtareaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+        $data = [
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable'=>$correo])
+        ];
+        return view('menu/subtareas',$data);
+    } 
+
+    public function historial() {
+        $RegistroTareaModel = new RegistroTareaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+        }
+
+        $data1 = [
+            'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo])
+
+        ];
+
+        $RegistroSubtareaModel = new RegistroSubtareaModel();
+        
+        $data2 = [
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable'=>$correo])
+        ];
+
+        $data = array_merge($data1, $data2);
+        return view('menu/historial',$data);
+    }   
+
 #SALIR
     public function salir() {
         $session = session();
-        session->destroy();
+        $session->destroy();
         return redirect()->to(base_url('/'));
     }   
 }

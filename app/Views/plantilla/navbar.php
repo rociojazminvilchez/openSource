@@ -20,20 +20,17 @@
     </a>
     
     <div class="mx-auto">
-      <a href="<?= base_url('/inguz/index'); ?>">
+      <a href="<?= base_url('/'); ?>">
         <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Inicio</button> 
       </a>
       
       <!-- SESION INICIADA -->
       <?php if (session()->has('usuario')): ?>
 
-        <a href="<?= base_url('/barra/panel'); ?>">
+        <a href="<?= base_url('/menu/panel'); ?>">
           <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Panel</button>
         </a>
-        <a href="<?= base_url('/barra/tarea'); ?>">
-          <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Tareas</button>
-        </a>
-        <a href="<?= base_url('/barra/historial'); ?>">
+        <a href="<?= base_url('/menu/historial'); ?>">
           <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Historial</button>
         </a>
       <?php endif; ?>
@@ -47,8 +44,8 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="max-width: 200px;">
         <?php if (session()->has('usuario')): ?>
-          <li><a class="dropdown-item" href="<?= base_url('/usuario/membresias'); ?>">Crear tarea</a></li>
-          <li><a class="dropdown-item" href="<?= base_url('/usuario/membresias'); ?>">Crear subtarea</a></li>
+          <li><a class="dropdown-item" href="<?= base_url('/formularios-tarea/tarea'); ?>">Crear tarea</a></li>
+          <li><a class="dropdown-item" href="<?= base_url('/formularios-tarea/subtarea'); ?>">Crear subtarea</a></li>
           <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
         <?php else: ?>
           <li><a class="dropdown-item" href="<?= base_url('/formularios/registro'); ?>">Registrarse</a></li>

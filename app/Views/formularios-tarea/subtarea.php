@@ -61,7 +61,7 @@
  
 
   <span class="error">*</span> Responsable:<br>
-  <input type="text" name="usuario" value="<?= old('usuario') ?>"required></input>
+  <input type="text" name="usuario" value="<?= $_SESSION['usuario'] ?>"required></input>
   
     <input type="submit" name="tarea" value="CREAR" style="background-color: #262e5b;">
   </form><br><br><br>

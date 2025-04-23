@@ -8,9 +8,9 @@ class RegistroTareaModel extends Model{
    protected $useAutoIncrement = false; 
    protected $returnType = 'array';
    protected $useSoftDeletes = false; 
-   protected $allowedFields = ['tema','descripcion','prioridad','estado','fecha_vencimiento','fecha_recordatorio','color'];
+   protected $allowedFields = ['id','correo','tema','descripcion','prioridad','estado','fecha_vencimiento','fecha_recordatorio','color'];
 
-   public function obtenerUsuario($data){
+   public function mostrarTarea($data){
          $Usuario = $this->db->table('registro_tarea');
 			$Usuario->where($data);
 			return $Usuario->get()->getResultArray();
