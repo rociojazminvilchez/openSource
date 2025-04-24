@@ -19,8 +19,11 @@
 <div class="card text-center">
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
+      <li>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?> ><label style="color:red; font-weight: bold;">* Panel </label></a>
       </li>
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?> ><label style="color:red; font-weight: bold;">* Tareas </label></a>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?>> Tareas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/subtareas'); ?>> Subtareas</a>

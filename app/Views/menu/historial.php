@@ -16,35 +16,48 @@
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
-<h2 class="text-center mb-4">📝 Mis Tareas</h2>
-<div class="row">
-  <?php foreach ($tareas as $tarea): ?>
-  <div class="col-md-4 mb-4">
-    <div class="card border-<?= $tarea['estado'] == 'completa' ? 'success' : 'warning' ?> shadow rounded-3">
-      <div class="card-body">
-        <h5 class="card-title text-primary">
-          📌 <?= esc($tarea['titulo']) ?>
-        </h5>
-        <p class="card-text"><?= esc($tarea['descripcion']) ?></p>
-        <p><strong>📅 Fecha:</strong> <?= esc($tarea['fecha']) ?></p>
-        
-        <div class="d-flex justify-content-between align-items-center">
-          <span class="badge bg-<?= $tarea['estado'] == 'completa' ? 'success' : 'warning' ?>">
-            <?= ucfirst($tarea['estado']) ?>
-          </span>
-
-          <!-- Botón ficticio para marcar como completada -->
-          <?php if ($tarea['estado'] != 'completa'): ?>
-            <button class="btn btn-sm btn-success">✅ Completar</button>
-          <?php else: ?>
-            <button class="btn btn-sm btn-secondary" disabled>✔️ Hecho</button>
-          <?php endif; ?>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php endforeach; ?>
+<div class="alert alert-warning" role="alert">
+  <strong>Atención:</strong> Este panel es para visualizar el historial.
 </div>
+<div class="card text-center">
+<div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+    <li>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?> > Panel </label></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?>> Tareas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/subtareas'); ?>>Subtareas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/historial'); ?>><label style="color:red; font-weight: bold;">*  Historial</a>
+      </li>
+    </ul>
+  </div><br>
+  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> RESERVAS </h3> 
+
+<table class="table table-hover table-bordered my-3" aria-describedby="titulo">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Actividad</th>
+            <th scope="col">Instructor a cargo</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($tareas as $t) : ?>
+            <tr>
+              <td><?= $t['id']; ?></td>
+            </tr>
+        <?php 
+            endforeach;  
+      ?>
+    </tbody>
+</table><br>
 
 
 <?php
