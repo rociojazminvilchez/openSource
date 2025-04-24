@@ -9,11 +9,21 @@ class RegistroTareaModel extends Model{
    protected $returnType = 'array';
    protected $useSoftDeletes = false; 
    protected $allowedFields = ['id','correo','tema','descripcion','prioridad','estado','fecha_vencimiento','fecha_recordatorio','color'];
-
+   
+   
    public function mostrarTarea($data){
-         $Usuario = $this->db->table('registro_tarea');
-			$Usuario->where($data);
-			return $Usuario->get()->getResultArray();
-   }
+      $Usuario = $this->db->table('registro_tarea');
+  
+      if (isset($data['correo'])) {
+          $Usuario->where('correo', $data['correo']);
+      }
+  
+      if (isset($data['ordenar']) && in_array($data['ordenar'], ['fecha_vencimiento', 'prioridad', 'estado'])) {
+          $Usuario->orderBy($data['ordenar'], 'ASC');
+      }
+  
+      return $Usuario->get()->getResultArray();
+  }
+  
 }
 ?>

@@ -132,9 +132,18 @@ class Home extends Controller
         if (session()->has('usuario')) {
             $correo= $_SESSION['usuario'];
           }
-        $data = [
-            'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo])
-        ];
+        
+    $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  
+
+    $columnasPermitidas = ['fecha_vencimiento', 'prioridad', 'estado'];
+    if (!in_array($ordenarPor, $columnasPermitidas)) {
+        $ordenarPor = 'fecha_vencimiento'; 
+    }
+
+    $data = [
+        'tareas' => $RegistroTareaModel->mostrarTarea(['correo' => $correo, 'ordenar' => $ordenarPor])
+    ];
+
         return view('menu/tareas',$data);
     }   
 

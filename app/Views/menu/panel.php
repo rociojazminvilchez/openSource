@@ -20,7 +20,7 @@
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li>
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?> ><label style="color:red; font-weight: bold;">* Panel </label></a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/panel'); ?> ><label style="color:red; font-weight: bold;">* Panel </label></a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?>> Tareas</a>
@@ -33,7 +33,7 @@
       </li>
     </ul>
   </div><br>
-  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> RESERVAS </h3> 
+  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL </h3> 
 
 <table class="table table-hover table-bordered my-3" aria-describedby="titulo">
     <thead class="table-dark">

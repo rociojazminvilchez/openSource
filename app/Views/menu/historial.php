@@ -8,9 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
     <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-   <!-- <link rel="stylesheet" href="<?= base_url('/css/index.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
--->
+    <link rel="stylesheet" href="<?= base_url('css/panel.css') ?>">
   </head>
 <body>
 <?php
@@ -36,10 +34,9 @@
       </li>
     </ul>
   </div><br>
-  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> RESERVAS </h3> 
+  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> HISTORIAL </h3> 
 
-<table class="table table-hover table-bordered my-3" aria-describedby="titulo">
-    <thead class="table-dark">
+<table class="encabezado-custom" aria-describedby="titulo">
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Fecha</th>
@@ -47,7 +44,6 @@
             <th scope="col">Actividad</th>
             <th scope="col">Instructor a cargo</th>
         </tr>
-    </thead>
     <tbody>
     <?php foreach ($tareas as $t) : ?>
             <tr>

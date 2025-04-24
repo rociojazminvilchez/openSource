@@ -18,7 +18,7 @@ $routes->post('/home/create', 'Home::create');
 #Menu
 $routes->get('/menu/panel', 'Home::panel');
 $routes->get('/menu/tareas', 'Home::tareas');
-$routes->get('/menu/subtareas', 'Home::tareas');
+$routes->get('/menu/subtareas', 'Home::subtareas');
 $routes->get('/menu/historial', 'Home::historial');
 
 #Formulario - Tarea

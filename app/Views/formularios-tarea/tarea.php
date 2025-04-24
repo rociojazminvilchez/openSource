@@ -14,7 +14,7 @@
     echo $this->include('plantilla/navbar');
 ?>
 
-<form class="form" action="<?= base_url('tarea/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+<form class="form" action="<?= base_url('tareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
 <?php if (session()->get('errors')): ?>
         <div class="alert alert-danger">
             <ul>
@@ -25,7 +25,7 @@
         </div>
     <?php endif; ?>  
 <p style="text-align:right;">
-    <a href="<?php echo base_url('/')?>">
+    <a href="<?php echo base_url('tareas/create')?>">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
   </p>
@@ -40,14 +40,14 @@
     <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required></input><br><br>
        
   <span class="error">*</span> Prioridad:<br>
-  <select class="form-select" aria-label="Default select example">
+  <select name="prioridad">
     <option value="baja">Baja</option>
     <option value="normal">Normal</option>
     <option value="alta">Alta</option>
   </select></input><br><br>
   
   <span class="error">*</span> Estado:<br>
-  <select class="form-select" aria-label="Default select example">
+  <select name="estado">
     <option value="1">Definido</option>
     <option value="2">En proceso</option>
     <option value="3">Completada</option>
@@ -56,11 +56,11 @@
   <span class="error">*</span> Fecha de vencimiento:<br>
     <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"required></input><br><br>
   
-  <span class="error">*</span> Fecha de recordatorio:<br>
-    <input type="date" name="recordatorio"  value="<?= old('recordatorio') ?>"required></input><br><br>
+  Fecha de recordatorio:<br>
+    <input type="date" name="recordatorio"  value="<?= old('recordatorio') ?>"></input><br><br>
  
   <span class="error">*</span> Color:<br>
-  <select class="form-select" aria-label="Default select example">
+  <select name="color">
     <option value="red">Rojo </option>
     <option value="yellow">Amarillo</option>
     <option value="green">Verde </option>
