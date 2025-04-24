@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
     <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <style>
+    <style>
     .encabezado-custom thead th {
     background-color: #262e5b; 
     padding: 10px;
@@ -25,30 +25,26 @@
     background-color: transparent; 
   }
   </style>
-</head>  
+  </head>
 <body>
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
-
 <div class="alert alert-warning" role="alert">
-  <strong>Atención:</strong> Este panel es para visualizar las tareas.
+  <strong>Atención:</strong> Este panel es para visualizar el historial de las subtareas.
 </div>
 <div class="card text-center">
 <div class="card-header">
-<ul class="nav nav-tabs card-header-tabs">
-      <li>
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/panel'); ?> > Panel </label></a>
+    <ul class="nav nav-tabs card-header-tabs">
+    <li>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/historial_tareas'); ?>> Tareas </label></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?>><label style="color:red; font-weight: bold;">* Tareas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/subtareas'); ?>> Subtareas</a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/historial_subtareas');?>><label style="color:red; font-weight: bold;">* Subtareas </a>
       </li>
     </ul>
-  </div><br>
-  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> TAREAS </h3> 
+</div><br>
+  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> HISTORIAL SUBTAREAS </h3> 
   <!-- Seleccionar el criterio de ordenación -->
   <form method="GET" action="<?= base_url('menu/tareas') ?>"> 
     <label for="ordenar">Ordenar por:</label>
@@ -59,41 +55,34 @@
     </select>
     <button type="submit" style="background-color: #262e5b; 	color: #fff;  text-decoration-style: solid; ">Ordenar</button>
 </form><br>
-
-<table class="encabezado-custom" aria-describedby="titulo">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Tema</th>
-      <th scope="col">Descripción</th>
-      <th scope="col">Prioridad</th>
-      <th scope="col">Estado</th>
-      <th scope="col">Fecha Vencimiento</th>
-      <th scope="col">Fecha Recordatorio</th>
-      <th scope="col">Compartir</th>
-      <th scope="col">Eliminar</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($tareas as $t) : ?>
-    <tr>
-      <td><?= $t['id']; ?></td>
-      <td><?= $t['tema']; ?></td>
-      <td><?= $t['descripcion']; ?></td>
-      <td><?= $t['prioridad']; ?></td>
-      <td><?= $t['estado']; ?></td>
-      <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
-      <?php if($t['fecha_recordatorio']!='0000-00-00'){ ?>
-      <td><?= (new DateTime($t['fecha_recordatorio']))->format('d-m-Y'); ?></td>
-      <?php } else{ ?>
-        <td> </td>
-       <?php       }  ?>
-      <td> <button class="btn btn-primary btn-sm mt-2 me-2"> 🔗 Compartir </button>  </td>
-      <td> <button class="btn btn-danger btn-sm mt-2"> 🗑️ Eliminar </button>  </td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+  <table class="encabezado-custom" aria-describedby="titulo">
+<thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Descripcion</th>
+    <th scope="col">Estado</th>
+    <th scope="col">Prioridad</th>
+    <th scope="col">Fecha Vencimiento</th>
+    <th scope="col">Comentario</th>
+    <th scope="col" >Responsable</th>
+   </tr>
+    </thead>
+    <tbody>
+<?php foreach ($subtareas as $s) : ?>
+  <tr>
+    <td><?= $s['id']; ?></td>
+    <td><?= $s['descripcion']; ?></td>
+    <td><?= $s['estado']; ?></td>
+    <td><?= $s['prioridad']; ?></td> 
+    <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
+    <td><?= $s['comentario']; ?></td>
+    <td><?= $s['responsable']; ?></td>
+</tr>
+<?php endforeach;  ?>
+</tbody>
 </table><br>
+
+
 <?php
   echo $this->include('plantilla/footer');
 ?>

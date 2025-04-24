@@ -30,7 +30,7 @@
         <a href="<?= base_url('/menu/panel'); ?>">
           <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Panel</button>
         </a>
-        <a href="<?= base_url('/menu/historial'); ?>">
+        <a href="<?= base_url('/menu/historial_tareas'); ?>">
           <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">Historial</button>
         </a>
       <?php endif; ?>

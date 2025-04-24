@@ -8,7 +8,7 @@ class RegistroTareaModel extends Model{
    protected $useAutoIncrement = false; 
    protected $returnType = 'array';
    protected $useSoftDeletes = false; 
-   protected $allowedFields = ['id','correo','tema','descripcion','prioridad','estado','fecha_vencimiento','fecha_recordatorio','color'];
+   protected $allowedFields = ['id','correo','tema','descripcion','prioridad','estado','estado_actualizado','fecha_vencimiento','fecha_recordatorio','color'];
    
    
    public function mostrarTarea($data){

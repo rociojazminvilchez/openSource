@@ -8,6 +8,32 @@
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
     <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+  .card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .card-body h5 {
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  .card-body p {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .text-muted {
+    font-size: 0.9rem;
+  }
+</style>
   </head>
 <body>
 <?php
@@ -32,26 +58,28 @@
   </div><br>
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL </h3> 
 
-<table class="table table-hover table-bordered my-3" aria-describedby="titulo">
-    <thead class="table-dark">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Horario</th>
-            <th scope="col">Actividad</th>
-            <th scope="col">Instructor a cargo</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($tareas as $t) : ?>
-            <tr>
-              <td><?= $t['id']; ?></td>
-            </tr>
-        <?php 
-            endforeach;  
-      ?>
-    </tbody>
-</table><br>
+  <div class="d-flex flex-wrap gap-3 px-3 py-3 justify-content-center">
+  <?php foreach ($tareas as $t) : ?>   
+    <?php
+$color = match($t['color']) {
+    'red' => '#D11B1B',
+    'green' => '#14DE68',
+    'yellow' => '#EBD723',
+    default => $t['color']
+};
+?>
+    <div class="card" style="width: 18rem; background:<?= $color; ?>; color: black;">
+      <div class="card-body">
+      <p class="card-text" style="text-align:left;"><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></p>
+        <h5 class="card-title"><?= $t['tema']; ?></h5>
+        <p class="card-text"><?= $t['descripcion']; ?></p>
+        <h6><u>Prioridad:<?= $t['prioridad']; ?></u></h6>
+        <h6><u>Estado: <?= $t['estado']; ?></u></h6>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
+
 
 <?php
   echo $this->include('plantilla/footer');

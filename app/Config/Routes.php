@@ -21,8 +21,8 @@ $routes->post('/home/create', 'Home::create');
 $routes->get('/menu/panel', 'Home::panel');
 $routes->get('/menu/tareas', 'Home::tareas');
 $routes->get('/menu/subtareas', 'Home::subtareas');
-$routes->get('/menu/historial', 'Home::historial');
-
+$routes->get('/menu/historial_tareas', 'Home::historial');
+$routes->get('/menu/historial_subtareas', 'Home::historial_subtarea');
 #Formulario - Tarea
 $routes->get('/formularios-tarea/tarea', 'Home::tarea');
 $routes->get('/tareas/create', 'Tareas::create');

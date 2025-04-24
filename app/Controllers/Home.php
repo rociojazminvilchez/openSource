@@ -228,19 +228,39 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
             $correo= $_SESSION['usuario'];
         }
 
-        $data1 = [
-            'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo])
+        $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  
 
+        $columnasPermitidas = ['fecha_vencimiento', 'estado'];
+        if (!in_array($ordenarPor, $columnasPermitidas)) {
+            $ordenarPor = 'fecha_vencimiento'; 
+        }
+    
+        $data = [
+            'tareas' => $RegistroTareaModel->mostrarTarea(['correo' => $correo, 'ordenar' => $ordenarPor])
         ];
+
+        return view('menu/historial_tareas',$data);
+    }   
+
+    public function historial_subtarea() {
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+        }
 
         $RegistroSubtareaModel = new RegistroSubtareaModel();
         
-        $data2 = [
-            'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable'=>$correo])
-        ];
+        $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  
 
-        $data = array_merge($data1, $data2);
-        return view('menu/historial',$data);
+        $columnasPermitidas = ['fecha_vencimiento', 'prioridad', 'estado'];
+        if (!in_array($ordenarPor, $columnasPermitidas)) {
+            $ordenarPor = 'fecha_vencimiento'; 
+        }
+    
+        $data = [
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable' => $correo, 'ordenar' => $ordenarPor])
+        ];
+    
+        return view('menu/historial_subtareas',$data);
     }   
 
 #SALIR
