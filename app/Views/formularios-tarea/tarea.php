@@ -37,7 +37,7 @@
     <input type="text" name="tema"  value="<?= old('tema') ?>"required ><br><br>
         
   <span class="error">*</span> Descripci&oacuten:<br>
-    <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required></input><br><br>
+    <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required  style="width: 500px;"></input><br><br>
        
   <span class="error">*</span> Prioridad:<br>
   <select name="prioridad">

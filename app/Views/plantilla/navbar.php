@@ -44,6 +44,7 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" style="max-width: 200px;">
         <?php if (session()->has('usuario')): ?>
+          <li><a class="dropdown-item" href="<?= base_url('/perfil'); ?>">Perfil</a></li>
           <li><a class="dropdown-item" href="<?= base_url('/formularios-tarea/tarea'); ?>">Crear tarea</a></li>
           <li><a class="dropdown-item" href="<?= base_url('/formularios-tarea/subtarea'); ?>">Crear subtarea</a></li>
           <li><a class="dropdown-item" href="<?= base_url('/salir'); ?>">Cerrar sesión</a></li>
@@ -55,6 +56,4 @@
     </div>
   </form>
 </nav>
-
-
 </html>

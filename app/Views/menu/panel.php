@@ -28,9 +28,6 @@
       <li class="nav-item">
         <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/subtareas'); ?>> Subtareas</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/historial'); ?>> Historial</a>
-      </li>
     </ul>
   </div><br>
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL </h3> 

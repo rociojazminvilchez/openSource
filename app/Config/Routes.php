@@ -9,11 +9,13 @@ $routes->get('/', 'Home::index');
 $routes->get('/formularios/ingreso', 'Home::ingreso');
 $routes->post('/home/login', 'Home::login');
 
+#PerfilUsuario
+$routes->get('/perfil','Home::perfil');
+$routes->post('/perfil', 'Home::update'); 
 #REGISTRO
 $routes->get('/formularios/registro', 'Home::registro');
 $routes->get('/home/create', 'Home::create');
 $routes->post('/home/create', 'Home::create'); 
-
 
 #Menu
 $routes->get('/menu/panel', 'Home::panel');

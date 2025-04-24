@@ -41,6 +41,70 @@ class Home extends Controller
         }
     }
 
+#PERFIL USUARIO
+    public function perfil(){
+        if (session()->has('usuario')) {
+            $usuario= $_SESSION['usuario'];
+        }
+     $registrousuarioModel = new RegistroUsuarioModel();
+     $data = [
+        'usuario' => $registrousuarioModel->obtenerUsuario(['correo'=>$usuario]),
+    ];
+    return view ('/perfil', $data);
+   }
+
+   public function update(){
+    $reglas = [
+        'nombre' => [
+            'rules' => 'required|min_length[3]',
+            'errors' => [
+                'required' => 'El campo nombre es obligatorio.',
+                'min_length' => 'El nombre debe tener al menos 3 caracteres.'
+           ]
+        ],
+        'apellido' => [
+            'rules' => 'required|min_length[3]',
+            'errors' => [
+                'required' => 'El campo apellido es obligatorio.',
+                'min_length' => 'El nombre debe tener al menos 3 caracteres.'
+           ]
+        ],
+        'contra'     => [
+            'rules' => 'required|min_length[7]',
+            'errors' => [
+                'required' => 'La contraseña es obligatoria.',
+                'min_length' => 'La contraseña debe tener al menos 7 caracteres.'
+            ]
+        ],
+        'contra2' => [ 
+            'rules' => 'required|matches[contra]',
+            'errors' => [
+                'required' => 'Debes confirmar la contraseña.',
+                'matches' => 'Las contraseñas no coinciden.'
+           ]
+       ],
+    ];
+    
+    // Si la validación falla, redirigir de vuelta con los datos ingresados
+   
+    if (!$this->validate($reglas)) {
+        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }
+    
+    $post = $this->request->getPost(['nombre', 'apellido', 'email','contra','contra2']);    
+    $correo=$post['email'];
+    $registroUsuarioModel = new RegistroUsuarioModel();
+
+    $registroUsuarioModel->update($correo,[
+        'nombre' => ucfirst(trim($post['nombre'])),
+        'apellido' => ucfirst(trim($post['apellido'])),
+        'correo' => $post['email'],
+        'contra' => $post['contra'],
+        'contra2' => $post['contra2'],
+    ]);
+       
+return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
+}
 #REGISTRAR USUARIO
     public function registro(){
         return view('formularios/registro');

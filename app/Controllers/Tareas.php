@@ -39,6 +39,7 @@ class Tareas extends BaseController
         $post = $this->request->getPost(['usuario', 'tema', 'descripcion','prioridad','estado','vencimiento','recordatorio','color']);    
         $registroTareaModel = new RegistroTareaModel();
 
+
         $registroTareaModel->insert([
             'id' => rand(1, 1000),
             'correo' => $post['usuario'],
