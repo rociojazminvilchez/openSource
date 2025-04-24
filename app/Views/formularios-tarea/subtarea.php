@@ -32,34 +32,35 @@
     
   <p style="text-align:left;"><span class="error"> (*) Campos obligatorios</span></p>
     <h4 style="text-align:left;"> Datos subtarea:</h4><br>
-
+    <span class="error">*</span> Seleccione tarea:<br>
+  <select class="tema">
+    <?php foreach ($tareas as $t) :?>
+    <option value="Tema"><?= $t['tema']; ?></option>
+    <?php endforeach; ?>
+  </select></input><br><br> 
   <span class="error">*</span> Descripci&oacuten:<br>
     <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required></input><br><br>
        
   <span class="error">*</span> Estado:<br>
-  <select class="form-select" aria-label="Default select example">
-    <option selected>Seleccione:</option>
+  <select class="estado">
     <option value="1">Definido</option>
     <option value="2">En proceso</option>
     <option value="3">Completada</option>
   </select></input><br><br>  
 
-  <span class="error">*</span> Prioridad:<br>
-  <select class="form-select" aria-label="Default select example">
-    <option selected>Seleccione:</option>
+ Prioridad:<br>
+  <select class="prioridad">
     <option value="baja">Baja</option>
     <option value="normal">Normal</option>
     <option value="alta">Alta</option>
   </select></input><br><br>
   
+ Fecha de vencimiento:<br>
+    <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"></input><br><br>
 
-  <span class="error">*</span> Fecha de vencimiento:<br>
-    <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"required></input><br><br>
-  
-  <span class="error">*</span> Fecha de recordatorio:<br>
-    <input type="date" name="recordatorio"  value="<?= old('recordatorio') ?>"required></input><br><br>
- 
-
+    <span class="error">*</span> Comentario:<br>
+    <input type="text" name="comentario"  value="<?= old('comentario') ?>"required></input><br><br>
+    
   <span class="error">*</span> Responsable:<br>
   <input type="text" name="usuario" value="<?= $_SESSION['usuario'] ?>"required></input>
   

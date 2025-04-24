@@ -47,6 +47,7 @@ class Tareas extends BaseController
             'descripcion' =>  ucfirst(trim($post['descripcion'])),
             'prioridad' => $post['prioridad'],
             'estado' => $post['estado'],
+            'estado_actualizado' => '',
             'fecha_vencimiento' => $post['vencimiento'],
             'fecha_recordatorio' => $post['recordatorio'],
             'color' => $post['color'],

@@ -176,7 +176,14 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
     }   
 
     public function subtarea() {
-        return view('formularios-tarea/subtarea');
+        $RegistroTareaModel = new RegistroTareaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+        $data = [
+            'tareas' => $RegistroTareaModel->seleccionarTarea(['correo'=>$correo])
+        ];
+        return view('formularios-tarea/subtarea',$data);
     }  
 
 #Menu

@@ -70,7 +70,7 @@
   <input type="hidden" name="usuario" value="<?= $_SESSION['usuario'] ?>">
   
     <input type="submit" name="tarea" value="CREAR" style="background-color: #262e5b;">
-  </form><br><br><br>
+  </form>
   <?php
     echo $this->include('plantilla/footer');
   ?>

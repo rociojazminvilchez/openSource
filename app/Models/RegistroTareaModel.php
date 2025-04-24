@@ -24,6 +24,22 @@ class RegistroTareaModel extends Model{
   
       return $Usuario->get()->getResultArray();
   }
-  
+  public function seleccionarTarea($data){
+    $Usuario = $this->db->table('registro_tarea');
+
+    if (isset($data['correo'])) {
+        $Usuario->where([
+            'correo' => $data['correo'],
+            'estado !=' => 'Completada'
+        ]);
+    }
+    
+    // Solo muestra tareas cuya fecha de vencimiento sea mayor o igual al día actual
+    $Usuario->where('fecha_vencimiento >=', date('Y-m-d'));
+
+    return $Usuario->get()->getResultArray();
+}
+
+
 }
 ?>
