@@ -189,11 +189,13 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
 #Menu
     public function panel() {
         $RegistroTareaModel = new RegistroTareaModel();
+        $RegistroSubtareaModel = new RegistroSubtareaModel();
         if (session()->has('usuario')) {
             $correo= $_SESSION['usuario'];
           }
         $data = [
-            'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo])
+            'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo]),
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable'=>$correo])
         ];
         return view('menu/panel',$data);
     }   

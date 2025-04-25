@@ -37,24 +37,24 @@
     <?php foreach ($tareas as $t) :?>
     <option value="Tema"><?= $t['tema']; ?></option>
     <?php endforeach; ?>
-  </select></input><br><br> 
+  </select><br><br> 
 
   <span class="error">*</span> Descripci&oacuten:<br>
     <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required></input><br><br>
        
-  <span class="error">*</span> Estado:<br>
-  <select class="estado">
-    <option value="1">Definido</option>
-    <option value="2">En proceso</option>
-    <option value="3">Completada</option>
-  </select></input><br><br>  
+    <span class="error">*</span> Estado:<br>
+    <select class="estado">
+      <option value="1">Definido</option>
+      <option value="2">En proceso</option>
+      <option value="3">Completada</option>
+    </select><br><br>
 
  Prioridad:<br>
   <select class="prioridad">
     <option value="baja">Baja</option>
     <option value="normal">Normal</option>
     <option value="alta">Alta</option>
-  </select></input><br><br>
+  </select><br><br>
   
  Fecha de vencimiento:<br>
     <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"></input><br><br>

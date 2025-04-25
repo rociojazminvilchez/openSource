@@ -26,7 +26,6 @@
 </section>
 
 <div class="container px-4 py-5" id="featured-3">
-  <h2 class="pb-2 border-bottom text-center">¿Qu&eacute pod&eacutes hacer con esta plataforma?</h2>
   <div class="row g-4 py-5 row-cols-1 row-cols-md-2 row-cols-lg-3">
     <!-- Gestión de cuentas de usuario-->
     <div class="feature col text-center">

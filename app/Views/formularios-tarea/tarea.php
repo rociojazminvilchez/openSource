@@ -16,14 +16,14 @@
 
 <form class="form" action="<?= base_url('tareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
 <?php if (session()->get('errors')): ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php foreach (session()->get('errors') as $error): ?>
-                    <li><?= esc($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>  
+    <div class="alert alert-danger">
+      <ul>
+        <?php foreach (session()->get('errors') as $error): ?>
+          <li><?= esc($error) ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+<?php endif; ?>  
 <p style="text-align:right;">
     <a href="<?php echo base_url('tareas/create')?>">
       <button type="button" class="btn-close" aria-label="Close"></button>
@@ -44,27 +44,27 @@
     <option value="baja">Baja</option>
     <option value="normal">Normal</option>
     <option value="alta">Alta</option>
-  </select></input><br><br>
+  </select><br><br>
   
   <span class="error">*</span> Estado:<br>
   <select name="estado">
     <option value="1">Definido</option>
     <option value="2">En proceso</option>
     <option value="3">Completada</option>
-  </select></input><br><br>
+  </select><br><br>
 
   <span class="error">*</span> Fecha de vencimiento:<br>
     <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"required></input><br><br>
   
   Fecha de recordatorio:<br>
-    <input type="date" name="recordatorio"  value="<?= old('recordatorio') ?>"></input><br><br>
+    <input type="date" name="recordatorio"  value="<?= old('recordatorio') ?>"><br><br>
  
   <span class="error">*</span> Color:<br>
   <select name="color">
     <option value="red">Rojo </option>
     <option value="yellow">Amarillo</option>
     <option value="green">Verde </option>
-  </select></input><br><br>
+  </select><br><br>
 
   <!-- Campo oculto - Usuario -->
   <input type="hidden" name="usuario" value="<?= $_SESSION['usuario'] ?>">
