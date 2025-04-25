@@ -55,4 +55,22 @@ class Tareas extends BaseController
            
     return redirect()->to('/')->with('mensaje', 'Tarea creada exitosamente.');
    }
+
+
+   #ELIMINAR TAREA
+/*
+   public function update($id = null)
+   {
+       if (!$this->request->is('put') || $id == null) {
+           return redirect()->route('/');
+       }
+
+       $post = $this->request->getPost(['estado_borrador']);
+
+       $editarModel2 = new EditarModel2();
+       $editarModel2->update($id, [
+           'estado_borrador'=> $post['estado_borrador'],
+       ]);
+       return redirect()->route('/');
+   }*/
 }

@@ -14,7 +14,7 @@
     echo $this->include('plantilla/navbar');
 ?>
 
-<form class="form" action="<?= base_url('subtarea/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+<form class="form" action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
 <?php if (session()->get('errors')): ?>
         <div class="alert alert-danger">
             <ul>
@@ -25,7 +25,7 @@
         </div>
     <?php endif; ?>  
 <p style="text-align:right;">
-    <a href="<?php echo base_url('/')?>">
+    <a href="<?php echo base_url('subtareas/create')?>">
       <button type="button" class="btn-close" aria-label="Close"></button>
     </a>
   </p>
@@ -38,6 +38,7 @@
     <option value="Tema"><?= $t['tema']; ?></option>
     <?php endforeach; ?>
   </select></input><br><br> 
+
   <span class="error">*</span> Descripci&oacuten:<br>
     <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required></input><br><br>
        
@@ -60,7 +61,7 @@
 
     <span class="error">*</span> Comentario:<br>
     <input type="text" name="comentario"  value="<?= old('comentario') ?>"required></input><br><br>
-    
+
   <span class="error">*</span> Responsable:<br>
   <input type="text" name="usuario" value="<?= $_SESSION['usuario'] ?>"required></input>
   

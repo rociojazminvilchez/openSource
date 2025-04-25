@@ -3,18 +3,10 @@
 namespace App\Controllers;
 use App\Models\RegistroSubtareaModel;
 
-class Subtareas extends BaseController
-{
+class Subtareas extends BaseController{
 
     public function create(){
         $reglas = [
-            'tema' => [
-                'rules' => 'required|min_length[3]',
-                'errors' => [
-                    'required' => 'El campo tema es obligatorio.',
-                    'min_length' => 'El tema debe tener al menos 3 caracteres.'
-               ]
-            ],
            'descripcion' => [
                 'rules' => 'required|min_length[3]',
                 'errors' => [
@@ -22,11 +14,18 @@ class Subtareas extends BaseController
                     'min_length' => 'La descripcion debe tener al menos 3 caracteres.'
                ]
             ],
-            'vencimiento' => [
-                'rules' => 'required|valid_date',
+            'comentario' => [
+                'rules' => 'required|min_length[3]',
                 'errors' => [
-                    'required' => 'El campo fecha es obligatorio.',
-                    'valid_date' => 'Por favor ingresa una fecha válida.'
+                    'required' => 'El campo comentario es obligatorio.',
+                    'min_length' => 'La comentario debe tener al menos 3 caracteres.'
+               ]
+            ],
+            'usuario' => [
+                'rules' => 'required|valid_email',
+                'errors' => [
+                    'required' => 'El campo responsable es obligatorio.',
+                    'valid_email' => 'Debes proporcionar un correo electrónico válido.'
                 ]
             ],
         ];
@@ -36,21 +35,18 @@ class Subtareas extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         
-        $post = $this->request->getPost(['usuario', 'tema', 'descripcion','prioridad','estado','vencimiento','recordatorio','color']);    
-        $registroTareaModel = new RegistroTareaModel();
+        $post = $this->request->getPost(['tema', 'descripcion','estado','prioridad','vencimiento','comentario','usuario']);    
+        $registroSubtareaModel = new RegistroSubtareaModel();
 
-
-        $registroTareaModel->insert([
+        $registroSubtareaModel->insert([
             'id' => rand(1, 1000),
-            'correo' => $post['usuario'],
-            'tema' => ucfirst(trim($post['tema'])),
+            'tema' => $post['tema'],
             'descripcion' =>  ucfirst(trim($post['descripcion'])),
+            'estado' => $post['estado'],            
             'prioridad' => $post['prioridad'],
-            'estado' => $post['estado'],
-            'estado_actualizado' => '',
             'fecha_vencimiento' => $post['vencimiento'],
-            'fecha_recordatorio' => $post['recordatorio'],
-            'color' => $post['color'],
+            'comentario' =>  ucfirst(trim($post['comentario'])),
+            'responsable' => $post['usuario'],
         ]);
            
     return redirect()->to('/')->with('mensaje', 'Subtarea creada exitosamente.');
