@@ -32,41 +32,45 @@
     
   <p style="text-align:left;"><span class="error"> (*) Campos obligatorios</span></p>
     <h4 style="text-align:left;"> Datos subtarea:</h4><br>
-    <span class="error">*</span> Seleccione tarea:<br>
-  <select class="tema">
+
+    <select name="tarea">
     <?php foreach ($tareas as $t) :?>
-    <option value="Tema"><?= $t['tema']; ?></option>
-    <?php endforeach; ?>
-  </select><br><br> 
+      <option value="<?= esc($t['id']) ?>"><?= esc($t['tema']); ?></option>
+    <?php endforeach; ?> 
+  </select><br><br>
+    
+  <!-- Campo oculto - ID tema -->
+ 
 
   <span class="error">*</span> Descripci&oacuten:<br>
     <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required></input><br><br>
        
     <span class="error">*</span> Estado:<br>
-    <select class="estado">
+    <select class="estado" name="estado">
       <option value="1">Definido</option>
       <option value="2">En proceso</option>
       <option value="3">Completada</option>
     </select><br><br>
 
- Prioridad:<br>
-  <select class="prioridad">
+  Prioridad:<br>
+  <select name="prioridad">
+    <option value=" "> - </option>
     <option value="baja">Baja</option>
     <option value="normal">Normal</option>
     <option value="alta">Alta</option>
   </select><br><br>
   
  Fecha de vencimiento:<br>
-    <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"></input><br><br>
+  <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"></input><br><br>
 
-    <span class="error">*</span> Comentario:<br>
-    <input type="text" name="comentario"  value="<?= old('comentario') ?>"required></input><br><br>
+  <span class="error">*</span> Comentario:<br>
+  <input type="text" name="comentario"  value="<?= old('comentario') ?>"required></input><br><br>
 
   <span class="error">*</span> Responsable:<br>
   <input type="text" name="usuario" value="<?= $_SESSION['usuario'] ?>"required></input>
   
-    <input type="submit" name="tarea" value="CREAR" style="background-color: #262e5b;">
-  </form><br><br><br>
+  <input type="submit" name="crear" value="CREAR" style="background-color: #262e5b;">
+</form><br><br><br>
   <?php
     echo $this->include('plantilla/footer');
   ?>

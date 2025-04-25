@@ -35,12 +35,12 @@ class Subtareas extends BaseController{
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         
-        $post = $this->request->getPost(['tema', 'descripcion','estado','prioridad','vencimiento','comentario','usuario']);    
+        $post = $this->request->getPost(['tarea', 'descripcion','estado','prioridad','vencimiento','comentario','usuario']);    
         $registroSubtareaModel = new RegistroSubtareaModel();
 
         $registroSubtareaModel->insert([
             'id' => rand(1, 1000),
-            'tema' => $post['tema'],
+            'tarea' => $post['tarea'],
             'descripcion' =>  ucfirst(trim($post['descripcion'])),
             'estado' => $post['estado'],            
             'prioridad' => $post['prioridad'],

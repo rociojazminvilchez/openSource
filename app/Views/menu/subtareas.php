@@ -68,7 +68,11 @@
     <td><?= $s['descripcion']; ?></td>
     <td><?= $s['estado']; ?></td>
     <td><?= $s['prioridad']; ?></td> 
-    <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
+    <?php if($s['fecha_vencimiento']!='0000-00-00'){ ?>
+      <td><?= (new DateTime($s['vencimiento']))->format('d-m-Y'); ?></td>
+      <?php } else{ ?>
+        <td> </td>
+       <?php       }  ?>
     <td><?= $s['comentario']; ?></td>
     <td><?= $s['responsable']; ?></td>
 </tr>
