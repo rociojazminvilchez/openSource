@@ -46,7 +46,7 @@
 </div><br>
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> HISTORIAL SUBTAREAS </h3> 
   <!-- Seleccionar el criterio de ordenación -->
-  <form method="GET" action="<?= base_url('menu/tareas') ?>"> 
+  <form method="GET" action="<?= base_url('menu/historial_subtareas') ?>"> 
     <label for="ordenar">Ordenar por:</label>
     <select name="ordenar" id="ordenar">
         <option value="fecha_vencimiento" <?= isset($_GET['ordenar']) && $_GET['ordenar'] == 'fecha_vencimiento' ? 'selected' : ''; ?>>Fecha de Vencimiento</option>
@@ -74,14 +74,17 @@
     <td><?= $s['descripcion']; ?></td>
     <td><?= $s['estado']; ?></td>
     <td><?= $s['prioridad']; ?></td> 
-    <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
+      <?php if($s['fecha_vencimiento']!='0000-00-00'){ ?>
+      <td><?= (new DateTime($s['fecha_vencimiento']))->format('d-m-Y'); ?></td>
+      <?php } else{ ?>
+        <td> </td>
+       <?php       }  ?>
     <td><?= $s['comentario']; ?></td>
     <td><?= $s['responsable']; ?></td>
 </tr>
 <?php endforeach;  ?>
 </tbody>
 </table><br>
-
 
 <?php
   echo $this->include('plantilla/footer');
