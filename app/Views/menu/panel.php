@@ -90,16 +90,27 @@ function getTextColor($bgColor) {
         <p class="card-text"><?= $t['descripcion']; ?></p>
         <h6><u>Prioridad: <?= $t['prioridad']; ?></u></h6>
         <h6><u>Estado: <?= $t['estado']; ?></u></h6>
-        <?php foreach ($subtareas as $s):
-          if($t['id']==$s['tarea']){
-            ?>
-            <a href="<?= base_url('/menu/panel_completo/' . $t['id'] . '/' . $s['tarea']); ?>" class="btn btn-light btn-sm fw-bold">Subtareas</a>
-         <?php
-                } endforeach;?>      
-   
+        <?php
+        $subtareasCount = [];  // Nro de subtareas
+        foreach ($subtareas as $s):
+        if ($t['id'] == $s['tarea']) {
+            if (!isset($subtareasCount[$t['id']])) {
+            $subtareasCount[$t['id']] = 1;
+          } else {
+            $subtareasCount[$t['id']]++;
+          }
+        }
+      endforeach;
 
-      </div>
-    </div>
+    // Boton
+    if (isset($subtareasCount[$t['id']])) {
+    $count = $subtareasCount[$t['id']]; ?>
+    <a href="<?= base_url('/menu/panel_completo/' . $t['id'] . '/' . $t['id']); ?>" class="btn btn-light btn-sm fw-bold">
+      SUBTAREAS (<?= $count ?>)
+    </a><br><br>
+   <?php } ?>
+   </div>
+  </div>
   <?php endforeach; ?>
 </div>
 

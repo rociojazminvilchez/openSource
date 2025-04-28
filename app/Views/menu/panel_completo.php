@@ -9,31 +9,22 @@
     <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-  .card {
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+    .encabezado-custom thead th {
+    background-color: #262e5b; 
+    padding: 10px;
+    text-align: center;
+   color: white;
+   }
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  }
+  .encabezado-custom tbody td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+   }
 
-  .card-body h5 {
-    font-weight: bold;
-    font-size: 1.25rem;
+  .encabezado-custom tr {
+    background-color: transparent; 
   }
-
-  .card-body p {
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .text-muted {
-    font-size: 0.9rem;
-  }
-</style>
+  </style>
   </head>
 <body>
 <?php
@@ -53,30 +44,42 @@
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL TAREA - SUBTAREA</h3> 
 
 
-  <div class="table-responsive">
-  <table class="table table-bordered">
+
+  <table class="encabezado-custom">
     <thead>
       <tr>
         <th class="text-center">Tarea</th>
-        <th class="text-center">Subtarea</th>
+        <th class="text-center">Subtareas</th>
       </tr>
     </thead>
     <tbody>
-      <?php
-      // Aseguramos que las tareas y subtareas estén sincronizadas, de lo contrario, usamos un bucle separado para mostrarlas
-      $max = max(count($tareas), count($subtareas)); 
-      for ($i = 0; $i < $max; $i++) :
-      ?>
+      <tr>
+        <!-- Mostrar una sola tarea -->
+        <td rowspan="<?= count($subtareas) > 0 ? count($subtareas) : 1; ?>" class="align-middle">
+          <p><strong>TEMA:</strong> <?= $tareas[0]['tema']; ?></p>
+          <p><strong>Vencimiento:</strong> <?= (new DateTime($tareas[0]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
+          <p><strong>Descripción:</strong> <?= $tareas[0]['descripcion']; ?></p>
+          <p><strong>Prioridad:</strong> <?= $tareas[0]['prioridad']; ?></p>
+          <p><strong>Estado:</strong> <?= $tareas[0]['estado']; ?></p>
+        </td>
+        
+        <!-- Mostrar la primera subtarea -->
+        <td class="align-middle">
+          <?php if (isset($subtareas[0])): ?>
+            <p><strong>Descripción:</strong> <?= $subtareas[0]['descripcion']; ?></p>
+            <p><strong>Vencimiento:</strong> <?= (new DateTime($subtareas[0]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
+            <p><strong>Comentario:</strong> <?= $subtareas[0]['comentario']; ?></p>
+            <p><strong>Estado:</strong> <?= $subtareas[0]['estado']; ?></p>
+            <p><strong>Responsable:</strong> <?= $subtareas[0]['responsable']; ?></p>
+          <?php else: ?>
+            <p>No hay subtarea disponible.</p>
+          <?php endif; ?>
+        </td>
+      </tr>
+
+      <!-- Mostrar las demás subtareas -->
+      <?php for ($i = 1; $i < count($subtareas); $i++): ?>
         <tr>
-          <td class="align-middle">
-            <?php if (isset($tareas[$i])): ?>
-              <p><strong>TEMA:</strong> <?= $tareas[$i]['tema']; ?></p>
-              <p><strong>Vencimiento:</strong> <?= (new DateTime($tareas[$i]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
-              <p><strong>Descripción:</strong> <?= $tareas[$i]['descripcion']; ?></p>
-              <p><strong>Prioridad:</strong> <?= $tareas[$i]['prioridad']; ?></p>
-              <p><strong>Estado:</strong> <?= $tareas[$i]['estado']; ?></p>
-            <?php endif; ?>
-          </td>
           <td class="align-middle">
             <?php if (isset($subtareas[$i])): ?>
               <p><strong>Descripción:</strong> <?= $subtareas[$i]['descripcion']; ?></p>
@@ -84,14 +87,25 @@
               <p><strong>Comentario:</strong> <?= $subtareas[$i]['comentario']; ?></p>
               <p><strong>Estado:</strong> <?= $subtareas[$i]['estado']; ?></p>
               <p><strong>Responsable:</strong> <?= $subtareas[$i]['responsable']; ?></p>
-            <?php else: ?>
-              <p>No hay subtarea disponible.</p>
             <?php endif; ?>
           </td>
         </tr>
       <?php endfor; ?>
     </tbody>
   </table>
+
+<br>
+<div class="d-flex justify-content-center">
+  <a href="<?= base_url('/'); ?>">
+    <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">
+      Inicio
+    </button> 
+  </a>
+  <a href="<?= base_url('/menu/panel'); ?>">
+    <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; font-size: 18px;">
+      Panel
+    </button>
+  </a>
 </div>
 
 <?php
