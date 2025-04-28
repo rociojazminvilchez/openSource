@@ -6,6 +6,18 @@ use App\Models\RegistroTareaModel;
 class Tareas extends BaseController
 {
 
+    public function index()
+    {
+        // Cargar el modelo de tareas
+        $registroTareaModel = new RegistroTareaModel();
+
+        // Obtener todas las tareas
+        $tareas = $registroTareaModel->findAll();
+
+        // Cargar la vista de tareas, pasando las tareas obtenidas
+        return view('tareas_view', ['tareas' => $tareas]);
+    }
+    
     public function create(){
         $reglas = [
             'tema' => [
@@ -58,19 +70,14 @@ class Tareas extends BaseController
 
 
    #ELIMINAR TAREA
-/*
-   public function update($id = null)
-   {
-       if (!$this->request->is('put') || $id == null) {
-           return redirect()->route('/');
-       }
+   public function eliminarTarea($id = null) {
 
-       $post = $this->request->getPost(['estado_borrador']);
+       $registroTareaModel= new RegistroTareaModel();
 
-       $editarModel2 = new EditarModel2();
-       $editarModel2->update($id, [
-           'estado_borrador'=> $post['estado_borrador'],
+       $registroTareaModel->update($id, [
+           'estado_actualizado'=> 'Eliminada',
        ]);
-       return redirect()->route('/');
-   }*/
+
+       return redirect()->to('/menu');
+   }
 }

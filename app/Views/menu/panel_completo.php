@@ -48,40 +48,15 @@
       <li>
         <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/panel'); ?> ><label style="color:red; font-weight: bold;">* Panel </label></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/tareas'); ?>> Tareas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/subtareas'); ?>> Subtareas</a>
-      </li>
     </ul>
   </div><br>
-  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL </h3> 
+  <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL TAREA - SUBTAREA</h3> 
 
-  <?php
-function getTextColor($bgColor) {
-    // Simple algoritmo de contraste (solo para fondo claro u oscuro)
-    $hex = str_replace('#', '', $bgColor);
-    $r = hexdec(substr($hex, 0, 2));
-    $g = hexdec(substr($hex, 2, 2));
-    $b = hexdec(substr($hex, 4, 2));
-    $brightness = ($r * 299 + $g * 587 + $b * 114) / 1000;
-    return $brightness > 125 ? 'black' : 'white';
-}
-?>
 
-<div class="d-flex flex-wrap gap-3 px-3 py-3 justify-content-center">
+<div class="d-flex flex-wrap gap-2 px-2 py-2 justify-content-center">
   <?php foreach ($tareas as $t) : ?>   
-    <?php
-    $color = match($t['color']) {
-        'red' => '#ED4545',
-        'green' => '#14DE68',
-        'yellow' => '#EBD723',
-        default => $t['color']
-    };
-    $textColor = getTextColor($color);
-    ?>
-    <div class="card" style="width: 18rem; background:<?= $color ?>; color: <?= $textColor ?>;">
+   
+    <div class="card" style="width: 18rem;">
       <div class="card-body">
         <p class="card-text" style="text-align:left;">
           <?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>
@@ -93,17 +68,14 @@ function getTextColor($bgColor) {
         <?php foreach ($subtareas as $s):
           if($t['id']==$s['tarea']){
             ?>
-                 <a href="<?= base_url('/menu/panel_completo'); ?>" class="btn btn-light btn-sm fw-bold"> Subtareas </a>
+                 <a href="/subtareas.php?id=<?= $s['id'] ?>" class="btn btn-light btn-sm fw-bold"> Subtareas </a>
          <?php
                 } endforeach;?>      
-   
 
       </div>
     </div>
   <?php endforeach; ?>
 </div>
-
-
 
 <?php
   echo $this->include('plantilla/footer');

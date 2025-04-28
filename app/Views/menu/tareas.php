@@ -89,7 +89,7 @@
         <td> </td>
        <?php       }  ?>
       <td> <button class="btn btn-primary btn-sm mt-2 me-2"> 🔗 Compartir </button>  </td>
-      <td> <button class="btn btn-danger btn-sm mt-2"> 🗑️ Eliminar </button>  </td>
+      <td> <a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger btn-sm mt-2">🗑️ Eliminar</a> </td>
     </tr>
     <?php endforeach; ?>
   </tbody>
