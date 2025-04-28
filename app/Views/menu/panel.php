@@ -93,7 +93,7 @@ function getTextColor($bgColor) {
         <?php foreach ($subtareas as $s):
           if($t['id']==$s['tarea']){
             ?>
-                 <a href="<?= base_url('/menu/panel_completo'); ?>" class="btn btn-light btn-sm fw-bold"> Subtareas </a>
+            <a href="<?= base_url('/menu/panel_completo/' . $t['id'] . '/' . $s['tarea']); ?>" class="btn btn-light btn-sm fw-bold">Subtareas</a>
          <?php
                 } endforeach;?>      
    

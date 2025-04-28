@@ -200,6 +200,25 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
         return view('menu/panel',$data);
     }   
 
+    public function panelCompleto($tarea, $subtarea) {
+        $RegistroTareaModel = new RegistroTareaModel();
+        $RegistroSubtareaModel = new RegistroSubtareaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+        $data = [
+            'tareas' => $RegistroTareaModel->mostrarTareaID([
+                'correo' => $correo,
+                'id'       => $tarea
+            ]),
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID([
+                'responsable' => $correo,
+                'tarea'       => $subtarea
+            ]),
+        ];
+        return view('menu/panel_completo',$data);
+    }   
+
     public function tareas() {
         $RegistroTareaModel = new RegistroTareaModel();
         if (session()->has('usuario')) {

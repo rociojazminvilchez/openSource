@@ -53,28 +53,45 @@
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL TAREA - SUBTAREA</h3> 
 
 
-<div class="d-flex flex-wrap gap-2 px-2 py-2 justify-content-center">
-  <?php foreach ($tareas as $t) : ?>   
-   
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <p class="card-text" style="text-align:left;">
-          <?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>
-        </p>
-        <h5 class="card-title"><?= $t['tema']; ?></h5>
-        <p class="card-text"><?= $t['descripcion']; ?></p>
-        <h6><u>Prioridad: <?= $t['prioridad']; ?></u></h6>
-        <h6><u>Estado: <?= $t['estado']; ?></u></h6>
-        <?php foreach ($subtareas as $s):
-          if($t['id']==$s['tarea']){
-            ?>
-                 <a href="/subtareas.php?id=<?= $s['id'] ?>" class="btn btn-light btn-sm fw-bold"> Subtareas </a>
-         <?php
-                } endforeach;?>      
-
-      </div>
-    </div>
-  <?php endforeach; ?>
+  <div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">Tarea</th>
+        <th class="text-center">Subtarea</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      // Aseguramos que las tareas y subtareas estén sincronizadas, de lo contrario, usamos un bucle separado para mostrarlas
+      $max = max(count($tareas), count($subtareas)); 
+      for ($i = 0; $i < $max; $i++) :
+      ?>
+        <tr>
+          <td class="align-middle">
+            <?php if (isset($tareas[$i])): ?>
+              <p><strong>TEMA:</strong> <?= $tareas[$i]['tema']; ?></p>
+              <p><strong>Vencimiento:</strong> <?= (new DateTime($tareas[$i]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
+              <p><strong>Descripción:</strong> <?= $tareas[$i]['descripcion']; ?></p>
+              <p><strong>Prioridad:</strong> <?= $tareas[$i]['prioridad']; ?></p>
+              <p><strong>Estado:</strong> <?= $tareas[$i]['estado']; ?></p>
+            <?php endif; ?>
+          </td>
+          <td class="align-middle">
+            <?php if (isset($subtareas[$i])): ?>
+              <p><strong>Descripción:</strong> <?= $subtareas[$i]['descripcion']; ?></p>
+              <p><strong>Vencimiento:</strong> <?= (new DateTime($subtareas[$i]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
+              <p><strong>Comentario:</strong> <?= $subtareas[$i]['comentario']; ?></p>
+              <p><strong>Estado:</strong> <?= $subtareas[$i]['estado']; ?></p>
+              <p><strong>Responsable:</strong> <?= $subtareas[$i]['responsable']; ?></p>
+            <?php else: ?>
+              <p>No hay subtarea disponible.</p>
+            <?php endif; ?>
+          </td>
+        </tr>
+      <?php endfor; ?>
+    </tbody>
+  </table>
 </div>
 
 <?php

@@ -20,7 +20,7 @@ $routes->post('/home/create', 'Home::create');
 
 #Menu
 $routes->get('/menu/panel', 'Home::panel');
-$routes->get('/menu/panel_completo', 'Home::panel');
+$routes->get('/menu/panel_completo/(:num)/(:num)', 'Home::panelCompleto/$1/$2');
 $routes->get('/menu/tareas', 'Home::tareas');
 $routes->get('/menu/subtareas', 'Home::subtareas');
 $routes->get('/menu/historial_tareas', 'Home::historial');
