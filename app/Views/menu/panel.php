@@ -71,7 +71,8 @@ function getTextColor($bgColor) {
 ?>
 
 <div class="d-flex flex-wrap gap-3 px-3 py-3 justify-content-center">
-  <?php foreach ($tareas as $t) : ?>   
+  <?php foreach ($tareas as $t) : 
+     if($t['estado_actualizado']==''){ ?>   
     <?php
     $color = match($t['color']) {
         'red' => '#ED4545',
@@ -111,7 +112,7 @@ function getTextColor($bgColor) {
    <?php } ?>
    </div>
   </div>
-  <?php endforeach; ?>
+  <?php } endforeach; ?>
 </div>
 
 

@@ -70,8 +70,9 @@
       <th scope="col">Estado</th>
       <th scope="col">Fecha Vencimiento</th>
       <th scope="col">Fecha Recordatorio</th>
-      <th scope="col">Compartir</th>
-      <th scope="col">Eliminar</th>
+      <th scope="col"> </th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -83,26 +84,16 @@
       <td><?= $t['tema']; ?></td>
       <td><?= $t['descripcion']; ?></td>
       <td><?= $t['prioridad']; ?></td>
-      <?php if ($t['estado'] != 'Completada') { ?>
-      <td>
-        <?= $t['estado']; ?><br>
-        <button class="btn btn-primary btn-sm mt-2 me-2">Modificar</button>
-      </td>
-      <?php } else { ?>
-        <td><?= $t['estado']; ?><br>
-        <button class="btn btn-primary btn-sm mt-2 me-2">Archivar</button>
-      </td>
-      <?php } ?>
+      <td> <?= $t['estado']; ?><br></td>
       <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
       <?php if($t['fecha_recordatorio']!='0000-00-00'){ ?>
       <td><?= (new DateTime($t['fecha_recordatorio']))->format('d-m-Y'); ?></td>
       <?php } else{ ?>
         <td> </td>
        <?php       }  ?>
-      <td> 
-
-       <button class="btn btn-primary btn-sm mt-2 me-2"> 🔗 Compartir </button>  </td>
-      <td> <a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger btn-sm mt-2">🗑️ Eliminar</a> </td>
+       <td><button class="btn btn-success">✏️ Modificar</button></td>
+      <td>  <button class="btn btn-primary"> 🔗 Compartir </button>  </td>
+      <td> <a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger">🗑️ Eliminar</a> </td>
     </tr>
     <?php }
   endforeach; ?>
