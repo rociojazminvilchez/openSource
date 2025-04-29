@@ -36,11 +36,12 @@
 </style>
   </head>
 <body>
+<div id="inicio"></div>
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
 <div class="alert alert-warning" role="alert">
-  <strong>Atención:</strong> Este panel es para visualizar las tareas y subtareas.
+  <strong>Atención:</strong> Este panel es para visualizar las tareas destacadas.
 </div>
 <div class="card text-center">
 <div class="card-header">
@@ -114,9 +115,9 @@ function getTextColor($bgColor) {
   </div>
   <?php } endforeach; ?>
 </div>
-
-
-
+<a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
+  ⬆ Volver arriba
+</a>
 <?php
   echo $this->include('plantilla/footer');
 ?>

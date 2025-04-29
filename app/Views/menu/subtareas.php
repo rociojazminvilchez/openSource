@@ -31,7 +31,7 @@
   echo $this->include('plantilla/navbar');
 ?><br>
 <div class="alert alert-warning" role="alert">
-  <strong>Atención:</strong> Este panel es para visualizar las tareas y subtareas.
+  <strong>Atención:</strong> Este panel es para visualizar y modificar las subtareas.
 </div>
 <div class="card text-center">
 <div class="card-header">
@@ -59,6 +59,7 @@
     <th scope="col">Fecha Vencimiento</th>
     <th scope="col">Comentario</th>
     <th scope="col" >Responsable</th>
+    <th scope="col" ></th>
    </tr>
     </thead>
     <tbody>
@@ -75,6 +76,7 @@
        <?php       }  ?>
     <td><?= $s['comentario']; ?></td>
     <td><?= $s['responsable']; ?></td>
+    <td><a href="#" class="btn btn-success btn-sm">✏️ Modificar</a></td>
 </tr>
 <?php endforeach;  ?>
 </tbody>

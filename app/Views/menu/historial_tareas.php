@@ -27,10 +27,11 @@
   </style>
   </head>
 <body>
+<div id="inicio"></div>
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
-<div id="inicio"></div>
+
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar el historial de las tareas.
 </div>
@@ -64,7 +65,7 @@
       <th scope="col">Descripción</th>
       <th scope="col">Prioridad</th>
       <th scope="col">Estado</th>
-      <th scope="col">Estado Actualizado</th>
+      <th scope="col">Estado Actual</th>
       <th scope="col">Fecha Vencimiento</th>
       <th scope="col">Fecha Recordatorio</th>
       <th scope="col">SUBTAREA</th>

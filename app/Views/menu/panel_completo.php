@@ -27,10 +27,11 @@
   </style>
   </head>
 <body>
+<div id="inicio"></div>
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
-<div id="inicio"></div>
+
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar las tareas y subtareas.
 </div>

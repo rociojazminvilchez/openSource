@@ -27,6 +27,7 @@
   </style>
   </head>
 <body>
+<div id="inicio"></div>
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
@@ -91,7 +92,9 @@
 <?php endforeach;  ?>
 </tbody>
 </table><br>
-
+<a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
+  ⬆ Volver arriba
+</a>
 <?php
   echo $this->include('plantilla/footer');
 ?>
