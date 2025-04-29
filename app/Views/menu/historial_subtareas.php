@@ -84,7 +84,7 @@
     <td><?= $s['responsable']; ?></td>
     <td>
     
-    <a href="#" class="btn btn-danger mb-1">Mostrar</a><br>
+    <a href="<?= base_url('/menu/panel_completo/' . $s['tarea'] . '/' . $s['tarea']); ?>" class="btn btn-danger mb-1">Mostrar</a><br>
 </td>
 
 </tr>

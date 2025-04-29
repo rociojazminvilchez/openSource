@@ -99,7 +99,7 @@
        // Boton
     if (isset($subtareasCount[$t['id']])) {
     $count = $subtareasCount[$t['id']]; ?>
-    <a href="" class="btn btn-danger">
+    <a href="<?= base_url('/menu/panel_completo/' . $t['id'] . '/' . $t['id']); ?>" class="btn btn-danger">
       Mostrar (<?= $count ?>)
     </a><br><br>
    <?php } ?>
