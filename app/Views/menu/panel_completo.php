@@ -44,55 +44,38 @@
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL TAREA - SUBTAREA</h3> 
 
 
+<!-- TABLA TAREA -->
+<table class="encabezado-custom table table-bordered">
+  <thead>
+  <tr><td colspan="2" class="table-primary text-center"><strong>TAREA </strong></td></tr>
+  </thead>
+  <tbody>
+    <!-- TAREA  -->
+    <tr><td><strong>Tema</strong></td><td><?= $tareas[0]['tema']; ?></td></tr>
+    <tr><td><strong>Descripción</strong></td><td><?= $tareas[0]['descripcion']; ?></td></tr>
+    <tr><td><strong>Prioridad</strong></td><td><?= $tareas[0]['prioridad']; ?></td></tr>
+    <tr><td><strong>Estado</strong></td><td><?= $tareas[0]['estado']; ?></td></tr>
+    <tr><td><strong>Fecha Vencimiento</strong></td>
+        <td><?= (new DateTime($tareas[0]['fecha_vencimiento']))->format('d-m-Y'); ?></td></tr>
+    <tr><td><strong>Fecha Recordatorio</strong></td>
+        <td><?= $tareas[0]['fecha_recordatorio'] != '0000-00-00' 
+            ? (new DateTime($tareas[0]['fecha_recordatorio']))->format('d-m-Y') : ''; ?></td></tr>
+    <tr><td><strong>Responsable</strong></td><td><?= $tareas[0]['correo']; ?></td></tr>
 
-  <table class="encabezado-custom">
-    <thead>
-      <tr>
-        <th class="text-center">Tarea</th>
-        <th class="text-center">Subtareas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <!-- Mostrar una sola tarea -->
-        <td rowspan="<?= count($subtareas) > 0 ? count($subtareas) : 1; ?>" class="align-middle">
-          <p><strong>TEMA:</strong> <?= $tareas[0]['tema']; ?></p>
-          <p><strong>Vencimiento:</strong> <?= (new DateTime($tareas[0]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
-          <p><strong>Descripción:</strong> <?= $tareas[0]['descripcion']; ?></p>
-          <p><strong>Prioridad:</strong> <?= $tareas[0]['prioridad']; ?></p>
-          <p><strong>Estado:</strong> <?= $tareas[0]['estado']; ?></p>
-        </td>
-        
-        <!-- Mostrar la primera subtarea -->
-        <td class="align-middle">
-          <?php if (isset($subtareas[0])): ?>
-            <p><strong>Descripción:</strong> <?= $subtareas[0]['descripcion']; ?></p>
-            <p><strong>Vencimiento:</strong> <?= (new DateTime($subtareas[0]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
-            <p><strong>Comentario:</strong> <?= $subtareas[0]['comentario']; ?></p>
-            <p><strong>Estado:</strong> <?= $subtareas[0]['estado']; ?></p>
-            <p><strong>Responsable:</strong> <?= $subtareas[0]['responsable']; ?></p>
-          <?php else: ?>
-            <p>No hay subtarea disponible.</p>
-          <?php endif; ?>
-        </td>
-      </tr>
-
-      <!-- Mostrar las demás subtareas -->
-      <?php for ($i = 1; $i < count($subtareas); $i++): ?>
-        <tr>
-          <td class="align-middle">
-            <?php if (isset($subtareas[$i])): ?>
-              <p><strong>Descripción:</strong> <?= $subtareas[$i]['descripcion']; ?></p>
-              <p><strong>Vencimiento:</strong> <?= (new DateTime($subtareas[$i]['fecha_vencimiento']))->format('d-m-Y'); ?></p>
-              <p><strong>Comentario:</strong> <?= $subtareas[$i]['comentario']; ?></p>
-              <p><strong>Estado:</strong> <?= $subtareas[$i]['estado']; ?></p>
-              <p><strong>Responsable:</strong> <?= $subtareas[$i]['responsable']; ?></p>
-            <?php endif; ?>
-          </td>
-        </tr>
-      <?php endfor; ?>
-    </tbody>
-  </table>
+    <!-- SUBTAREAS -->
+    <?php foreach ($subtareas as $i => $s): ?>
+      <tr><td colspan="2" class="table-secondary text-center"><strong>SUBTAREA <?= $i + 1 ?></strong></td></tr>
+      <tr><td><strong>Descripción</strong></td><td><?= $s['descripcion']; ?></td></tr>
+      <tr><td><strong>Prioridad</strong></td><td><?= $s['prioridad']; ?></td></tr>
+      <tr><td><strong>Estado</strong></td><td><?= $s['estado']; ?></td></tr>
+      <tr><td><strong>Comentario</strong></td><td><?= $s['comentario']; ?></td></tr>
+      <tr><td><strong>Fecha Vencimiento</strong></td>
+          <td><?= $s['fecha_vencimiento'] != '0000-00-00' 
+              ? (new DateTime($s['fecha_vencimiento']))->format('d-m-Y') : ''; ?></td></tr>
+      <tr><td><strong>Responsable</strong></td><td><?= $s['responsable']; ?></td></tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
 
 <br>
 <div class="d-flex justify-content-center">
