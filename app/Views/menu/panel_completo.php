@@ -30,6 +30,7 @@
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
+<div id="inicio"></div>
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar las tareas y subtareas.
 </div>
@@ -79,17 +80,12 @@
 
 <br>
 <div class="d-flex justify-content-center">
-  <a href="<?= base_url('/'); ?>">
-    <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; margin-right: 10px; font-size: 18px;">
-      Inicio
-    </button> 
-  </a>
-  <a href="<?= base_url('/menu/panel'); ?>">
-    <button type="button" class="btn" style="background-color: #262e5b; color: white; border: none; font-size: 18px;">
-      Panel
-    </button>
-  </a>
+
 </div>
+<a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
+  ⬆ Volver arriba
+</a>
+
 
 <?php
   echo $this->include('plantilla/footer');

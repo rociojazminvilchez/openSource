@@ -30,6 +30,7 @@
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
+<div id="inicio"></div>
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar el historial de las tareas.
 </div>
@@ -108,7 +109,9 @@
     <?php endforeach; ?>
   </tbody>
 </table><br>
-
+<a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
+  ⬆ Volver arriba
+</a>
 
 <?php
   echo $this->include('plantilla/footer');
