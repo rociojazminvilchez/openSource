@@ -75,23 +75,37 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($tareas as $t) : ?>
+    <?php foreach ($tareas as $t) : 
+    if($t['estado_actualizado']==''){
+      ?>
     <tr>
       <td><?= $t['id']; ?></td>
       <td><?= $t['tema']; ?></td>
       <td><?= $t['descripcion']; ?></td>
       <td><?= $t['prioridad']; ?></td>
-      <td><?= $t['estado']; ?></td>
+      <?php if ($t['estado'] != 'Completada') { ?>
+      <td>
+        <?= $t['estado']; ?><br>
+        <button class="btn btn-primary btn-sm mt-2 me-2">Modificar</button>
+      </td>
+      <?php } else { ?>
+        <td><?= $t['estado']; ?><br>
+        <button class="btn btn-primary btn-sm mt-2 me-2">Archivar</button>
+      </td>
+      <?php } ?>
       <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
       <?php if($t['fecha_recordatorio']!='0000-00-00'){ ?>
       <td><?= (new DateTime($t['fecha_recordatorio']))->format('d-m-Y'); ?></td>
       <?php } else{ ?>
         <td> </td>
        <?php       }  ?>
-      <td> <button class="btn btn-primary btn-sm mt-2 me-2"> 🔗 Compartir </button>  </td>
+      <td> 
+
+       <button class="btn btn-primary btn-sm mt-2 me-2"> 🔗 Compartir </button>  </td>
       <td> <a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger btn-sm mt-2">🗑️ Eliminar</a> </td>
     </tr>
-    <?php endforeach; ?>
+    <?php }
+  endforeach; ?>
   </tbody>
 </table><br>
 <?php
