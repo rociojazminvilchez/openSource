@@ -78,6 +78,6 @@ class Tareas extends BaseController
            'estado_actualizado'=> 'Eliminada',
        ]);
 
-       return redirect()->to('/menu');
+       return redirect()->to('/menu/tareas');
    }
 }

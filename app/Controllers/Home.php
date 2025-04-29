@@ -252,6 +252,8 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
 
     public function historial() {
         $RegistroTareaModel = new RegistroTareaModel();
+        $RegistroSubtareaModel = new RegistroSubtareaModel();
+        
         if (session()->has('usuario')) {
             $correo= $_SESSION['usuario'];
         }
@@ -264,7 +266,8 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
         }
     
         $data = [
-            'tareas' => $RegistroTareaModel->mostrarTarea(['correo' => $correo, 'ordenar' => $ordenarPor])
+            'tareas' => $RegistroTareaModel->mostrarTarea(['correo' => $correo, 'ordenar' => $ordenarPor]),
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable' => $correo, 'ordenar' => $ordenarPor])
         ];
 
         return view('menu/historial_tareas',$data);
@@ -274,7 +277,6 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
         if (session()->has('usuario')) {
             $correo= $_SESSION['usuario'];
         }
-
         $RegistroSubtareaModel = new RegistroSubtareaModel();
         
         $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  

@@ -63,6 +63,7 @@
       <th scope="col">Descripción</th>
       <th scope="col">Prioridad</th>
       <th scope="col">Estado</th>
+      <th scope="col">Estado Actualizado</th>
       <th scope="col">Fecha Vencimiento</th>
       <th scope="col">Fecha Recordatorio</th>
       <th scope="col">SUBTAREA</th>
@@ -76,14 +77,33 @@
       <td><?= $t['descripcion']; ?></td>
       <td><?= $t['prioridad']; ?></td>
       <td><?= $t['estado']; ?></td>
+      <td><?= $t['estado_actualizado']; ?></td>
       <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
       <?php if($t['fecha_recordatorio']!='0000-00-00'){ ?>
       <td><?= (new DateTime($t['fecha_recordatorio']))->format('d-m-Y'); ?></td>
       <?php } else{ ?>
         <td> </td>
        <?php       }  ?>
-      <td>  </td>
-
+       <td>
+       <?php
+        $subtareasCount = [];  // Nro de subtareas
+        foreach ($subtareas as $s):
+        if ($t['id'] == $s['tarea']) {
+            if (!isset($subtareasCount[$t['id']])) {
+            $subtareasCount[$t['id']] = 1;
+          } else {
+            $subtareasCount[$t['id']]++;
+          }
+        }
+      endforeach;
+       // Boton
+    if (isset($subtareasCount[$t['id']])) {
+    $count = $subtareasCount[$t['id']]; ?>
+    <a href="" class="btn btn-danger">
+      Mostrar (<?= $count ?>)
+    </a><br><br>
+   <?php } ?>
+    </td>
     </tr>
     <?php endforeach; ?>
   </tbody>

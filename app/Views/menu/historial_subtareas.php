@@ -65,6 +65,7 @@
     <th scope="col">Fecha Vencimiento</th>
     <th scope="col">Comentario</th>
     <th scope="col" >Responsable</th>
+    <th scope="col" >Tarea</th>
    </tr>
     </thead>
     <tbody>
@@ -81,6 +82,11 @@
        <?php       }  ?>
     <td><?= $s['comentario']; ?></td>
     <td><?= $s['responsable']; ?></td>
+    <td>
+    
+    <a href="#" class="btn btn-danger mb-1">Mostrar</a><br>
+</td>
+
 </tr>
 <?php endforeach;  ?>
 </tbody>

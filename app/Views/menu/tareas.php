@@ -91,7 +91,7 @@
       <?php } else{ ?>
         <td> </td>
        <?php       }  ?>
-       <td><button class="btn btn-success">✏️ Modificar</button></td>
+       <td><a href="<?= site_url('menu/tareas/' . $t['id']); ?>"  class="btn btn-success">✏️ Modificar</a></td>
       <td>  <button class="btn btn-primary"> 🔗 Compartir </button>  </td>
       <td> <a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger">🗑️ Eliminar</a> </td>
     </tr>
