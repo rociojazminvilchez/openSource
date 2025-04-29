@@ -1,81 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Open Source</title>
-  <meta name="description" content="The small framework with powerful features">
+  <meta name="description" content="Formulario de creación de subtarea">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="<?= base_url('/openSource/public/img/logo.png')?>">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="icon" href="<?= base_url('/openSource/public/img/logo.png') ?>">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
 </head>
 <body>
-<?php
-    echo $this->include('plantilla/navbar');
-?>
 
-<form class="form" action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
-<?php if (session()->get('errors')): ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php foreach (session()->get('errors') as $error): ?>
-                    <li><?= esc($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
+<?= $this->include('plantilla/navbar') ?>
+
+<div class="container mt-4 mb-5">
+  <?php if (session()->get('errors')): ?>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <?php foreach (session()->get('errors') as $error): ?>
+          <li><?= esc($error) ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+
+  <div class="d-flex justify-content-end">
+    <a href="<?= base_url('subtareas/create') ?>" class="btn-close" aria-label="Cerrar"></a>
+  </div>
+
+  <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
+  <h4 class="text-start mb-4">Datos de la Subtarea</h4>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded">
+
+        <div class="mb-3">
+          <label class="form-label"><span class="text-danger">*</span> Tema</label>
+          <select name="tarea" class="form-select" required>
+            <?php foreach ($tareas as $t): ?>
+              <option value="<?= esc($t['id']) ?>"><?= esc($t['tema']) ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
-    <?php endif; ?>  
-<p style="text-align:right;">
-    <a href="<?php echo base_url('subtareas/create')?>">
-      <button type="button" class="btn-close" aria-label="Close"></button>
-    </a>
-  </p>
-    
-  <p style="text-align:left;"><span class="error"> (*) Campos obligatorios</span></p>
-    <h4 style="text-align:left;"> Datos subtarea:</h4><br>
 
-    <select name="tarea">
-    <?php foreach ($tareas as $t) :?>
-      <option value="<?= esc($t['id']) ?>"><?= esc($t['tema']); ?></option>
-    <?php endforeach; ?> 
-  </select><br><br>
-    
-  <!-- Campo oculto - ID tema -->
- 
+        <div class="mb-3">
+          <label class="form-label"><span class="text-danger">*</span> Descripción</label>
+          <input type="text" name="descripcion" class="form-control" value="<?= old('descripcion') ?>" required>
+        </div>
 
-  <span class="error">*</span> Descripci&oacuten:<br>
-    <input type="text" name="descripcion"  value="<?= old('descripcion') ?>"required></input><br><br>
-       
-    <span class="error">*</span> Estado:<br>
-    <select class="estado" name="estado">
-      <option value="1">Definido</option>
-      <option value="2">En proceso</option>
-      <option value="3">Completada</option>
-    </select><br><br>
+        <div class="mb-3">
+          <label class="form-label"><span class="text-danger">*</span> Estado</label>
+          <select name="estado" class="form-select" required>
+            <option value="1">Definido</option>
+            <option value="2">En proceso</option>
+            <option value="3">Completada</option>
+          </select>
+        </div>
 
-  Prioridad:<br>
-  <select name="prioridad">
-    <option value=" "> - </option>
-    <option value="baja">Baja</option>
-    <option value="normal">Normal</option>
-    <option value="alta">Alta</option>
-  </select><br><br>
-  
- Fecha de vencimiento:<br>
-  <input type="date" name="vencimiento"  value="<?= old('vencimiento') ?>"></input><br><br>
+        <div class="mb-3">
+          <label class="form-label">Prioridad</label>
+          <select name="prioridad" class="form-select">
+            <option value="">-</option>
+            <option value="baja">Baja</option>
+            <option value="normal">Normal</option>
+            <option value="alta">Alta</option>
+          </select>
+        </div>
 
-  <span class="error">*</span> Comentario:<br>
-  <input type="text" name="comentario"  value="<?= old('comentario') ?>"required></input><br><br>
+        <div class="mb-3">
+          <label class="form-label">Fecha de vencimiento</label>
+          <input type="date" name="vencimiento" class="form-control" value="<?= old('vencimiento') ?>">
+        </div>
 
-  <span class="error">*</span> Responsable:<br>
-  <input type="text" name="usuario" value="<?= $_SESSION['usuario'] ?>"required></input>
-  
-  <input type="submit" name="crear" value="CREAR" style="background-color: #262e5b;">
-</form><br><br><br>
-  <?php
-    echo $this->include('plantilla/footer');
-  ?>
+        <div class="mb-3">
+          <label class="form-label"><span class="text-danger">*</span> Comentario</label>
+          <input type="text" name="comentario" class="form-control" value="<?= old('comentario') ?>" required>
+        </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <div class="mb-4">
+          <label class="form-label"><span class="text-danger">*</span> Responsable</label>
+          <input type="text" name="usuario" class="form-control" value="<?= $_SESSION['usuario'] ?>" required>
+        </div>
 
+        <div class="d-grid">
+          <button type="submit" name="crear" class="btn text-white" style="background-color: #262e5b;">CREAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<?= $this->include('plantilla/footer') ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

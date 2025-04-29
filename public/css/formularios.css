@@ -1,15 +1,29 @@
 html {
     min-height: 100%;
-    position: relative;    
+    position: relative;
 }
 
-/*HEADER*/
+body {
+    background-color: #f0f0f0; /* Fondo gris claro para toda la página */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.contenido-principal {
+    flex: 1;
+}
+
+/* HEADER */
 header {
-    position: sticky !important ; 
-	top: 0 !important;
-    background-color: f6fafa;
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #f6fafa;
+    z-index: 1000;
 }
 
+/* GRID HEADER */
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -21,79 +35,69 @@ header {
     text-align: center;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .contenido-principal {
-    flex: 1;
-  }
-  
-/*FOOTER*/
+/* FOOTER */
 footer {
     background-color: #f6fafa;
     width: 100%;
+    margin-top: auto;
 }
 
 .grid-container-footer {
-    color:#3366cc;
+    color: #3366cc;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
     padding: 10px;
-  }
-  
+}
 
-.grid-item-footer{
+.grid-item-footer {
     padding: 5px;
 }
 
-
-  
-/*FORMULARIOS*/
+/* FORMULARIOS */
 .form {
-background-color: #ededed83;
-padding: 50px 20px;
-margin: calc(20% + 100px);
-margin-top: 20px;
-margin-bottom: 100px;
-padding-top: 28px;
+    background-color: #e4e4e4; /* Fondo gris más notorio para el formulario */
+   /* background-color: #ededed83;
+    padding: 40px 20px;
+    margin: 20px auto 100px auto;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);*/
 }
 
-input {
-	padding: 9px;
-	margin: auto;
-	margin-top: 12px;
-	font-size: 16px;
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-
-input[type='submit']{
-	background-color: #262e5b;
-	color: #fff;
-	width: calc(80% - 20px);
-	margin: 0 5%;
-	margin-top: 12px;
-	border: none;
-    text-decoration-style: solid;
+input[type='submit'],
+input[type='reset'] {
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 12px;
 }
 
-
-input[type='reset']{
-	background-color: rgb(242, 248, 248);
-	color: #fff;
-	width: calc(80% - 20px);
-	margin: 0 5%;
-	margin-top: 12px;
-	border: none;
-    text-decoration-style: solid;
-}
-.error{
-	color:red;
+input[type='submit'] {
+    background-color: #262e5b;
+    color: #fff;
 }
 
-.valido{
-	color: gray;
+input[type='reset'] {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.valido {
+    color: gray;
 }

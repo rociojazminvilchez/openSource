@@ -1,4 +1,4 @@
-<footer class="pie-pagina">
+<br><footer class="pie-pagina">
     <div class="grupo-1">
       <hr>
         <p style="text-align: center;">©OPEN SOURCE - Todos los derechos reservados</p>
