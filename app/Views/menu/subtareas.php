@@ -5,38 +5,9 @@
   <title>Open Source</title>
   <meta name="description" content="The small framework with powerful features">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <style>
-    .encabezado-custom thead th {
-      background-color: #262e5b; 
-      padding: 10px;
-      text-align: center;
-      color: white;
-    }
-
-    .encabezado-custom tbody td {
-      padding: 8px;
-      border-bottom: 1px solid #ccc;
-      vertical-align: middle;
-    }
-
-    .encabezado-custom tr {
-      background-color: transparent; 
-    }
-
-    @media (max-width: 768px) {
-      .table-responsive {
-        font-size: 0.9rem;
-      }
-
-      .btn-sm {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.5rem;
-      }
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
 </head>
 <body>
 <?= $this->include('plantilla/navbar'); ?><br>
@@ -97,7 +68,7 @@
               <td><?= $s['responsable']; ?></td>
               
               <?php if($s['estado']!='Completada'){
-                ?> <td> <a href="<?= site_url('menu/subtareas/' . $s['id'] . '/' . $s['tarea']) ?>" class="btn btn-secondary btn-sm">✔️ Completada</a></td>
+                ?> <td> <a href="<?= site_url('menu/subtareas/' . $s['id'] . '/' . $s['tarea']) ?>" class="btn btn-secondary btn-sm">✅ Completada</a></td>
                 <?php
               }else{
                 ?> <td> </td> <?php

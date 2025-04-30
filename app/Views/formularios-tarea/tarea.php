@@ -29,9 +29,11 @@
       </ul>
     </div>
   <?php endif; ?>
-
+<div class="alert alert-warning text-center" role="alert">
+  <strong>Atención:</strong> Este panel es para crear una tarea.
+</div>
   <div class="d-flex justify-content-end">
-    <a href="<?= base_url('tareas/create') ?>" class="btn-close" aria-label="Cerrar"></a>
+    <a href="<?= base_url('/') ?>" class="btn-close" aria-label="Cerrar"></a>
   </div>
 
   <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>

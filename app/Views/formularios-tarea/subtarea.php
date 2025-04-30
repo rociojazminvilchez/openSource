@@ -27,19 +27,20 @@
       </ul>
     </div>
   <?php endif; ?>
-
+  <div class="alert alert-warning text-center" role="alert">
+  <strong>Atención:</strong> Este panel es para crear una subtarea.
+</div>
   <div class="d-flex justify-content-end">
-    <a href="<?= base_url('subtareas/create') ?>" class="btn-close" aria-label="Cerrar"></a>
+    <a href="<?= base_url('/') ?>" class="btn-close" aria-label="Cerrar"></a>
   </div>
 
   <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
   <h4 class="text-start mb-4">Datos de la Subtarea</h4>
 
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <form action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded">
-
-        <div class="mb-3">
+  <div class="row justify-content-center" >
+    <div class="col-md-8" >
+      <form action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded" >
+        <div class="mb-3" >
           <label class="form-label"><span class="text-danger">*</span> Tema</label>
           <select name="tarea" class="form-select" required>
             <?php foreach ($tareas as $t): ?>

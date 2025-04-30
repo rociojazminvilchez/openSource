@@ -8,31 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .encabezado-custom thead th {
-      background-color: #262e5b;
-      padding: 10px;
-      text-align: center;
-      color: white;
-    }
-    .encabezado-custom tbody td {
-      padding: 8px;
-      border-bottom: 1px solid #ccc;
-      vertical-align: middle;
-    }
-    .encabezado-custom tr {
-      background-color: transparent;
-    }
-    @media (max-width: 768px) {
-      .table-responsive {
-        font-size: 0.9rem;
-      }
-      .btn-sm {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
 </head>
 <body>
 <div id="inicio"></div>
