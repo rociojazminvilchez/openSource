@@ -74,7 +74,8 @@
             <th>Fecha Vencimiento</th>
             <th>Comentario</th>
             <th>Responsable</th>
-            <th>Acción</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -91,9 +92,8 @@
               </td>
               <td><?= $s['comentario']; ?></td>
               <td><?= $s['responsable']; ?></td>
-              <td>
-                <a href="#" class="btn btn-success btn-sm">✏️ Modificar</a>
-              </td>
+              <td> <a href="#" class="btn btn-primary">✏️ Modificar</a> </td>
+              <td> <a href="#" class="btn btn-success">✔️ Completada</a></td>
             </tr>
           <?php endforeach; ?>
         </tbody>

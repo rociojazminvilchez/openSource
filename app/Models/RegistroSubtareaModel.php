@@ -8,7 +8,7 @@ class RegistroSubtareaModel extends Model{
    protected $useAutoIncrement = false; 
    protected $returnType = 'array';
    protected $useSoftDeletes = false; 
-   protected $allowedFields = ['id','tarea','descripcion','estado','prioridad','fecha_vencimiento','comentario','responsable'];
+   protected $allowedFields = ['id','tarea','descripcion','estado','estado_actualizado','prioridad','fecha_vencimiento','comentario','responsable'];
 
    public function mostrarSubtarea($data){
          $Usuario = $this->db->table('registro_subtarea');
