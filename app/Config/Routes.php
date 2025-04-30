@@ -40,6 +40,10 @@ $routes->post('/subtareas/create', 'Subtareas::create');
 $routes->get('/menu/tareas', 'Tareas::index');
 $routes->get('/menu/tareas/(:num)','Tareas::eliminarTarea/$1');
 
+#Modificar - Tarea
+$routes->get('/menu/tareas', 'Tareas::index');
+$routes->get('/menu/tareas/(:num)','Tareas::update/$1');
+$routes->post('/tareas/create', 'Tareas::update'); 
 
 #Salir
 $routes->get('/salir', 'Home::salir');
