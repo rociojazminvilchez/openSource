@@ -44,6 +44,9 @@ $routes->get('/menu/tareas/(:num)','Tareas::eliminarTarea/$1');
 $routes->get('menu/tarea/(:num)', 'Tareas::tarea/$1');
 $routes->post('menu/tareas/update/(:num)', 'Tareas::update/$1');
 
+#Archivar - Tarea
+$routes->get('/menu/panel_completo', 'Tareas::index'); // Ruta para panel completo
+$routes->get('/menu/panel_completo/(:num)', 'Tareas::archivarTarea/$1'); // Ruta para archivar tarea
 
 
 #Salir

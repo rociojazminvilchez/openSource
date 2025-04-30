@@ -96,7 +96,7 @@
             <td><?= $s['comentario']; ?></td>
             <td><?= $s['responsable']; ?></td>
             <td>
-              <a href="<?= base_url('/menu/panel_completo/' . $s['tarea'] . '/' . $s['tarea']); ?>" class="btn btn-danger btn-sm">Mostrar</a>
+              <a href="<?= base_url('/menu/panel_completo/' . $s['tarea'] . '/' . $s['tarea']); ?>" class="btn btn-danger">Mostrar</a>
             </td>
           </tr>
         <?php endforeach; ?>

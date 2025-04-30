@@ -71,7 +71,11 @@ class Tareas extends BaseController
 
    #ELIMINAR TAREA
    public function eliminarTarea($id = null) {
-
+    // Verificar si el ID es válido
+    if ($id === null) {
+        // Redirigir o devolver un error si el ID no es válido
+        return redirect()->to('/menu/tareas')->with('error', 'ID de tarea no válido');
+    }
        $registroTareaModel= new RegistroTareaModel();
 
        $registroTareaModel->update($id, [
@@ -81,6 +85,26 @@ class Tareas extends BaseController
        return redirect()->to('/menu/tareas');
    }
 
+      #ARCHIVAR TAREA
+      public function archivarTarea($id = null) {
+    // Verificar si el ID es válido
+    if ($id === null) {
+        // Redirigir o devolver un error si el ID no es válido
+        return redirect()->to('/menu/tareas')->with('error', 'ID de tarea no válido');
+    }
+        $registroTareaModel= new RegistroTareaModel();
+ 
+        $actualizada = $registroTareaModel->update($id, [
+            'estado' => 'Completada',
+            'estado_actualizado' => 'Archivada',
+        ]);
+    
+        if ($actualizada) {
+            return redirect()->to('/menu/panel_completo/' . $id)->with('mensaje', 'Tarea archivada exitosamente');
+        } else {
+            return redirect()->to('/menu/panel_completo/' .$id)->with('mensaje', 'Error al archivar la tarea');
+        }
+    }
    #MODIFICAR TAREA
    public function tarea($id=null){
     $RegistroTareaModel = new RegistroTareaModel();
