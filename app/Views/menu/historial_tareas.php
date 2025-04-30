@@ -48,7 +48,7 @@
 </div><br>
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> HISTORIAL TAREAS </h3> 
 
-  <!-- Seleccionar el criterio de ordenación -->
+  <!-- Criterio de ordenación -->
   <form method="GET" action="<?= base_url('menu/historial_tareas') ?>"> 
     <label for="ordenar">Ordenar por:</label>
     <select name="ordenar" id="ordenar">
