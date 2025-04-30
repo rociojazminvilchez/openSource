@@ -78,8 +78,7 @@
             <th>Fecha Vencimiento</th>
             <th>Comentario</th>
             <th>Responsable</th>
-            <th></th>
-            <th></th>
+            <th colspan="4">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -96,15 +95,17 @@
               </td>
               <td><?= $s['comentario']; ?></td>
               <td><?= $s['responsable']; ?></td>
-              <td> <a href="<?= site_url('menu/subtarea/' . $s['id']); ?>" class="btn btn-primary">✏️ Modificar</a> </td>
+              
               <?php if($s['estado']!='Completada'){
-                ?> <td> <a href="<?= site_url('menu/subtareas/' . $s['id'] . '/' . $s['tarea']) ?>" class="btn btn-success">✔️ Completada</a></td>
+                ?> <td> <a href="<?= site_url('menu/subtareas/' . $s['id'] . '/' . $s['tarea']) ?>" class="btn btn-secondary btn-sm">✔️ Completada</a></td>
                 <?php
               }else{
                 ?> <td> </td> <?php
               }
               ?> 
-             
+              <td> <a href="<?= site_url('menu/subtarea/' . $s['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a> </td>
+             <td><button class="btn btn-primary btn-sm">🔗 Compartir</button></td>
+             <td><a href="<?= site_url('menu/subtareas/' . $s['id']); ?>" class="btn btn-danger btn-sm">🗑️ Eliminar</a></td>
             </tr>
           <?php endforeach; ?>
         </tbody>
