@@ -93,7 +93,14 @@
               <td><?= $s['comentario']; ?></td>
               <td><?= $s['responsable']; ?></td>
               <td> <a href="#" class="btn btn-primary">✏️ Modificar</a> </td>
-              <td> <a href="#" class="btn btn-success">✔️ Completada</a></td>
+              <?php if($s['estado']!='Completada'){
+                ?> <td> <a href="<?= site_url('menu/subtareas/' . $s['id'] . '/' . $s['tarea']) ?>" class="btn btn-success">✔️ Completada</a></td>
+                <?php
+              }else{
+                ?> <td> </td> <?php
+              }
+              ?> 
+             
             </tr>
           <?php endforeach; ?>
         </tbody>

@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\RegistroSubtareaModel;
+use App\Models\RegistroTareaModel;
+
 
 class Subtareas extends BaseController{
 
@@ -51,4 +53,28 @@ class Subtareas extends BaseController{
            
     return redirect()->to('/')->with('mensaje', 'Subtarea creada exitosamente.');
    }
+
+      #ACTUALIZAR SUBTAREA Y TAREA (Subtarea completada | Tarea en proceso)
+      public function actualizarSubtarea($subtarea = null, $tarea = null) {
+        if ($subtarea === null) {
+            return redirect()->to('/menu/subtareas')->with('error', 'ID de subtarea no válido');
+        }
+    
+        $registroTareaModel = new RegistroTareaModel();
+        $registroSubtareaModel = new RegistroSubtareaModel();
+    
+        // Cambiar el estado de la tarea principal a "En proceso"
+        $registroTareaModel->update($tarea, [
+            'estado' => 'En proceso',
+            'estado_actualizado' => '',
+        ]);
+    
+        // Marcar la subtarea como completada
+        $registroSubtareaModel->update($subtarea, [
+            'estado' => 'Completada',
+        ]);
+    
+        return redirect()->to('/menu/subtareas')->with('mensaje', 'Subtarea actualizada correctamente');
+    }
+    
 }

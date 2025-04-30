@@ -52,5 +52,9 @@ $routes->get('/menu/panel_completo/(:num)', 'Tareas::archivarTarea/$1'); // Ruta
 $routes->get('menu/subtareas/(:num)', 'Subtareas::subtarea/$1');
 $routes->post('menu/subtareas/update/(:num)', 'Subtareas::update/$1');
 
+#Actualizar - Subtarea y Tarea
+$routes->get('/menu/subtareas', 'Subtareas::index');
+$routes->get('/menu/subtareas/(:num)/(:num)','Subtareas::actualizarSubtarea/$1/$2');
+
 #Salir
 $routes->get('/salir', 'Home::salir');
