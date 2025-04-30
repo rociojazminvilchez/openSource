@@ -29,36 +29,28 @@
   <?php endif; ?>
 
   <div class="d-flex justify-content-end">
-    <a href="<?= base_url('subtareas/create') ?>" class="btn-close" aria-label="Cerrar"></a>
+    <a href="<?= base_url('menu/subtareas') ?>" class="btn-close" aria-label="Cerrar"></a>
   </div>
 
   <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
-  <h4 class="text-start mb-4">Datos de la Subtarea</h4>
+  <h4 class="text-start mb-4">Modificar Subtarea</h4>
+ <?php $s = $subtareas[0]; ?>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <form action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded">
-
-        <div class="mb-3">
-          <label class="form-label"><span class="text-danger">*</span> Tema</label>
-          <select name="tarea" class="form-select" required>
-            <?php foreach ($tareas as $t): ?>
-              <option value="<?= esc($t['id']) ?>"><?= esc($t['tema']) ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-
+      <form action="<?= base_url('menu/subtareas/update/' . $s['id']); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded">
+     
         <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Descripción</label>
-          <input type="text" name="descripcion" class="form-control" value="<?= old('descripcion') ?>" required>
+          <input type="text" name="descripcion" class="form-control" value="<?= esc($s['descripcion']); ?>" required>
         </div>
 
         <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Estado</label>
           <select name="estado" class="form-select" required>
-            <option value="1">Definido</option>
-            <option value="2">En proceso</option>
-            <option value="3">Completada</option>
+            <option value="1" <?= ($s['estado'] === 'Definido') ? 'selected' : '' ?>>Definido</option>
+            <option value="2" <?= ($s['estado'] === 'En proceso') ? 'selected' : '' ?>>En proceso</option>
+            <option value="3" <?= ($s['estado'] === 'Completada') ? 'selected' : '' ?>>Completada</option>
           </select>
         </div>
 
@@ -66,29 +58,24 @@
           <label class="form-label">Prioridad</label>
           <select name="prioridad" class="form-select">
             <option value="">-</option>
-            <option value="baja">Baja</option>
-            <option value="normal">Normal</option>
-            <option value="alta">Alta</option>
+            <option value="baja" <?= ($s['prioridad'] === 'Baja') ? 'selected' : '' ?>>Baja</option>
+            <option value="normal" <?= ($s['prioridad'] === 'Normal') ? 'selected' : '' ?>>Normal</option>
+            <option value="alta" <?= ($s['prioridad'] === 'Alta') ? 'selected' : '' ?>>Alta</option>
           </select>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Fecha de vencimiento</label>
-          <input type="date" name="vencimiento" class="form-control" value="<?= old('vencimiento') ?>">
+          <input type="date" name="vencimiento" class="form-control" value="<?= esc($s['fecha_vencimiento']); ?>">
         </div>
 
         <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Comentario</label>
-          <input type="text" name="comentario" class="form-control" value="<?= old('comentario') ?>" required>
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label"><span class="text-danger">*</span> Responsable</label>
-          <input type="text" name="usuario" class="form-control" value="<?= $_SESSION['usuario'] ?>" required>
+          <input type="text" name="comentario" class="form-control" value="<?= esc($s['comentario']); ?>" required>
         </div>
 
         <div class="d-grid">
-          <button type="submit" name="crear" class="btn text-white" style="background-color: #262e5b;">CREAR</button>
+          <button type="submit" name="modificar" class="btn text-white" style="background-color: #262e5b;">MODIFICAR</button>
         </div>
       </form>
     </div>

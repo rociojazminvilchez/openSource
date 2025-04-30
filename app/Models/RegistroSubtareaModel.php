@@ -29,5 +29,14 @@ class RegistroSubtareaModel extends Model{
     }
  return $Usuario->get()->getResultArray();
 }
+
+#MODIFICAR
+public function mostrarSubtareaID2($data){
+    $Usuario = $this->db->table('registro_subtarea');
+    if (isset($data['id'])) {
+        $Usuario->where('id', $data['id']);
+    }
+ return $Usuario->get()->getResultArray();
+}
 }
 ?>

@@ -13,6 +13,11 @@
 <body>
 
 <?= $this->include('plantilla/navbar') ?>
+<?php if (session()->getFlashdata('mensaje')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('mensaje') ?>
+    </div>
+<?php endif; ?>
 
 <div class="container mt-4 mb-5">
   <?php if (session()->get('errors')): ?>

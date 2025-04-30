@@ -40,7 +40,11 @@
 </head>
 <body>
 <?= $this->include('plantilla/navbar'); ?><br>
-
+<?php if (session()->getFlashdata('mensaje')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('mensaje') ?>
+    </div>
+<?php endif; ?>
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar y modificar las subtareas.
 </div>
@@ -87,12 +91,12 @@
               <td><?= $s['prioridad']; ?></td>
               <td>
                 <?php if ($s['fecha_vencimiento'] != '0000-00-00') : ?>
-                  <?= (new DateTime($s['vencimiento']))->format('d-m-Y'); ?>
+                  <?= (new DateTime($s['fecha_vencimiento']))->format('d-m-Y'); ?>
                 <?php endif; ?>
               </td>
               <td><?= $s['comentario']; ?></td>
               <td><?= $s['responsable']; ?></td>
-              <td> <a href="#" class="btn btn-primary">✏️ Modificar</a> </td>
+              <td> <a href="<?= site_url('menu/subtarea/' . $s['id']); ?>" class="btn btn-primary">✏️ Modificar</a> </td>
               <?php if($s['estado']!='Completada'){
                 ?> <td> <a href="<?= site_url('menu/subtareas/' . $s['id'] . '/' . $s['tarea']) ?>" class="btn btn-success">✔️ Completada</a></td>
                 <?php

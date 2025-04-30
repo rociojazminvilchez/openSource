@@ -26,11 +26,11 @@
   <?php endif; ?>
 
   <div class="d-flex justify-content-end">
-    <a href="<?= base_url('tareas/create') ?>" class="btn-close" aria-label="Cerrar"></a>
+    <a href="<?= base_url('menu/tareas') ?>" class="btn-close" aria-label="Cerrar"></a>
   </div>
 
   <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
-  <h4 class="text-start mb-4">Modidificar Tarea</h4>
+  <h4 class="text-start mb-4">Modificar Tarea</h4>
 <?php $t = $tareas[0]; ?>
   <div class="row justify-content-center">
     <div class="col-md-8">

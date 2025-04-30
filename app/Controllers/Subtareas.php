@@ -77,4 +77,54 @@ class Subtareas extends BaseController{
         return redirect()->to('/menu/subtareas')->with('mensaje', 'Subtarea actualizada correctamente');
     }
     
+    #MODIFICAR SUBTAREA
+
+    public function subtarea($id=null){
+        $RegistroSubtareaModel = new RegistroSubtareaModel();
+        if (session()->has('usuario')) {
+            $correo= $_SESSION['usuario'];
+          }
+        $data = [
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID2(['id'=>$id])
+        ];
+        return view('formularios-tarea/modificar-subtarea',$data);
+     }
+
+    public function update($id = null){
+        $reglas = [
+           'descripcion' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                    'required' => 'El campo descripcion es obligatorio.',
+                    'min_length' => 'La descripcion debe tener al menos 3 caracteres.'
+               ]
+            ],
+            'comentario' => [
+                'rules' => 'required|min_length[3]',
+                'errors' => [
+                    'required' => 'El campo comentario es obligatorio.',
+                    'min_length' => 'La comentario debe tener al menos 3 caracteres.'
+               ]
+            ],
+        ];
+        
+        // Si la validación falla, redirigir de vuelta con los datos ingresados
+        if (!$this->validate($reglas)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+        
+        $post = $this->request->getPost(['descripcion','estado','prioridad','vencimiento','comentario',]);    
+        $registroSubtareaModel = new RegistroSubtareaModel();
+
+        $registroSubtareaModel->update($id,[
+            'descripcion' =>  ucfirst(trim($post['descripcion'])),
+            'estado' => $post['estado'],            
+            'prioridad' => $post['prioridad'],
+            'fecha_vencimiento' => $post['vencimiento'],
+            'comentario' =>  ucfirst(trim($post['comentario'])),
+        ]);
+           
+    return redirect()->to('/menu/subtareas')->with('mensaje', 'Subtarea modificada exitosamente.');
+   }
+
 }

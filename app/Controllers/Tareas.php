@@ -161,6 +161,6 @@ class Tareas extends BaseController
         'fecha_recordatorio' => $post['recordatorio'],
     ]);
 
-    return redirect()->to('/menu/tareas');
+    return redirect()->to('/menu/tareas')->with('mensaje', 'Tarea modificada exitosamente.');
    }
 }

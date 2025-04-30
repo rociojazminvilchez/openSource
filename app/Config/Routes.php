@@ -49,7 +49,7 @@ $routes->get('/menu/panel_completo', 'Tareas::index'); // Ruta para panel comple
 $routes->get('/menu/panel_completo/(:num)', 'Tareas::archivarTarea/$1'); // Ruta para archivar tarea
 
 #Modificar - SubTarea
-$routes->get('menu/subtareas/(:num)', 'Subtareas::subtarea/$1');
+$routes->get('menu/subtarea/(:num)', 'Subtareas::subtarea/$1');
 $routes->post('menu/subtareas/update/(:num)', 'Subtareas::update/$1');
 
 #Actualizar - Subtarea y Tarea
