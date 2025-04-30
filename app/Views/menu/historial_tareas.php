@@ -55,16 +55,18 @@
     </div><br>
     <h3 class="my-3" id="titulo" style="margin: 20px; font-family: 'Times New Roman', serif;"> HISTORIAL TAREAS </h3> 
 
-    <!-- Criterio de ordenación -->
-    <form method="GET" action="<?= base_url('menu/historial_tareas') ?>"> 
-      <label for="ordenar">Ordenar por:</label>
-      <select name="ordenar" id="ordenar">
+<!-- Filtro de orden -->
+<div class="container-fluid mb-4 d-flex flex-wrap justify-content-center align-items-center">
+    <form method="GET" action="<?= base_url('menu/historial_tareas') ?>" class="d-flex flex-wrap justify-content-center align-items-center"> 
+    <label for="ordenar" class="me-2">Ordenar por:</label>
+      <select name="ordenar" id="ordenar"  class="form-select w-auto">
           <option value="fecha_vencimiento" <?= isset($_GET['ordenar']) && $_GET['ordenar'] == 'fecha_vencimiento' ? 'selected' : ''; ?>>Fecha de Vencimiento</option>
           <option value="estado" <?= isset($_GET['ordenar']) && $_GET['ordenar'] == 'estado' ? 'selected' : ''; ?>>Estado</option>
       </select>
-      <button type="submit" style="background-color: #262e5b; color: #fff; text-decoration-style: solid;">Ordenar</button>
+      <button type="submit" class="btn btn-dark ms-2" style="background-color: #262e5b; color: #fff; text-decoration-style: solid;">Ordenar</button>
     </form><br>
-    
+  </div>
+
     <table class="encabezado-custom" aria-describedby="titulo">
       <thead>
         <tr>
