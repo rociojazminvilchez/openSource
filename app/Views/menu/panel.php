@@ -59,7 +59,7 @@
     <ul class="nav nav-tabs card-header-tabs justify-content-center">
       <li class="nav-item">
         <a class="nav-link active" href="<?= base_url('/menu/panel'); ?>">
-          <label style="color:red; font-weight: bold;">* Panel </label>
+          <label style="color:red; font-weight: bold;">PANEL </label>
         </a>
       </li>
       <li class="nav-item">

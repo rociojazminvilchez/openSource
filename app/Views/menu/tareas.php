@@ -51,7 +51,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="<?= base_url('/menu/tareas'); ?>">
-          <label style="color:red; font-weight: bold;">* Tareas</label>
+          <label style="color:red; font-weight: bold;">TAREAS</label>
         </a>
       </li>
       <li class="nav-item">

@@ -55,7 +55,7 @@
         <a class="nav-link active" href="<?= base_url('/menu/tareas'); ?>"> Tareas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="<?= base_url('/menu/subtareas'); ?>"><label style="color:red; font-weight: bold;">* Subtareas</label></a>
+        <a class="nav-link active" href="<?= base_url('/menu/subtareas'); ?>"><label style="color:red; font-weight: bold;">SUBTAREAS</label></a>
       </li>
     </ul>
   </div><br>

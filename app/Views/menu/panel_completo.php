@@ -37,9 +37,9 @@
 </div>
 <div class="card text-center">
 <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
+    <ul class="nav nav-tabs card-header-tabs justify-content-center">
       <li>
-        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/panel'); ?> ><label style="color:red; font-weight: bold;">* Panel </label></a>
+        <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/panel'); ?> ><label style="color:red; font-weight: bold;">PANEL </label></a>
       </li>
     </ul>
   </div><br>
