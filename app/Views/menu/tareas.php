@@ -104,7 +104,7 @@
           <td>
             <?= ($t['fecha_recordatorio'] != '0000-00-00') ? (new DateTime($t['fecha_recordatorio']))->format('d-m-Y') : ''; ?>
           </td>
-          <td><a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a></td>
+          <td><a href="<?= site_url('menu/tarea/' . $t['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a></td>
           <td><button class="btn btn-primary btn-sm">🔗 Compartir</button></td>
           <td><a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger btn-sm">🗑️ Eliminar</a></td>
         </tr>

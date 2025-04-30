@@ -82,6 +82,17 @@ class Tareas extends BaseController
    }
 
    #MODIFICAR TAREA
+   public function tarea($id=null){
+    $RegistroTareaModel = new RegistroTareaModel();
+    if (session()->has('usuario')) {
+        $correo= $_SESSION['usuario'];
+      }
+    $data = [
+        'tareas' => $RegistroTareaModel->mostrarTareaID(['id'=>$id])
+    ];
+    return view('formularios-tarea/modificar-tarea',$data);
+   }
+
    public function update($id = null){
     $reglas = [
         'tema' => [
@@ -125,7 +136,7 @@ class Tareas extends BaseController
         'fecha_vencimiento' => $post['vencimiento'],
         'fecha_recordatorio' => $post['recordatorio'],
     ]);
-    
+
     return redirect()->to('/menu/tareas');
    }
 }

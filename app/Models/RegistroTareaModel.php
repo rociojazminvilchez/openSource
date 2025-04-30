@@ -27,9 +27,8 @@ class RegistroTareaModel extends Model{
 
   public function mostrarTareaID($data){
     $Usuario = $this->db->table('registro_tarea');
+    if (isset($data['id'])) {
 
-    if (isset($data['correo'])) {
-        $Usuario->where('correo', $data['correo']);
         $Usuario->where('id', $data['id']);
     }
  return $Usuario->get()->getResultArray();

@@ -41,9 +41,10 @@ $routes->get('/menu/tareas', 'Tareas::index');
 $routes->get('/menu/tareas/(:num)','Tareas::eliminarTarea/$1');
 
 #Modificar - Tarea
-$routes->get('/menu/tareas', 'Tareas::index');
-$routes->get('/menu/tareas/(:num)','Tareas::update/$1');
-$routes->post('/tareas/create', 'Tareas::update'); 
+$routes->get('menu/tarea/(:num)', 'Tareas::tarea/$1');
+$routes->post('menu/tareas/update/(:num)', 'Tareas::update/$1');
+
+
 
 #Salir
 $routes->get('/salir', 'Home::salir');
