@@ -21,7 +21,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
 }
-
     </style>
 </head>
 <body>
@@ -71,7 +70,6 @@
   </form>
 </div>
 
-<!-- Tabla -->
 <div class="container-fluid mb-4">
   <div class="table-responsive">
     <table class="table table-hover encabezado-custom" aria-describedby="titulo">
@@ -100,7 +98,16 @@
             <?= ($t['fecha_recordatorio'] != '0000-00-00') ? (new DateTime($t['fecha_recordatorio']))->format('d-m-Y') : ''; ?>
           </td>
           <td><a href="<?= site_url('menu/tarea/' . $t['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a></td>
-          <td><button class="btn btn-primary btn-sm">🔗 Compartir</button></td>
+          <td><button class="btn btn-primary btn-sm share-btn" 
+                    data-id="<?= $t['id']; ?>"
+                    data-tema="<?= $t['tema']; ?>"
+                    data-descripcion="<?= $t['descripcion']; ?>"
+                    data-prioridad="<?= $t['prioridad']; ?>"
+                    data-estado="<?= $t['estado']; ?>"
+                    data-fecha-vencimiento="<?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>"
+                    data-fecha-recordatorio="<?= ($t['fecha_recordatorio'] != '0000-00-00') ? (new DateTime($t['fecha_recordatorio']))->format('d-m-Y') : ''; ?>"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#shareModal">🔗 Compartir</button></td>
           <td><a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger btn-sm">🗑️ Eliminar</a></td>
         </tr>
         <?php endif; endforeach; ?>
@@ -108,12 +115,81 @@
     </table>
   </div>
 </div>
+
+<!-- Modal para compartir -->
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="shareModalLabel">Compartir tarea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="recipients" class="form-label">Colaboradores (emails separados por coma)</label>
+          <input type="text" class="form-control" id="recipients" placeholder="email1@gmail.com, email2@gmail.com">
+        </div>
+        <div id="message"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="sendShare">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
   ⬆ Volver arriba
 </a>
 <?php endif; ?>
 
-
+        <!-- COMPARTIR -->
+        <script>
+$(document).ready(function() {
+    let currentTask = {};
+    
+    $('.share-btn').click(function() {
+        currentTask = {
+            task_id: $(this).data('id'),
+            tema: $(this).data('tema'),
+            descripcion: $(this).data('descripcion'),
+            prioridad: $(this).data('prioridad'),
+            estado: $(this).data('estado'),
+            fecha_vencimiento: $(this).data('fecha-vencimiento'),
+            fecha_recordatorio: $(this).data('fecha-recordatorio')
+        };
+    });
+    
+    $('#sendShare').click(function() {
+        var recipients = $('#recipients').val();
+        
+        $.ajax({
+            url: '<?= base_url('ShareController/share_task') ?>',
+            type: 'POST',
+            data: {
+                task_id: currentTask.task_id,
+                tema: currentTask.tema,
+                descripcion: currentTask.descripcion,
+                prioridad: currentTask.prioridad,
+                estado: currentTask.estado,
+                fecha_vencimiento: currentTask.fecha_vencimiento,
+                fecha_recordatorio: currentTask.fecha_recordatorio,
+                recipients: recipients
+            },
+            dataType: 'json',
+            success: function(response) {
+                $('#message').html(response.message);
+                if (response.status === 'success') {
+                    setTimeout(() => $('#shareModal').modal('hide'), 2000);
+                }
+            },
+            error: function() {
+                $('#message').html('Error en la conexión');
+            }
+        });
+    });
+});
+</script>
 <?= $this->include('plantilla/footer'); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

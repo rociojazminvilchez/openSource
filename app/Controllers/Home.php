@@ -223,7 +223,10 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
         $RegistroTareaModel = new RegistroTareaModel();
         if (session()->has('usuario')) {
             $correo= $_SESSION['usuario'];
-          }
+          }else {
+            // Opcional: manejar el caso cuando no hay sesión
+            return redirect()->to('/login'); // Por ejemplo
+        }
         
     $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  
 

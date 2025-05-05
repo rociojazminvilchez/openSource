@@ -30,6 +30,17 @@
     .encabezado-custom tr {
       background-color: transparent; 
     }
+    .alert-info {
+    background-color: rgb(224, 35, 35); /* Rojo intenso */
+    color: white; /* Blanco para mejor contraste */
+    padding: 15px 20px;
+    border: none; /* Eliminamos el borde celeste */
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold; /* Letra en negrita */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
     </style>
 </head>
 <body>
@@ -53,6 +64,12 @@
           </li>
         </ul>
     </div><br>
+    <?php if (empty($tareas)): ?>
+    <div class="alert-info" role="alert">
+      En este momento no posee tareas registradas.
+    </div>
+    <?php
+    else:?>
     <h3 class="my-3" id="titulo" style="margin: 20px; font-family: 'Times New Roman', serif;"> HISTORIAL TAREAS </h3> 
 
 <!-- Filtro de orden -->
@@ -126,7 +143,7 @@
     </a>
   </div>
 </div>
-
+<?php endif; ?>
 <?php
   echo $this->include('plantilla/footer');
 ?>
