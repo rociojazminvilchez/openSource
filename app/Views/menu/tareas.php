@@ -9,6 +9,20 @@
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
+  <style>
+      .alert-info {
+    background-color: rgb(224, 35, 35); /* Rojo intenso */
+    color: white; /* Blanco para mejor contraste */
+    padding: 15px 20px;
+    border: none; /* Eliminamos el borde celeste */
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold; /* Letra en negrita */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+    </style>
 </head>
 <body>
 <div id="inicio"></div>
@@ -35,8 +49,13 @@
       </li>
     </ul>
   </div>
-</div>
-
+</div><br>
+<?php if (empty($tareas)): ?>
+    <div class="alert-info" role="alert">
+      En este momento no posee tareas registradas.
+    </div>
+    <?php
+    else:?>
 <h3 class="my-4 text-center" id="titulo" style="font-family: 'Times New Roman', serif;">TAREAS</h3>
 
 <!-- Filtro de orden -->
@@ -89,10 +108,11 @@
     </table>
   </div>
 </div>
-
 <a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
   ⬆ Volver arriba
 </a>
+<?php endif; ?>
+
 
 <?= $this->include('plantilla/footer'); ?>
 

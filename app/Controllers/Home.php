@@ -167,7 +167,7 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
             'contra2' => $post['contra2'],
         ]);
            
-    return redirect()->to('/')->with('mensaje', 'Usuario registrado exitosamente.');
+    return redirect()->to('/formularios/ingreso')->with('mensaje', 'Usuario registrado exitosamente.');
    }
 
 #Formularios - Tareas | Subtarea

@@ -28,6 +28,17 @@
   padding: 0 10px; /* Un poco de espacio interno para que no quede pegado al borde total */
 }
 
+.alert-info {
+    background-color: rgb(224, 35, 35); /* Rojo intenso */
+    color: white; /* Blanco para mejor contraste */
+    padding: 15px 20px;
+    border: none; /* Eliminamos el borde celeste */
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold; /* Letra en negrita */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
   </style>
 </head>
 <body>
@@ -54,7 +65,12 @@
       </ul>
     </div>
   </div><br>
-
+  <?php if (empty($subtareas)): ?>
+    <div class="alert-info" role="alert">
+      En este momento no posee subtareas registradas.
+    </div>
+    <?php
+    else:?>
   <h3 class="text-center my-3" id="titulo" style="font-family: 'Times New Roman', serif;">HISTORIAL SUBTAREAS</h3>
 
   <!-- Formulario de ordenamiento -->
@@ -109,7 +125,7 @@
 <a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
   ⬆ Volver arriba
 </a>
-
+<?php endif; ?>
 <?= $this->include('plantilla/footer'); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
