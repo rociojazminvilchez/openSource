@@ -107,10 +107,10 @@
     <div class="row justify-content-center g-3">
       <?php foreach ($tareas as $t) :
         if ($t['estado_actualizado'] == '') {
-          $color = match($t['color']) {
-            'red' => '#ED4545',
-            'green' => '#14DE68',
-            'yellow' => '#EBD723',
+          $color = match($t['prioridad']) {
+            'Alta' => '#ED4545',
+            'Baja' => '#14DE68',
+            'Normal' => '#EBD723',
             default => $t['color']
           };
           $textColor = getTextColor($color);
