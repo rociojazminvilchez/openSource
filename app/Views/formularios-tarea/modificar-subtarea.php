@@ -34,12 +34,11 @@
 
   <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
   <h4 class="text-start mb-4">Modificar Subtarea</h4>
- <?php $s = $subtareas[0]; ?>
+  <?php $s = $subtareas[0]; ?>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
       <form action="<?= base_url('menu/subtareas/update/' . $s['id']); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded">
-     
         <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Descripción</label>
           <input type="text" name="descripcion" class="form-control" value="<?= esc($s['descripcion']); ?>" required>
@@ -83,7 +82,6 @@
 </div>
 
 <?= $this->include('plantilla/footer') ?>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

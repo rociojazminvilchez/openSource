@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Open Source</title>
-  <meta name="description" content="The small framework with powerful features">
+  <meta name="description" content="Open Source ofrece herramientas para que organices tus tareas.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
@@ -13,10 +13,15 @@
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
-<?php if (session()->getFlashdata('mensaje')): ?>
-    <div class="alert alert-success">
-        <?= session()->getFlashdata('mensaje') ?>
-    </div>
+<!--ALERTA DE MENSAJES -->
+<?php if (session()->getFlashdata('mensajeError')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
+<?php endif; 
+ if (session()->getFlashdata('mensaje')): ?>
+  <div class="alert alert-success"><?= session()->getFlashdata('mensaje') ?></div>
+<?php endif; 
+if (session()->getFlashdata('error')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
 <?php endif; ?>
 
 <section style="text-align: center;">
@@ -68,11 +73,8 @@
       <h3 class="fs-4">Archivado</h3>
       <p>Archiv&aacute tareas finalizadas para mantener tu panel limpio. Pod&eacutes consultarlas cuando las necesites.</p>
     </div>
-
   </div>
 </div>
-
-
 <?php
   echo $this->include('plantilla/footer');
 ?>

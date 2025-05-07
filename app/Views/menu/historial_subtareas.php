@@ -8,38 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .encabezado-custom thead th {
-      background-color: #262e5b; 
-      padding: 10px;
-      text-align: center;
-      color: white;
-    }
-    .encabezado-custom tbody td {
-      padding: 8px;
-      border-bottom: 1px solid #ccc;
-    }
-    .encabezado-custom tr {
-      background-color: transparent; 
-    }
-    .contenido-limitado {
-  max-width: 100%; /* Antes era 95% o menos */
-  margin: 0; /* Sin márgenes laterales */
-  padding: 0 10px; /* Un poco de espacio interno para que no quede pegado al borde total */
-}
-
-.alert-info {
-    background-color: rgb(224, 35, 35); /* Rojo intenso */
-    color: white; /* Blanco para mejor contraste */
-    padding: 15px 20px;
-    border: none; /* Eliminamos el borde celeste */
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold; /* Letra en negrita */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-}
-  </style>
+  <link rel="stylesheet" href="<?= base_url('/css/menu.css') ?>">
 </head>
 <body>
 <div id="inicio"></div>

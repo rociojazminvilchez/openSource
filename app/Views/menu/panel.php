@@ -8,54 +8,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <style>
-    .card {
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    }
-
-    .card-body h5 {
-      font-weight: bold;
-      font-size: 1.25rem;
-    }
-
-    .card-body p {
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .text-muted {
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 576px) {
-      .card-body h5 {
-        font-size: 1.1rem;
-      }
-
-      .card-body p, .card-body h6 {
-        font-size: 0.9rem;
-      }
-    }
-
-  .alert-info {
-    background-color: rgb(224, 35, 35); /* Rojo intenso */
-    color: white; /* Blanco para mejor contraste */
-    padding: 15px 20px;
-    border: none; /* Eliminamos el borde celeste */
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold; /* Letra en negrita */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-}
-  </style>
+  <link rel="stylesheet" href="<?= base_url('/css/menu.css') ?>">
 </head>
 <body>
 <div id="inicio"></div>

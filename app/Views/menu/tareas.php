@@ -8,26 +8,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
-  <style>
-      .alert-info {
-    background-color: rgb(224, 35, 35); /* Rojo intenso */
-    color: white; /* Blanco para mejor contraste */
-    padding: 15px 20px;
-    border: none; /* Eliminamos el borde celeste */
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold; /* Letra en negrita */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-}
-    </style>
+  <link rel="stylesheet" href="<?= base_url('/css/menu.css') ?>">
 </head>
 <body>
 <div id="inicio"></div>
-
 <?= $this->include('plantilla/navbar'); ?><br>
-
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar y modificar las tareas.
 </div>
@@ -163,6 +148,23 @@ $(document).ready(function() {
     $('#sendShare').click(function() {
         var recipients = $('#recipients').val();
         
+        // Validar que se ingresen correos
+        if (!recipients) {
+            $('#message').html('Por favor, ingrese al menos un correo electrónico.');
+            return;
+        }
+
+        // Validar formato de correos
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailList = recipients.split(',').map(email => email.trim());
+        if (!emailList.every(email => emailRegex.test(email))) {
+            $('#message').html('Uno o más correos electrónicos no son válidos.');
+            return;
+        }
+
+        // Mostrar estado de carga
+        $('#sendShare').prop('disabled', true).text('Enviando...');
+
         $.ajax({
             url: '<?= base_url('ShareController/share_task') ?>',
             type: 'POST',
@@ -174,19 +176,33 @@ $(document).ready(function() {
                 estado: currentTask.estado,
                 fecha_vencimiento: currentTask.fecha_vencimiento,
                 fecha_recordatorio: currentTask.fecha_recordatorio,
-                recipients: recipients
+                recipients: recipients,
+                <?= csrf_token() ?>: '<?= csrf_hash() ?>'
             },
             dataType: 'json',
             success: function(response) {
+                $('#message').removeClass('text-danger text-success')
+                             .addClass(response.status === 'success' ? 'text-success' : 'text-danger');
                 $('#message').html(response.message);
                 if (response.status === 'success') {
+                    $('#recipients').val('');
                     setTimeout(() => $('#shareModal').modal('hide'), 2000);
                 }
             },
             error: function() {
-                $('#message').html('Error en la conexión');
+                $('#message').removeClass('text-success').addClass('text-danger');
+                $('#message').html('Error en la conexión. Inténtelo de nuevo.');
+            },
+            complete: function() {
+                $('#sendShare').prop('disabled', false).text('Enviar');
             }
         });
+    });
+
+    // Limpiar el modal al cerrarlo
+    $('#shareModal').on('hidden.bs.modal', function() {
+        $('#recipients').val('');
+        $('#message').html('');
     });
 });
 </script>

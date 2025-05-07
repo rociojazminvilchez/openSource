@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Open Source</title>
-  <meta name="description" content="The small framework with powerful features">
+  <meta name="description" content="Formulario de registro de usuario en Open Source. Creá tu cuenta para acceder a todas las funcionalidades.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="<?= base_url('/openSource/public/img/logo.png') ?>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +12,6 @@
 <body>
 
 <?= $this->include('plantilla/navbar') ?>
-
 <div class="container mt-4 mb-5">
   <?php if (session()->get('errors')): ?>
     <div class="alert alert-danger">

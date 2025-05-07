@@ -1,0 +1,76 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+  
+.encabezado-custom thead th {
+    background-color: #262e5b; 
+    padding: 10px;
+    text-align: center;
+    color: white;
+  }
+  .encabezado-custom tbody td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  .encabezado-custom tr {
+    background-color: transparent; 
+  }
+  .contenido-limitado {
+max-width: 100%; 
+margin: 0; /* Sin márgenes laterales */
+padding: 0 10px; /* Un poco de espacio interno para que no quede pegado al borde total */
+}
+
+.alert-info {
+  background-color: rgb(224, 35, 35); 
+  color: white; 
+  padding: 15px 20px;
+  border: none; 
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* ============================================
+        PANEL 
+============================================ */
+
+.card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .card-body h5 {
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  .card-body p {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .text-muted {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 576px) {
+    .card-body h5 {
+      font-size: 1.1rem;
+    }
+
+    .card-body p, .card-body h6 {
+      font-size: 0.9rem;
+    }
+}
+
+

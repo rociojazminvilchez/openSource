@@ -48,7 +48,7 @@ class Tareas extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         
-        $post = $this->request->getPost(['usuario', 'tema', 'descripcion','prioridad','estado','vencimiento','recordatorio','color']);    
+        $post = $this->request->getPost(['usuario', 'tema', 'descripcion','prioridad','estado','vencimiento','recordatorio']);    
         $registroTareaModel = new RegistroTareaModel();
 
 
@@ -62,7 +62,6 @@ class Tareas extends BaseController
             'estado_actualizado' => '',
             'fecha_vencimiento' => $post['vencimiento'],
             'fecha_recordatorio' => $post['recordatorio'],
-            'color' => $post['color'],
         ]);
            
     return redirect()->to('/')->with('mensaje', 'Tarea creada exitosamente.');

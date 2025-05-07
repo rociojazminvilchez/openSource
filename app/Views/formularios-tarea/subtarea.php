@@ -14,7 +14,7 @@
 <?= $this->include('plantilla/navbar') ?>
 <?php if (session()->getFlashdata('mensaje')): ?>
     <div class="alert alert-success">
-        <?= session()->getFlashdata('mensaje') ?>
+      <?= session()->getFlashdata('mensaje') ?>
     </div>
 <?php endif; ?>
 <div class="container mt-4 mb-5">
@@ -27,16 +27,16 @@
       </ul>
     </div>
   <?php endif; ?>
-  <div class="alert alert-warning text-center" role="alert">
+
+<div class="alert alert-warning text-center" role="alert">
   <strong>Atención:</strong> Este panel es para crear una subtarea.
 </div>
-  <div class="d-flex justify-content-end">
-    <a href="<?= base_url('/') ?>" class="btn-close" aria-label="Cerrar"></a>
-  </div>
+<div class="d-flex justify-content-end">
+  <a href="<?= base_url('/') ?>" class="btn-close" aria-label="Cerrar"></a>
+</div>
 
-  <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
-  <h4 class="text-start mb-4">Datos de la Subtarea</h4>
-
+<p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
+<h4 class="text-start mb-4">Datos de la Subtarea</h4>
   <div class="row justify-content-center" >
     <div class="col-md-8" >
       <form action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded" >

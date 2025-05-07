@@ -7,20 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
-  <style>
-      .alert-info {
-    background-color: rgb(224, 35, 35); /* Rojo intenso */
-    color: white; /* Blanco para mejor contraste */
-    padding: 15px 20px;
-    border: none; /* Eliminamos el borde celeste */
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold; /* Letra en negrita */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-}
-  </style>
+  <link rel="stylesheet" href="<?= base_url('/css/menu.css') ?>">
+
 </head>
 <body>
 <?= $this->include('plantilla/navbar'); ?><br>

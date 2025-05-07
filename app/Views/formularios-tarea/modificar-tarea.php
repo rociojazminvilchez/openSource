@@ -8,7 +8,6 @@
   <link rel="icon" href="<?= base_url('/openSource/public/img/logo.png') ?>">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
-
 </head>
 <body>
 
@@ -34,9 +33,8 @@
 <?php $t = $tareas[0]; ?>
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <form action="<?= base_url('menu/tareas/update/' . $t['id']); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded">
-      
-        <div class="mb-3">
+      <form action="<?= base_url('menu/tareas/update/' . $t['id']); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded"> 
+       <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Tema</label>
           <input type="text" name="tema" class="form-control" value="<?= esc($t['tema']); ?>" required>
         </div>
@@ -74,7 +72,6 @@
           <input type="date" name="recordatorio" class="form-control" value="<?= esc($t['fecha_recordatorio']); ?>">
         </div>
 
-
         <div class="d-grid">
           <button type="submit" name="tarea" class="btn text-white" style="background-color: #262e5b;">MODIFICAR</button>
         </div>
@@ -84,7 +81,6 @@
 </div>
 
 <?= $this->include('plantilla/footer') ?>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
