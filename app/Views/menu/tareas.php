@@ -155,6 +155,36 @@
   }
 
   $(document).ready(function() {
+
+    // Establecer los datos de la tarea cuando se hace clic en el botón "Compartir"
+    $('.share-btn').click(function() {
+      // Limpiar el estado actual antes de asignar una nueva tarea
+      currentTask = {
+        task_id: $(this).data('id'),
+        tema: $(this).data('tema'),
+        descripcion: $(this).data('descripcion'),
+        prioridad: $(this).data('prioridad'),
+        estado: $(this).data('estado'),
+        fecha_vencimiento: $(this).data('fecha-vencimiento'),
+        fecha_recordatorio: $(this).data('fecha-recordatorio')
+      };
+      console.log('Tarea seleccionada para compartir:', currentTask); // Depuración
+    });
+
+    // Limpiar datos cuando se abre el modal
+    $('#shareModal').on('show.bs.modal', function() {
+      // Limpia los datos del modal cada vez que se abre
+      $('#recipients').val(''); // Limpiar campo de correos
+      $('#message').html(''); // Limpiar mensaje de error o éxito
+    });
+
+    // Cerrar modal y limpiar datos
+    $('#shareModal').on('hidden.bs.modal', function() {
+      currentTask = {}; // Limpiar datos de la tarea
+      console.log('Datos de la tarea limpiados:', currentTask); // Verificación
+    });
+
+    // Manejar el clic en el botón "Enviar"
     $('#sendShare').click(function() {
       if (!currentTask.task_id) {
         $('#message').removeClass('text-success').addClass('text-danger')
@@ -180,47 +210,47 @@
       const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
       $.ajax({
-        url: '<?= base_url('sharecontroller/share_task') ?>',
-        type: 'POST',
-        data: {
-          task_id: currentTask.task_id,
-          tema: currentTask.tema,
-          descripcion: currentTask.descripcion,
-          prioridad: currentTask.prioridad,
-          estado: currentTask.estado,
-          fecha_vencimiento: currentTask.fecha_vencimiento,
-          fecha_recordatorio: currentTask.fecha_recordatorio,
-          recipients: recipients,
-          [csrfTokenName]: csrfToken
-        },
-        dataType: 'json',
-        success: function(response) {
-          $('#message').removeClass('text-danger text-success')
-                       .addClass(response.status === 'success' ? 'text-success' : 'text-danger')
-                       .html(response.message);
+    url: '<?= base_url('sharecontroller/share_task') ?>',
+    type: 'POST',
+    data: {
+        task_id: currentTask.task_id,
+        tema: currentTask.tema,
+        descripcion: currentTask.descripcion,
+        prioridad: currentTask.prioridad,
+        estado: currentTask.estado,
+        fecha_vencimiento: currentTask.fecha_vencimiento,
+        fecha_recordatorio: currentTask.fecha_recordatorio,
+        recipients: recipients,
+        [csrfTokenName]: csrfToken
+    },
+    dataType: 'json',
+    success: function(response) {
+        $('#message').removeClass('text-danger text-success')
+                     .addClass(response.status === 'success' ? 'text-success' : 'text-danger')
+                     .html(response.message);
 
-          if (response.status === 'success') {
+        if (response.status === 'success') {
             $('#recipients').val('');
             setTimeout(() => $('#shareModal').modal('hide'), 2000);
-          }
-        },
-        error: function() {
-          $('#message').removeClass('text-success').addClass('text-danger')
-                       .html('Error en la conexión. Inténtelo de nuevo.');
-        },
-        complete: function() {
-          $('#sendShare').prop('disabled', false).text('Enviar');
         }
-      });
-    });
+    },
+    error: function(xhr, status, error) {
+        console.error('AJAX Error: ', xhr.responseText); // Detalles de la respuesta del servidor
+        console.error('Status: ', status); // Estado del error
+        console.error('Error: ', error); // Detalles del error
 
-    $('#shareModal').on('hidden.bs.modal', function() {
-      $('#recipients').val('');
-      $('#message').html('');
-      currentTask = {};
+        $('#message').removeClass('text-success').addClass('text-danger');
+        $('#message').html('Error en la conexión. Inténtelo de nuevo.');
+    },
+    complete: function() {
+        $('#sendShare').prop('disabled', false).text('Enviar');
+    }
+});
+
     });
   });
 </script>
+
 
 <?= $this->include('plantilla/footer'); ?>
 
