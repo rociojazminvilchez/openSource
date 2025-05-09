@@ -60,4 +60,5 @@ $routes->get('/menu/subtareas/(:num)/(:num)','Subtareas::actualizarSubtarea/$1/$
 $routes->get('/salir', 'Home::salir');
 
 #COMPARTIR
-$routes->post('ShareController/share_task', 'ShareController::share_task', ['as' => 'share_task']);
+$routes->post('sharecontroller/share_task', 'ShareController::share_task');
+$routes->get('emailcontroller/enviarcorreo', 'EmailController::enviarCorreo');

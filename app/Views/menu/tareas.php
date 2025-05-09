@@ -5,10 +5,13 @@
   <title>Open Source</title>
   <meta name="description" content="The small framework with powerful features">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="<?= csrf_hash() ?>">
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('public/img/logo.png') ?>">
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('/css/menu.css') ?>">
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div id="inicio"></div>
@@ -71,7 +74,7 @@
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($tareas as $t): if ($t['estado_actualizado'] == ''): ?>
+        <?php  foreach ($tareas as $t): if (empty($t['estado_actualizado'])): ?>
         <tr>
           <td><?= $t['id']; ?></td>
           <td><?= $t['tema']; ?></td>
@@ -83,16 +86,21 @@
             <?= ($t['fecha_recordatorio'] != '0000-00-00') ? (new DateTime($t['fecha_recordatorio']))->format('d-m-Y') : ''; ?>
           </td>
           <td><a href="<?= site_url('menu/tarea/' . $t['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a></td>
-          <td><button class="btn btn-primary btn-sm share-btn" 
-                    data-id="<?= $t['id']; ?>"
-                    data-tema="<?= $t['tema']; ?>"
-                    data-descripcion="<?= $t['descripcion']; ?>"
-                    data-prioridad="<?= $t['prioridad']; ?>"
-                    data-estado="<?= $t['estado']; ?>"
-                    data-fecha-vencimiento="<?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>"
-                    data-fecha-recordatorio="<?= ($t['fecha_recordatorio'] != '0000-00-00') ? (new DateTime($t['fecha_recordatorio']))->format('d-m-Y') : ''; ?>"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#shareModal">🔗 Compartir</button></td>
+          <td>
+  <button class="btn btn-primary btn-sm share-btn"
+    data-bs-toggle="modal"
+    data-bs-target="#shareModal"
+    data-id="<?= $t['id']; ?>"
+    data-tema="<?= $t['tema']; ?>"
+    data-descripcion="<?= $t['descripcion']; ?>"
+    data-prioridad="<?= $t['prioridad']; ?>"
+    data-estado="<?= $t['estado']; ?>"
+    data-fecha-vencimiento="<?= $t['fecha_vencimiento']; ?>"
+    data-fecha-recordatorio="<?= $t['fecha_recordatorio']; ?>"
+    onclick="setCurrentTask(this)"
+  >🔗 Compartir</button>
+</td>
+
           <td><a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger btn-sm">🗑️ Eliminar</a></td>
         </tr>
         <?php endif; endforeach; ?>
@@ -101,7 +109,7 @@
   </div>
 </div>
 
-<!-- Modal para compartir -->
+<!-- modal compartir tarea -->
 <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -130,82 +138,90 @@
 
         <!-- COMPARTIR -->
         <script>
-$(document).ready(function() {
-    let currentTask = {};
-    
-    $('.share-btn').click(function() {
-        currentTask = {
-            task_id: $(this).data('id'),
-            tema: $(this).data('tema'),
-            descripcion: $(this).data('descripcion'),
-            prioridad: $(this).data('prioridad'),
-            estado: $(this).data('estado'),
-            fecha_vencimiento: $(this).data('fecha-vencimiento'),
-            fecha_recordatorio: $(this).data('fecha-recordatorio')
-        };
-    });
-    
+  let currentTask = {}; // Definido globalmente
+
+  function setCurrentTask(btn) {
+    const $btn = $(btn);
+    currentTask = {
+      task_id: $btn.data('id'),
+      tema: $btn.data('tema'),
+      descripcion: $btn.data('descripcion'),
+      prioridad: $btn.data('prioridad'),
+      estado: $btn.data('estado'),
+      fecha_vencimiento: $btn.data('fecha-vencimiento'),
+      fecha_recordatorio: $btn.data('fecha-recordatorio')
+    };
+    console.log('Tarea seleccionada desde onclick:', currentTask);
+  }
+
+  $(document).ready(function() {
     $('#sendShare').click(function() {
-        var recipients = $('#recipients').val();
-        
-        // Validar que se ingresen correos
-        if (!recipients) {
-            $('#message').html('Por favor, ingrese al menos un correo electrónico.');
-            return;
+      if (!currentTask.task_id) {
+        $('#message').removeClass('text-success').addClass('text-danger')
+                     .html('Error: no se ha seleccionado una tarea para compartir.');
+        return;
+      }
+
+      const recipients = $('#recipients').val();
+      if (!recipients) {
+        $('#message').html('Por favor, ingrese al menos un correo electrónico.');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailList = recipients.split(',').map(email => email.trim());
+      if (!emailList.every(email => emailRegex.test(email))) {
+        $('#message').html('Uno o más correos electrónicos no son válidos.');
+        return;
+      }
+
+      $('#sendShare').prop('disabled', true).text('Enviando...');
+      const csrfTokenName = '<?= csrf_token() ?>';
+      const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+      $.ajax({
+        url: '<?= base_url('sharecontroller/share_task') ?>',
+        type: 'POST',
+        data: {
+          task_id: currentTask.task_id,
+          tema: currentTask.tema,
+          descripcion: currentTask.descripcion,
+          prioridad: currentTask.prioridad,
+          estado: currentTask.estado,
+          fecha_vencimiento: currentTask.fecha_vencimiento,
+          fecha_recordatorio: currentTask.fecha_recordatorio,
+          recipients: recipients,
+          [csrfTokenName]: csrfToken
+        },
+        dataType: 'json',
+        success: function(response) {
+          $('#message').removeClass('text-danger text-success')
+                       .addClass(response.status === 'success' ? 'text-success' : 'text-danger')
+                       .html(response.message);
+
+          if (response.status === 'success') {
+            $('#recipients').val('');
+            setTimeout(() => $('#shareModal').modal('hide'), 2000);
+          }
+        },
+        error: function() {
+          $('#message').removeClass('text-success').addClass('text-danger')
+                       .html('Error en la conexión. Inténtelo de nuevo.');
+        },
+        complete: function() {
+          $('#sendShare').prop('disabled', false).text('Enviar');
         }
-
-        // Validar formato de correos
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const emailList = recipients.split(',').map(email => email.trim());
-        if (!emailList.every(email => emailRegex.test(email))) {
-            $('#message').html('Uno o más correos electrónicos no son válidos.');
-            return;
-        }
-
-        // Mostrar estado de carga
-        $('#sendShare').prop('disabled', true).text('Enviando...');
-
-        $.ajax({
-            url: '<?= base_url('ShareController/share_task') ?>',
-            type: 'POST',
-            data: {
-                task_id: currentTask.task_id,
-                tema: currentTask.tema,
-                descripcion: currentTask.descripcion,
-                prioridad: currentTask.prioridad,
-                estado: currentTask.estado,
-                fecha_vencimiento: currentTask.fecha_vencimiento,
-                fecha_recordatorio: currentTask.fecha_recordatorio,
-                recipients: recipients,
-                <?= csrf_token() ?>: '<?= csrf_hash() ?>'
-            },
-            dataType: 'json',
-            success: function(response) {
-                $('#message').removeClass('text-danger text-success')
-                             .addClass(response.status === 'success' ? 'text-success' : 'text-danger');
-                $('#message').html(response.message);
-                if (response.status === 'success') {
-                    $('#recipients').val('');
-                    setTimeout(() => $('#shareModal').modal('hide'), 2000);
-                }
-            },
-            error: function() {
-                $('#message').removeClass('text-success').addClass('text-danger');
-                $('#message').html('Error en la conexión. Inténtelo de nuevo.');
-            },
-            complete: function() {
-                $('#sendShare').prop('disabled', false).text('Enviar');
-            }
-        });
+      });
     });
 
-    // Limpiar el modal al cerrarlo
     $('#shareModal').on('hidden.bs.modal', function() {
-        $('#recipients').val('');
-        $('#message').html('');
+      $('#recipients').val('');
+      $('#message').html('');
+      currentTask = {};
     });
-});
+  });
 </script>
+
 <?= $this->include('plantilla/footer'); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
