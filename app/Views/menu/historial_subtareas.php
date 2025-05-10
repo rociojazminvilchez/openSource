@@ -65,6 +65,7 @@
           <th scope="col">Fecha Vencimiento</th>
           <th scope="col">Comentario</th>
           <th scope="col">Responsable</th>
+          <th scope="col">Colaborador</th>
           <th scope="col">Tarea</th>
         </tr>
       </thead>
@@ -80,6 +81,7 @@
             </td>
             <td><?= $s['comentario']; ?></td>
             <td><?= $s['responsable']; ?></td>
+            <td><?= $s['colaborador']; ?></td>
             <td>
               <a href="<?= base_url('/menu/panel_completo/' . $s['tarea'] . '/' . $s['tarea']); ?>" class="btn btn-danger">Mostrar</a>
             </td>

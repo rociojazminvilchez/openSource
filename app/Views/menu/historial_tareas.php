@@ -62,6 +62,7 @@
           <th scope="col">Estado Actual</th>
           <th scope="col">Fecha Vencimiento</th>
           <th scope="col">Fecha Recordatorio</th>
+          <th scope="col">Colaborador</th>
           <th scope="col">SUBTAREA</th>
         </tr>
       </thead>
@@ -80,6 +81,7 @@
           <?php } else{ ?>
             <td> </td>
           <?php } ?>
+          <td><?= $t['colaborador']; ?></td>
           <td>
           <?php
             $subtareasCount = [];  // Nro de subtareas

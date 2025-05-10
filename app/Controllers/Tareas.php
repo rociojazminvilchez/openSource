@@ -188,6 +188,12 @@ class Tareas extends BaseController
     $vencimiento = $this->request->getPost('fecha_vencimiento');
     $recordatorio = $this->request->getPost('fecha_recordatorio');
 
+    $vencimiento = new DateTime($vencimiento); 
+    $vencimiento = $vencimiento->format('d-m-Y');
+
+    $recordatorio = new DateTime($recordatorio); 
+    $recordatorio = $recordatorio->format('d-m-Y');
+    
     // Agregar colaborador a la bd
     $registroTareaModel->update($id,[
         'colaborador' => $emailList,
@@ -201,7 +207,7 @@ class Tareas extends BaseController
     $email->setFrom('openSource@gmail.com', 'Gestor de Tareas');
     $email->setTo($destinatarios);
 
-    $email->setSubject("Tarea: $tema");
+    $email->setSubject("Invitación a colaborar en la tarea: $tema");
 
     $mensaje = "
         <h3>📌 Información de la tarea</h3>
@@ -213,6 +219,7 @@ class Tareas extends BaseController
             <li><strong>Fecha de vencimiento:</strong> $vencimiento</li>
             <li><strong>Recordatorio:</strong> $recordatorio</li>
         </ul>
+           <p><strong>Haz clic aquí para ver y gestionar la tarea: </strong><a href='http://localhost/openSource/public/'>Acceder a la tarea</a></p>
     ";
 
     $email->setMessage($mensaje);
@@ -225,5 +232,4 @@ class Tareas extends BaseController
     }
     }
 
-    
 }

@@ -59,10 +59,10 @@ $routes->get('/menu/subtareas/(:num)/(:num)','Subtareas::actualizarSubtarea/$1/$
 #Salir
 $routes->get('/salir', 'Home::salir');
 
-#COMPARTIR
-$routes->post('sharecontroller/share_task', 'ShareController::share_task');
-$routes->get('emailcontroller/enviarcorreo', 'EmailController::enviarCorreo');
-$routes->get('correo', 'EmailController::enviarCorreo');
-
+#Compartir - Tarea
 $routes->get('formularios-tarea/enviartarea/(:num)', 'Tareas::tareaEnviar/$1');
 $routes->post('formularios-tarea/enviartarea/tareas/enviar', 'Tareas::enviar');
+
+#Compartir - SubTarea
+$routes->get('formularios-tarea/enviarsubtarea/(:num)', 'Subtareas::subtareaEnviar/$1');
+$routes->post('formularios-tarea/enviarsubtarea/subtareas/enviar', 'Subtareas::enviar');
