@@ -62,3 +62,7 @@ $routes->get('/salir', 'Home::salir');
 #COMPARTIR
 $routes->post('sharecontroller/share_task', 'ShareController::share_task');
 $routes->get('emailcontroller/enviarcorreo', 'EmailController::enviarCorreo');
+$routes->get('correo', 'EmailController::enviarCorreo');
+
+$routes->get('formularios-tarea/enviartarea/(:num)', 'Tareas::tareaEnviar/$1');
+$routes->post('formularios-tarea/enviartarea/tareas/enviar', 'Tareas::enviar');

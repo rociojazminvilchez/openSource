@@ -162,4 +162,68 @@ class Tareas extends BaseController
 
     return redirect()->to('/menu/tareas')->with('mensaje', 'Tarea modificada exitosamente.');
    }
+
+   #ENVIAR TAREA
+    public function tareaEnviar($id=null){
+    $RegistroTareaModel = new RegistroTareaModel();
+    if (session()->has('usuario')) {
+        $correo= $_SESSION['usuario'];
+      }
+    $data = [
+        'tareas' => $RegistroTareaModel->mostrarTareaID(['id'=>$id])
+    ];
+    return view('formularios-tarea/enviartarea',$data);
+   }
+
+
+    public function enviar() {
+    $registroTareaModel = new RegistroTareaModel();
+
+    $id = $this->request->getPost('id');
+    $emailList = $this->request->getPost('correos');
+    $tema = $this->request->getPost('tema');
+    $descripcion = $this->request->getPost('descripcion');
+    $prioridad = $this->request->getPost('prioridad');
+    $estado = $this->request->getPost('estado');
+    $vencimiento = $this->request->getPost('fecha_vencimiento');
+    $recordatorio = $this->request->getPost('fecha_recordatorio');
+
+    // Agregar colaborador a la bd
+    $registroTareaModel->update($id,[
+        'colaborador' => $emailList,
+    ]);
+
+    // Convertir lista de correos en array
+    $destinatarios = array_map('trim', explode(',', $emailList));
+
+    $email = \Config\Services::email();
+
+    $email->setFrom('openSource@gmail.com', 'Gestor de Tareas');
+    $email->setTo($destinatarios);
+
+    $email->setSubject("Tarea: $tema");
+
+    $mensaje = "
+        <h3>📌 Información de la tarea</h3>
+        <ul>
+            <li><strong>Tema:</strong> $tema</li>
+            <li><strong>Descripción:</strong> $descripcion</li>
+            <li><strong>Prioridad:</strong> $prioridad</li>
+            <li><strong>Estado:</strong> $estado</li>
+            <li><strong>Fecha de vencimiento:</strong> $vencimiento</li>
+            <li><strong>Recordatorio:</strong> $recordatorio</li>
+        </ul>
+    ";
+
+    $email->setMessage($mensaje);
+
+    if ($email->send()) {
+        return redirect()->to('/menu/tareas')->with('mensaje', '📧 Correo enviado con éxito.');
+        
+    } else {
+       return redirect()->to('/menu/tareas')->with('error', '❌ No se pudo enviar el correo.');
+    }
+    }
+
+    
 }

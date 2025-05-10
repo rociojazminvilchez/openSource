@@ -15,7 +15,7 @@ class Email extends BaseConfig
     public string $mailPath = '/usr/sbin/sendmail';
     public string $SMTPHost = 'smtp.gmail.com';
     public string $SMTPUser = 'rociojazminvilchez@gmail.com';
-    public string $SMTPPass = 'ozsf hqld exau lngb';
+    public string $SMTPPass = 'ozsfhqldexaulngb';
     public int $SMTPPort = 587;
 
     public int $SMTPTimeout = 5;
@@ -24,7 +24,7 @@ class Email extends BaseConfig
 
     public bool $wordWrap = true;
     public int $wrapChars = 76;
-    public string $mailType = 'text';
+    public string $mailType = 'html';
     public string $charset = 'UTF-8';
     public bool $validate = true;
     public int $priority = 3;
