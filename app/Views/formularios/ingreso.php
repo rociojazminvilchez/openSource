@@ -30,6 +30,7 @@
 <div class="row justify-content-center">
   <div class="col-md-6 col-sm-10">
     <form action="<?= base_url('/home/login') ?>" method="POST" class="p-4 bg-white shadow rounded">
+      <?= csrf_field() ?>
       <h2 class="mb-4 text-center">Iniciar sesión</h2>
         <div class="mb-3">
           <label for="usuario" class="form-label">E-mail:</label>

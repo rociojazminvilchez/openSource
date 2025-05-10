@@ -37,7 +37,7 @@
     </div>
 
     <div class="dropdown" style="margin-left: center;">
-      <button type="button" class="btn dropdown-toggle" style="background-color: #262e5b; border: none;" data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" class="btn dropdown-toggle" style=" border: none;" data-bs-toggle="dropdown" aria-expanded="false">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
           <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0 32c-79.5 0-224 39.8-224 120v24c0 13.3 10.7 24 24 24h400c13.3 0 24-10.7 24-24v-24c0-80.2-144.5-120-224-120z"/>
         </svg>
