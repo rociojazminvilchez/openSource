@@ -127,4 +127,72 @@ class Subtareas extends BaseController{
     return redirect()->to('/menu/subtareas')->with('mensaje', 'Subtarea modificada exitosamente.');
    }
 
+#COMPARTIR SUBTAREA
+    public function subtareaEnviar($id=null){
+    $RegistroSubtareaModel = new RegistroSubtareaModel();
+    if (session()->has('usuario')) {
+        $correo= $_SESSION['usuario'];
+      }
+    $data = [
+        'subtareas' => $RegistroTareaModel->mostrarSubtareaID(['id'=>$id])
+    ];
+    return view('formularios-tarea/enviarsubtarea',$data);
+   }
+
+
+    public function enviar() {
+    $RegistroSubtareaModel = new RegistroSubtareaModel();
+
+    $id = $this->request->getPost('id');
+    $emailList = $this->request->getPost('correos');
+    $tarea = $this->request->getPost('tarea');
+    $descripcion = $this->request->getPost('descripcion');
+    $estado = $this->request->getPost('estado');
+    $prioridad = $this->request->getPost('prioridad');
+    $comentario = $this->request->getPost('comentario');
+    $responsable = $this->request->getPost('responsable');
+    $vencimiento = $this->request->getPost('fecha_vencimiento');
+
+
+    $vencimiento = new DateTime($vencimiento); 
+    $vencimiento = $vencimiento->format('d-m-Y');
+    
+    // Agregar colaborador a la bd
+    $registroSubtareaModel->update($id,[
+        'colaborador' => $emailList,
+    ]);
+
+    // Convertir lista de correos en array
+    $destinatarios = array_map('trim', explode(',', $emailList));
+
+    $email = \Config\Services::email();
+
+    $email->setFrom('openSource@gmail.com', 'Gestor de Subtareas');
+    $email->setTo($destinatarios);
+
+    $email->setSubject("Invitación a colaborar en la subtarea: $tema");
+
+    $mensaje = "
+        <h3>📌 Información de la subtarea</h3>
+        <ul>
+            <li><strong>Codigo de la tarea:</strong> $tarea</li>
+            <li><strong>Descripción:</strong> $descripcion</li>
+            <li><strong>Estado:</strong> $estado</li>
+            <li><strong>Prioridad:</strong> $prioridad</li>
+            <li><strong>Comentario:</strong> $recordatorio</li>
+            <li><strong>Comentario:</strong> $responsable</li>
+            <li><strong>Fecha de vencimiento:</strong> $vencimiento</li> 
+        </ul>
+           <p><strong>Haz clic aquí para ver y gestionar la subtarea: </strong><a href='http://localhost/openSource/public/'>Acceder a la tarea</a></p>
+    ";
+
+    $email->setMessage($mensaje);
+
+    if ($email->send()) {
+        return redirect()->to('/menu/subtareas')->with('mensaje', '📧 Correo enviado con éxito.');
+        
+    } else {
+       return redirect()->to('/menu/subtareas')->with('error', '❌ No se pudo enviar el correo.');
+    }
+    }
 }

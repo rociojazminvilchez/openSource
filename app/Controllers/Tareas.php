@@ -163,7 +163,7 @@ class Tareas extends BaseController
     return redirect()->to('/menu/tareas')->with('mensaje', 'Tarea modificada exitosamente.');
    }
 
-   #ENVIAR TAREA
+#COMPARTIR TAREA
     public function tareaEnviar($id=null){
     $RegistroTareaModel = new RegistroTareaModel();
     if (session()->has('usuario')) {
@@ -193,7 +193,7 @@ class Tareas extends BaseController
 
     $recordatorio = new DateTime($recordatorio); 
     $recordatorio = $recordatorio->format('d-m-Y');
-    
+
     // Agregar colaborador a la bd
     $registroTareaModel->update($id,[
         'colaborador' => $emailList,
