@@ -81,7 +81,7 @@
               }
               ?> 
               <td> <a href="<?= site_url('menu/subtarea/' . $s['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a> </td>
-             <td><button class="btn btn-primary btn-sm">🔗 Compartir</button></td>
+             <td><a href="<?= site_url('formularios-tarea/enviarsubtarea/' . $s['id']); ?>" class="btn btn-primary btn-sm">🔗 Compartir</button></td>
              <td><a href="<?= site_url('menu/subtareas/' . $s['id']); ?>" class="btn btn-danger btn-sm">🗑️ Eliminar</a></td>
             </tr>
           <?php endforeach; ?>

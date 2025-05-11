@@ -134,14 +134,14 @@ class Subtareas extends BaseController{
         $correo= $_SESSION['usuario'];
       }
     $data = [
-        'subtareas' => $RegistroTareaModel->mostrarSubtareaID(['id'=>$id])
+        'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID(['id'=>$id])
     ];
     return view('formularios-tarea/enviarsubtarea',$data);
    }
 
 
     public function enviar() {
-    $RegistroSubtareaModel = new RegistroSubtareaModel();
+    $registroSubtareaModel = new RegistroSubtareaModel();
 
     $id = $this->request->getPost('id');
     $emailList = $this->request->getPost('correos');
@@ -153,8 +153,7 @@ class Subtareas extends BaseController{
     $responsable = $this->request->getPost('responsable');
     $vencimiento = $this->request->getPost('fecha_vencimiento');
 
-
-    $vencimiento = new DateTime($vencimiento); 
+    $vencimiento = new \DateTime($vencimiento); 
     $vencimiento = $vencimiento->format('d-m-Y');
     
     // Agregar colaborador a la bd
@@ -170,7 +169,7 @@ class Subtareas extends BaseController{
     $email->setFrom('openSource@gmail.com', 'Gestor de Subtareas');
     $email->setTo($destinatarios);
 
-    $email->setSubject("Invitación a colaborar en la subtarea: $tema");
+    $email->setSubject("Invitación a colaborar en la subtarea: $id");
 
     $mensaje = "
         <h3>📌 Información de la subtarea</h3>
@@ -179,8 +178,8 @@ class Subtareas extends BaseController{
             <li><strong>Descripción:</strong> $descripcion</li>
             <li><strong>Estado:</strong> $estado</li>
             <li><strong>Prioridad:</strong> $prioridad</li>
-            <li><strong>Comentario:</strong> $recordatorio</li>
-            <li><strong>Comentario:</strong> $responsable</li>
+            <li><strong>Comentario:</strong> $comentario</li>
+            <li><strong>Rsponsable:</strong> $responsable</li>
             <li><strong>Fecha de vencimiento:</strong> $vencimiento</li> 
         </ul>
            <p><strong>Haz clic aquí para ver y gestionar la subtarea: </strong><a href='http://localhost/openSource/public/'>Acceder a la tarea</a></p>

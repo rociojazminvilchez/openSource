@@ -3,8 +3,7 @@
 namespace App\Controllers;
 use App\Models\RegistroTareaModel;
 
-class Tareas extends BaseController
-{
+class Tareas extends BaseController{
 
     public function index()
     {
@@ -188,10 +187,11 @@ class Tareas extends BaseController
     $vencimiento = $this->request->getPost('fecha_vencimiento');
     $recordatorio = $this->request->getPost('fecha_recordatorio');
 
-    $vencimiento = new DateTime($vencimiento); 
+    $vencimiento = new \DateTime($vencimiento); 
+ 
     $vencimiento = $vencimiento->format('d-m-Y');
 
-    $recordatorio = new DateTime($recordatorio); 
+    $recordatorio = new \DateTime($recordatorio); 
     $recordatorio = $recordatorio->format('d-m-Y');
 
     // Agregar colaborador a la bd
