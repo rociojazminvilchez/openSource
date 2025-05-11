@@ -57,6 +57,7 @@ class Home extends Controller{
     }
    }
 
+#ACTUALIZAR PERFIL USUARIO
    public function update(){
     $reglas = [
         'nombre' => [
@@ -90,7 +91,6 @@ class Home extends Controller{
     ];
     
     // Si la validación falla, redirigir de vuelta con los datos ingresados
-   
     if (!$this->validate($reglas)) {
         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
     }
@@ -107,8 +107,9 @@ class Home extends Controller{
         'contra2' => $post['contra2'],
     ]);
        
-return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
-}
+    return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
+   }
+
 #REGISTRAR USUARIO
     public function registro(){
         return view('formularios/registro');
@@ -155,7 +156,6 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
         ];
         
         // Si la validación falla, redirigir de vuelta con los datos ingresados
-       
         if (!$this->validate($reglas)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
@@ -172,7 +172,7 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
         ]);
            
     return redirect()->to('/formularios/ingreso')->with('mensaje', 'Usuario registrado exitosamente.');
-   }
+}
 
 #Formularios - Tareas | Subtarea
     public function tarea() {
@@ -181,29 +181,39 @@ return redirect()->to('/')->with('mensaje', 'Perfil actualizado exitosamente.');
 
     public function subtarea() {
         $RegistroTareaModel = new RegistroTareaModel();
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
-          }
+            $correo = $session->get('usuario');
+        }else {
+        return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder a las subtareas.');
+        }
+
         $data = [
             'tareas' => $RegistroTareaModel->seleccionarTarea(['correo'=>$correo])
         ];
         return view('formularios-tarea/subtarea',$data);
     }  
 
-#Menu
+#PANEL PRINCIPAL (color)
     public function panel() {
         $RegistroTareaModel = new RegistroTareaModel();
         $RegistroSubtareaModel = new RegistroSubtareaModel();
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
-          }
+           $correo = $session->get('usuario');
+        }else {
+        return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel.');
+        }
+
         $data = [
             'tareas' => $RegistroTareaModel->mostrarTarea(['correo'=>$correo]),
             'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable'=>$correo])
         ];
+
         return view('menu/panel',$data);
     }   
 
+#PANEL TAREA|SUBTAREA
     public function panelCompleto($tarea, $subtarea) {
         $RegistroTareaModel = new RegistroTareaModel();
         $RegistroSubtareaModel = new RegistroSubtareaModel();
