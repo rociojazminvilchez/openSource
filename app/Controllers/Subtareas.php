@@ -184,7 +184,6 @@ class Subtareas extends BaseController{
     $registroSubtareaModel->update($id, [
     'colaborador' => $colaboradoresFinal
     ]);
-    // Agregar colaborador a la bd
 
     // Convertir lista de correos en array
     $destinatarios = array_map('trim', explode(',', $emailList));

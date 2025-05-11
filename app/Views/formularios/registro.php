@@ -33,7 +33,8 @@
   <div class="row justify-content-center mt-3">
     <div class="col-md-6">
       <form action="<?= base_url('home/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded">
-        <div class="mb-3">
+        <?= csrf_field() ?>  
+      <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Nombre</label>
           <input type="text" name="nombre" class="form-control" value="<?= old('nombre') ?>" required>
         </div>

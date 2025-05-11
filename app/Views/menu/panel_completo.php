@@ -47,6 +47,7 @@
   </thead>
   <tbody>
 <!-- TAREA  -->
+ <tr><td><strong>ID</strong></td><td><?= $tareas[0]['id']; ?></td></tr>
     <tr><td><strong>Tema</strong></td><td><?= $tareas[0]['tema']; ?></td></tr>
     <tr><td><strong>Descripción</strong></td><td><?= $tareas[0]['descripcion']; ?></td></tr>
     <tr><td><strong>Prioridad</strong></td><td><?= $tareas[0]['prioridad']; ?></td></tr>

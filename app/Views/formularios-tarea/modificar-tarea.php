@@ -47,7 +47,8 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <form action="<?= base_url('menu/tareas/update/' . $t['id']); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded"> 
-       <div class="mb-3">
+      <?= csrf_field() ?>  
+      <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Tema</label>
           <input type="text" name="tema" class="form-control" value="<?= esc($t['tema']); ?>" required>
         </div>
@@ -69,7 +70,6 @@
         <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Estado</label>
           <select name="estado" class="form-select" required>
-            <option value="1"  <?= ($t['estado'] === 'Definido') ? 'selected' : '' ?>>Definido</option>
             <option value="2"  <?= ($t['estado'] === 'En proceso') ? 'selected' : '' ?>>En proceso</option>
             <option value="3"  <?= ($t['estado'] === 'Completada') ? 'selected' : '' ?>>Completada</option>
           </select>

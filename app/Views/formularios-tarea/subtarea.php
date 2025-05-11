@@ -49,7 +49,8 @@
   <div class="row justify-content-center" >
     <div class="col-md-8" >
       <form action="<?= base_url('subtareas/create'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 bg-white shadow rounded" >
-        <div class="mb-3" >
+      <?= csrf_field() ?>  
+      <div class="mb-3" >
           <label class="form-label"><span class="text-danger">*</span> Tema</label>
           <select name="tarea" class="form-select" required>
             <?php foreach ($tareas as $t): ?>
