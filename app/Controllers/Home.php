@@ -7,10 +7,9 @@ use App\Models\IngresoModel;
 use App\Models\RegistroUsuarioModel;
 use App\Models\RegistroTareaModel;
 use App\Models\RegistroSubtareaModel;
-class Home extends Controller
-{
-    public function index(): string
-    {
+
+class Home extends Controller{
+    public function index(): string{
         return view('inicio');
     }
 
@@ -20,37 +19,42 @@ class Home extends Controller
     }
     
     public function login(){
-        $usuario = $this->request->getPost('usuario');    
-        $contra = $this->request->getPost('contra');
-           
-        $ingresoModel = new IngresoModel();
-        $data = $ingresoModel->obtenerUsuario(['correo' => $usuario,'contra' => $contra]);
-        
-        if(count($data) > 0){
-        // MANEJO DE SESION
-            $data = [
-                'usuario' => $usuario,
-            ];
-            $session = session();
-            $session -> set($data);
-                
-            return redirect()->to('/')->with('mensaje', '¡Bienvenido nuevamente!');
-        }else{
-        ?> <?php
-            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Datos incorrectos. Ingrese nuevamente'); 
-        }
+    $usuario = $this->request->getPost('usuario');    
+    $contra = $this->request->getPost('contra');
+       
+    $ingresoModel = new IngresoModel();
+    $data = $ingresoModel->obtenerUsuario([
+        'correo' => $usuario,
+        'contra' => $contra
+    ]);
+
+    if (!empty($data) && is_array($data)) {
+        // Iniciar sesión
+        $session = session();
+        $session->set([
+            'usuario'  => $data[0]['correo'], 
+            'logueado' => true
+        ]);
+
+        return redirect()->to('/')->with('mensaje', '¡Bienvenido!');
+    } else {
+        return redirect()->to('formularios/ingreso')->with('mensajeError', 'Datos incorrectos. Ingrese nuevamente.');
+    }
     }
 
 #PERFIL USUARIO
     public function perfil(){
-        if (session()->has('usuario')) {
-            $usuario= $_SESSION['usuario'];
-        }
-     $registrousuarioModel = new RegistroUsuarioModel();
-     $data = [
-        'usuario' => $registrousuarioModel->obtenerUsuario(['correo'=>$usuario]),
-    ];
-    return view ('/perfil', $data);
+    $session = session();
+    if (session()->has('usuario')) {
+        $usuario = $session->get('usuario');
+        $registrousuarioModel = new RegistroUsuarioModel();
+        $data = [
+            'usuario' => $registrousuarioModel->obtenerUsuario(['correo'=>$usuario]),
+        ];
+      return view('perfil', $data);
+    } else {
+        return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para ver tu perfil.');
+    }
    }
 
    public function update(){
