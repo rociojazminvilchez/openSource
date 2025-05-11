@@ -22,8 +22,8 @@ class Home extends Controller{
     $usuario = $this->request->getPost('usuario');    
     $contra = $this->request->getPost('contra');
        
-    $ingresoModel = new IngresoModel();
-    $data = $ingresoModel->obtenerUsuario([
+    $registroUsuarioModel = new RegistroUsuarioModel();
+    $data = $registroUsuarioModel->obtenerUsuario([
         'correo' => $usuario,
         'contra' => $contra
     ]);

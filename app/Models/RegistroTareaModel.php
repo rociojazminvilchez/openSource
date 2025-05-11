@@ -14,7 +14,10 @@ class RegistroTareaModel extends Model{
    public function mostrarTarea($data){
     $Usuario = $this->db->table('registro_tarea');
     if (isset($data['correo'])) {
-        $Usuario->where('correo', $data['correo']);
+         $Usuario->groupStart() 
+                ->where('correo', $data['correo'])
+                ->orWhere('colaborador', $data['correo'])
+                ->groupEnd(); 
     }
   
     if (isset($data['ordenar']) && in_array($data['ordenar'], ['fecha_vencimiento', 'prioridad', 'estado'])) {

@@ -99,7 +99,9 @@ $correos="";?>
           </td>
           <td><a href="<?= site_url('menu/tarea/' . $t['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a></td>
           <td> <a href="<?= site_url('formularios-tarea/enviartarea/' . $t['id']); ?>" class="btn btn-primary btn-sm">🔗 Compartir</a></td>
+           <?php if ($t['correo'] == session()->get('usuario')): ?>
           <td><a href="<?= site_url('menu/tareas/' . $t['id']); ?>" class="btn btn-danger btn-sm">🗑️ Eliminar</a></td>
+        <?php  endif; ?>
         </tr>
         <?php endif; endforeach; ?>
       </tbody>

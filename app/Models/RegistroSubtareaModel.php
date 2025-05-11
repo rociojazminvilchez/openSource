@@ -14,7 +14,10 @@ class RegistroSubtareaModel extends Model{
    public function mostrarSubtarea($data){
     $Usuario = $this->db->table('registro_subtarea');
 	if (isset($data['responsable'])) {
-        $Usuario->where('responsable', $data['responsable']);
+        $Usuario->groupStart() 
+        ->where('responsable', $data['responsable'])
+            ->orWhere('colaborador', $data['responsable'])
+            ->groupEnd();    
     }
 
     if (isset($data['ordenar']) && in_array($data['ordenar'], ['fecha_vencimiento', 'prioridad', 'estado'])) {
