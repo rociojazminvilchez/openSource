@@ -217,9 +217,13 @@ class Home extends Controller{
     public function panelCompleto($tarea, $subtarea) {
         $RegistroTareaModel = new RegistroTareaModel();
         $RegistroSubtareaModel = new RegistroSubtareaModel();
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
-          }
+            $correo = $session->get('usuario');
+        }else {
+        return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel.');
+        }
+
         $data = [
             'tareas' => $RegistroTareaModel->mostrarTareaID([
                 'correo' => $correo,
@@ -235,11 +239,11 @@ class Home extends Controller{
 
     public function tareas() {
         $RegistroTareaModel = new RegistroTareaModel();
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
-          }else {
-            // Opcional: manejar el caso cuando no hay sesión
-            return redirect()->to('/login'); // Por ejemplo
+            $correo = $session->get('usuario');
+        }else {
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel de tareas.');
         }
         
     $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  
@@ -258,9 +262,13 @@ class Home extends Controller{
 
     public function subtareas() {
         $RegistroSubtareaModel = new RegistroSubtareaModel();
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
-          }
+           $correo = $session->get('usuario');
+        }else {
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel de subtareas.');
+        }
+
         $data = [
             'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable'=>$correo])
         ];
@@ -270,11 +278,12 @@ class Home extends Controller{
     public function historial() {
         $RegistroTareaModel = new RegistroTareaModel();
         $RegistroSubtareaModel = new RegistroSubtareaModel();
-        
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
+              $correo = $session->get('usuario');
+        }else {
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al historial.');
         }
-
         $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  
 
         $columnasPermitidas = ['fecha_vencimiento', 'estado'];
@@ -291,9 +300,13 @@ class Home extends Controller{
     }   
 
     public function historial_subtarea() {
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
+             $correo = $session->get('usuario');
+        }else {
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al historial.');
         }
+        
         $RegistroSubtareaModel = new RegistroSubtareaModel();
         
         $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  
