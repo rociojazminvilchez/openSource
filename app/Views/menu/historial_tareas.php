@@ -12,11 +12,9 @@
 </head>
 <body>
 <div id="inicio"></div>
-<?php
-  echo $this->include('plantilla/navbar');
-?><br>
+<?= $this->include('plantilla/navbar'); ?><br>
 
-<div class="ontainer-fluid contenido-limitado">
+<div class="container-fluid contenido-limitado">
   <div class="alert alert-warning" role="alert">
     <strong>Atención:</strong> Este panel es para visualizar el historial de las tareas.
   </div>
@@ -24,10 +22,10 @@
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs justify-content-center flex-wrap">
         <li>
-            <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/historial_tareas'); ?>><label style="color:red; font-weight: bold;">TAREAS </label></a>
+            <a class="nav-link active" href="<?= base_url('/menu/historial_tareas'); ?>"><label style="color:red; font-weight: bold;">TAREAS </label></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="true" href=<?= base_url('/menu/historial_subtareas'); ?>> Subtareas </a>
+            <a class="nav-link active" href="<?= base_url('/menu/historial_subtareas'); ?>"> Subtareas </a>
           </li>
         </ul>
     </div><br>
@@ -37,21 +35,20 @@
     </div>
     <?php
     else:?>
-    <h3 class="my-3" id="titulo" style="margin: 20px; font-family: 'Times New Roman', serif;"> HISTORIAL TAREAS </h3> 
+    <h3 class="text-center my-3" id="titulo" style="font-family: 'Times New Roman', serif;"> HISTORIAL TAREAS </h3> 
 
-<!-- Filtro de orden -->
-<div class="container-fluid mb-4 d-flex flex-wrap justify-content-center align-items-center">
-    <form method="GET" action="<?= base_url('menu/historial_tareas') ?>" class="d-flex flex-wrap justify-content-center align-items-center"> 
+<!-- Formulario de orden -->
+  <form method="GET" action="<?= base_url('menu/historial_tareas') ?>" class="d-flex flex-wrap align-items-center gap-2 justify-content-center mb-4"> 
     <label for="ordenar" class="me-2">Ordenar por:</label>
-      <select name="ordenar" id="ordenar"  class="form-select w-auto">
+      <select name="ordenar" id="ordenar" class="form-select w-auto">
           <option value="fecha_vencimiento" <?= isset($_GET['ordenar']) && $_GET['ordenar'] == 'fecha_vencimiento' ? 'selected' : ''; ?>>Fecha de Vencimiento</option>
           <option value="estado" <?= isset($_GET['ordenar']) && $_GET['ordenar'] == 'estado' ? 'selected' : ''; ?>>Estado</option>
       </select>
-      <button type="submit" class="btn btn-dark ms-2" style="background-color: #262e5b; color: #fff; text-decoration-style: solid;">Ordenar</button>
-    </form><br>
-  </div>
+    <button type="submit" class="btn btn-dark ms-2" style="background-color: #262e5b; color: #fff; text-decoration-style: solid;">Ordenar</button>
+  </form><br>
 
-  <table class="encabezado-custom" aria-describedby="titulo">
+<div class="table-responsive">
+  <table class="table encabezado-custom" aria-describedby="titulo">
     <thead>
     <tr>
       <th scope="col">ID</th>
@@ -63,7 +60,7 @@
       <th scope="col">Fecha Vencimiento</th>
       <th scope="col">Fecha Recordatorio</th>
       <th scope="col">Colaborador</th>
-        <th scope="col">SUBTAREA</th>
+      <th scope="col">SUBTAREA</th>
     </tr>
     </thead>
     <tbody>
@@ -74,7 +71,17 @@
         <td><?= $t['descripcion']; ?></td>
         <td><?= $t['prioridad']; ?></td>
         <td><?= $t['estado']; ?></td>
-        <td><?= $t['estado_actualizado']; ?></td>
+       <?php if ($t['estado_actualizado'] == 'Archivada'): ?>
+    <td>
+        <?= $t['estado_actualizado']; ?><br>
+        <?php if ($t['correo'] == session()->get('usuario')): ?>
+            <a href="<?= site_url('menu/tarea/' . $t['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a>
+        <?php endif; ?>
+    </td>
+<?php else: ?>
+    <td><?= $t['estado_actualizado']; ?></td>
+<?php endif; ?>
+
         <td><?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></td>
         <?php if($t['fecha_recordatorio']!='0000-00-00'){ ?>
         <td><?= (new DateTime($t['fecha_recordatorio']))->format('d-m-Y'); ?></td>

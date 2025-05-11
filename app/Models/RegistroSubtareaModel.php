@@ -16,8 +16,8 @@ class RegistroSubtareaModel extends Model{
 	if (isset($data['responsable'])) {
         $Usuario->groupStart() 
         ->where('responsable', $data['responsable'])
-            ->orWhere('colaborador', $data['responsable'])
-            ->groupEnd();    
+        ->orWhere("FIND_IN_SET('" . $data['responsable'] . "', colaborador) >", 0)
+        ->groupEnd();    
     }
 
     if (isset($data['ordenar']) && in_array($data['ordenar'], ['fecha_vencimiento', 'prioridad', 'estado'])) {
@@ -28,8 +28,7 @@ class RegistroSubtareaModel extends Model{
 
    public function mostrarSubtareaID($data){
     $Usuario = $this->db->table('registro_subtarea');
-    if (isset($data['responsable'])) {
-        $Usuario->where('responsable', $data['responsable']);
+    if (isset($data['tarea'])) {
         $Usuario->where('tarea', $data['tarea']);
     }
     return $Usuario->get()->getResultArray();

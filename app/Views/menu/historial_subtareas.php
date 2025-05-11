@@ -12,14 +12,12 @@
 </head>
 <body>
 <div id="inicio"></div>
-
 <?= $this->include('plantilla/navbar'); ?><br>
 
 <div class="container-fluid contenido-limitado">
   <div class="alert alert-warning" role="alert">
     <strong>Atención:</strong> Este panel es para visualizar el historial de las subtareas.
   </div>
-
   <div class="card text-center">
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs justify-content-center flex-wrap">
@@ -42,7 +40,7 @@
     else:?>
   <h3 class="text-center my-3" id="titulo" style="font-family: 'Times New Roman', serif;">HISTORIAL SUBTAREAS</h3>
 
-  <!-- Formulario de ordenamiento -->
+<!-- Formulario de ordenamiento -->
   <form method="GET" action="<?= base_url('menu/historial_subtareas') ?>" class="d-flex flex-wrap align-items-center gap-2 justify-content-center mb-4">
     <label for="ordenar" class="form-label m-0">Ordenar por:</label>
     <select name="ordenar" id="ordenar" class="form-select w-auto">
@@ -90,8 +88,7 @@
     </table>
   </div>
 </div>
-
-
+<!-- Botón para volver arriba -->
 <a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
   ⬆ Volver arriba
 </a>

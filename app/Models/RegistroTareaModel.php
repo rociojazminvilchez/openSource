@@ -16,7 +16,7 @@ class RegistroTareaModel extends Model{
     if (isset($data['correo'])) {
          $Usuario->groupStart() 
                 ->where('correo', $data['correo'])
-                ->orWhere('colaborador', $data['correo'])
+                ->orWhere("FIND_IN_SET('" . $data['correo'] . "', colaborador) >", 0)
                 ->groupEnd(); 
     }
   

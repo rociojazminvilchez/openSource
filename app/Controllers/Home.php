@@ -230,7 +230,7 @@ class Home extends Controller{
                 'id'       => $tarea
             ]),
             'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID([
-                'responsable' => $correo,
+               
                 'tarea'       => $subtarea
             ]),
         ];

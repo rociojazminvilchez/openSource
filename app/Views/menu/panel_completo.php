@@ -58,13 +58,7 @@
     <tr><td><strong>Fecha Recordatorio</strong></td>
       <td><?= $tareas[0]['fecha_recordatorio'] != '0000-00-00' ? (new DateTime($tareas[0]['fecha_recordatorio']))->format('d-m-Y') : ''; ?></td></tr>
     <tr><td><strong>Responsable</strong></td><td><?= $tareas[0]['correo']; ?></td></tr>
-  <?php
-  $id_tarea= $tareas[0]['id'];
-  $completadas = array_filter($subtareas, function ($s) {
-    return $s['estado'] === 'Completada';
-  });
 
-?>
 <!-- SUBTAREAS -->
   <?php foreach ($subtareas as $i => $s): ?>
     <tr><td colspan="2" class="table-secondary text-center"><strong>SUBTAREA <?= $i + 1 ?></strong></td></tr>
@@ -78,15 +72,7 @@
   <?php endforeach; ?>
 </tbody>
 </table> <br>
-<?php
-if (count($subtareas) > 0 && count($completadas) === count($subtareas) && trim($tareas[0]['estado_actualizado']) !== 'Archivada')  {
-?>
-<div class="d-flex justify-content-center">
-<a href="<?= site_url('menu/panel_completo/' . $id_tarea); ?>" class="btn btn-danger">🗃️ ARCHIVAR</a>
-</div>
-<?php
-}
-?>
+
 
 <a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
   ⬆ Volver arriba
