@@ -306,7 +306,7 @@ class Home extends Controller{
         }else {
             return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al historial.');
         }
-        
+
         $RegistroSubtareaModel = new RegistroSubtareaModel();
         
         $ordenarPor = $this->request->getGet('ordenar') ?? 'fecha_vencimiento';  

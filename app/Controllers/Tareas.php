@@ -5,18 +5,14 @@ use App\Models\RegistroTareaModel;
 
 class Tareas extends BaseController{
 
-    public function index()
-    {
-        // Cargar el modelo de tareas
+    public function index(){ 
         $registroTareaModel = new RegistroTareaModel();
-
-        // Obtener todas las tareas
         $tareas = $registroTareaModel->findAll();
 
-        // Cargar la vista de tareas, pasando las tareas obtenidas
         return view('tareas_view', ['tareas' => $tareas]);
     }
-    
+
+#CREAR TAREA
     public function create(){
         $reglas = [
             'tema' => [
@@ -50,7 +46,6 @@ class Tareas extends BaseController{
         $post = $this->request->getPost(['usuario', 'tema', 'descripcion','prioridad','estado','vencimiento','recordatorio']);    
         $registroTareaModel = new RegistroTareaModel();
 
-
         $registroTareaModel->insert([
             'id' => rand(1, 1000),
             'correo' => $post['usuario'],
@@ -67,48 +62,50 @@ class Tareas extends BaseController{
    }
 
 
-   #ELIMINAR TAREA
+#ELIMINAR TAREA
    public function eliminarTarea($id = null) {
-    // Verificar si el ID es válido
-    if ($id === null) {
-        // Redirigir o devolver un error si el ID no es válido
+    if (!$id) {
         return redirect()->to('/menu/tareas')->with('error', 'ID de tarea no válido');
     }
-       $registroTareaModel= new RegistroTareaModel();
 
-       $registroTareaModel->update($id, [
+    $registroTareaModel= new RegistroTareaModel();
+
+    $registroTareaModel->update($id, [
            'estado_actualizado'=> 'Eliminada',
        ]);
 
        return redirect()->to('/menu/tareas');
    }
 
-      #ARCHIVAR TAREA
-      public function archivarTarea($id = null) {
-    // Verificar si el ID es válido
-    if ($id === null) {
-        // Redirigir o devolver un error si el ID no es válido
+#ARCHIVAR TAREA
+    public function archivarTarea($id = null) {
+    if (!$id) {
         return redirect()->to('/menu/tareas')->with('error', 'ID de tarea no válido');
     }
-        $registroTareaModel= new RegistroTareaModel();
+
+    $registroTareaModel= new RegistroTareaModel();
  
-        $actualizada = $registroTareaModel->update($id, [
-            'estado' => 'Completada',
-            'estado_actualizado' => 'Archivada',
-        ]);
+    $actualizada = $registroTareaModel->update($id, [
+        'estado' => 'Completada',
+        'estado_actualizado' => 'Archivada',
+    ]);
     
-        if ($actualizada) {
-            return redirect()->to('/menu/panel_completo/' . $id)->with('mensaje', 'Tarea archivada exitosamente');
-        } else {
-            return redirect()->to('/menu/panel_completo/' .$id)->with('mensaje', 'Error al archivar la tarea');
-        }
+    if ($actualizada) {
+        return redirect()->to('/menu/panel_completo/' . $id)->with('mensaje', 'Tarea archivada exitosamente');
+    } else {
+        return redirect()->to('/menu/panel_completo/' .$id)->with('mensaje', 'Error al archivar la tarea');
     }
-   #MODIFICAR TAREA
+    }
+
+#MODIFICAR TAREA
    public function tarea($id=null){
     $RegistroTareaModel = new RegistroTareaModel();
+    $session = session();
     if (session()->has('usuario')) {
-        $correo= $_SESSION['usuario'];
-      }
+        $correo = $session->get('usuario');
+    }else {
+        return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel de tareas.');
+    }
     $data = [
         'tareas' => $RegistroTareaModel->mostrarTareaID(['id'=>$id])
     ];
@@ -148,15 +145,14 @@ class Tareas extends BaseController{
     $post = $this->request->getPost(['tema', 'descripcion','prioridad','estado','estado_actualizado','vencimiento','recordatorio']);    
     $registroTareaModel = new RegistroTareaModel();
 
-
     $registroTareaModel->update($id,[
-        'tema' => ucfirst(trim($post['tema'])),
-        'descripcion' =>  ucfirst(trim($post['descripcion'])),
-        'prioridad' => $post['prioridad'],
-        'estado' => $post['estado'],
-        'estado_actualizado' => $post['estado_actualizado'],
-        'fecha_vencimiento' => $post['vencimiento'],
-        'fecha_recordatorio' => $post['recordatorio'],
+    'tema' => ucfirst(trim($post['tema'])),
+    'descripcion' =>  ucfirst(trim($post['descripcion'])),
+    'prioridad' => $post['prioridad'],
+    'estado' => $post['estado'],
+    'estado_actualizado' => $post['estado_actualizado'],
+    'fecha_vencimiento' => $post['vencimiento'],
+    'fecha_recordatorio' => $post['recordatorio'],
     ]);
 
     return redirect()->to('/menu/tareas')->with('mensaje', 'Tarea modificada exitosamente.');
@@ -165,15 +161,17 @@ class Tareas extends BaseController{
 #COMPARTIR TAREA
     public function tareaEnviar($id=null){
     $RegistroTareaModel = new RegistroTareaModel();
+    $session = session();
     if (session()->has('usuario')) {
-        $correo= $_SESSION['usuario'];
-      }
+         $correo = $session->get('usuario');
+    }else {
+        return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel de tareas.');
+    }
     $data = [
         'tareas' => $RegistroTareaModel->mostrarTareaID(['id'=>$id])
     ];
     return view('formularios-tarea/enviartarea',$data);
    }
-
 
     public function enviar() {
     $registroTareaModel = new RegistroTareaModel();

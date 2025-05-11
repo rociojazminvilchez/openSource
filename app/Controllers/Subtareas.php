@@ -4,9 +4,9 @@ namespace App\Controllers;
 use App\Models\RegistroSubtareaModel;
 use App\Models\RegistroTareaModel;
 
-
 class Subtareas extends BaseController{
 
+#SUBTAREA - FORMULARIO
     public function create(){
         $reglas = [
            'descripcion' => [
@@ -54,8 +54,8 @@ class Subtareas extends BaseController{
     return redirect()->to('/')->with('mensaje', 'Subtarea creada exitosamente.');
    }
 
-      #ACTUALIZAR SUBTAREA Y TAREA (Subtarea completada | Tarea en proceso)
-      public function actualizarSubtarea($subtarea = null, $tarea = null) {
+#ACTUALIZAR SUBTAREA Y TAREA (Subtarea completada | Tarea en proceso)
+    public function actualizarSubtarea($subtarea = null, $tarea = null) {
         if ($subtarea === null) {
             return redirect()->to('/menu/subtareas')->with('error', 'ID de subtarea no válido');
         }
@@ -63,13 +63,13 @@ class Subtareas extends BaseController{
         $registroTareaModel = new RegistroTareaModel();
         $registroSubtareaModel = new RegistroSubtareaModel();
     
-        // Cambiar el estado de la tarea principal a "En proceso"
+        //Actualiza el estado de la tarea principal a "En proceso"
         $registroTareaModel->update($tarea, [
             'estado' => 'En proceso',
             'estado_actualizado' => '',
         ]);
     
-        // Marcar la subtarea como completada
+        //Marcar la subtarea como "completada"
         $registroSubtareaModel->update($subtarea, [
             'estado' => 'Completada',
         ]);
@@ -77,18 +77,20 @@ class Subtareas extends BaseController{
         return redirect()->to('/menu/subtareas')->with('mensaje', 'Subtarea actualizada correctamente');
     }
     
-    #MODIFICAR SUBTAREA
-
+#MODIFICAR SUBTAREA
     public function subtarea($id=null){
         $RegistroSubtareaModel = new RegistroSubtareaModel();
+        $session = session();
         if (session()->has('usuario')) {
-            $correo= $_SESSION['usuario'];
-          }
+            $correo = $session->get('usuario');
+        }else {
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel de subtareas.');
+        }
         $data = [
             'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID2(['id'=>$id])
         ];
         return view('formularios-tarea/modificar-subtarea',$data);
-     }
+    }
 
     public function update($id = null){
         $reglas = [
@@ -130,19 +132,28 @@ class Subtareas extends BaseController{
 #COMPARTIR SUBTAREA
     public function subtareaEnviar($id=null){
     $RegistroSubtareaModel = new RegistroSubtareaModel();
-    if (session()->has('usuario')) {
-        $correo= $_SESSION['usuario'];
-      }
-    $data = [
-        'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID(['id'=>$id])
-    ];
+
+        $session = session();
+        if (session()->has('usuario')) {
+            $correo = $session->get('usuario');
+        }else {
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel de subtareas.');
+        }
+
+        $data = [
+            'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID(['id'=>$id])
+        ];
     return view('formularios-tarea/enviarsubtarea',$data);
    }
 
-
     public function enviar() {
     $registroSubtareaModel = new RegistroSubtareaModel();
-
+    $session = session();
+        if (session()->has('usuario')) {
+             $correo = $session->get('usuario');
+        }else {
+            return redirect()->to('formularios/ingreso')->with('mensajeError', 'Debes iniciar sesión para acceder al panel de subtareas.');
+        }
     $id = $this->request->getPost('id');
     $emailList = $this->request->getPost('correos');
     $tarea = $this->request->getPost('tarea');
