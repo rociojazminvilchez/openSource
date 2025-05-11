@@ -57,16 +57,41 @@
  
 <div class="container-fluid py-3">
   <div class="row justify-content-center g-3">
-    <?php foreach ($tareas as $t) :
-      if ($t['estado_actualizado'] == '') {
-        $color = match($t['prioridad']) {
-          'Alta' => '#ED4545',
-          'Baja' => '#14DE68',
-          'Normal' => '#EBD723',
-          default => $t['color']
-        };
-        $textColor = getTextColor($color);
-    ?>
+   <?php foreach ($tareas as $t) :
+  if ($t['estado_actualizado'] == '') {
+    $fechaHoy = new DateTime();
+
+    $fechaVenc = new DateTime($t['fecha_vencimiento']);
+    $diasVenc = $fechaHoy->diff($fechaVenc)->format('%r%a');
+
+    // Si no hay recordatorio, se asigna un valor alto para evitar coincidencias accidentales
+    $diasRecordatorio = 99;
+    if (!empty($t['fecha_recordatorio'])) {
+      $fechaRec = new DateTime($t['fecha_recordatorio']);
+      $diasRecordatorio = $fechaHoy->diff($fechaRec)->format('%r%a');
+    }
+
+    // Aplicar color rojo si:
+    // - prioridad es Alta
+    // - o faltan menos de 3 días para vencimiento o recordatorio
+    if (
+      $t['prioridad'] === 'Alta' ||
+      ($diasVenc >= 0 && $diasVenc < 3) ||
+      ($diasRecordatorio >= 0)
+    ) {
+      $color = '#ED4545'; // Color de prioridad Alta
+    } else {
+      $color = match($t['prioridad']) {
+        'Baja' => '#14DE68',
+        'Normal' => '#EBD723',
+        default => $t['color']
+      };
+    }
+
+    $textColor = getTextColor($color);
+?>
+
+
   <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
     <div class="card flex-fill" style="background:<?= $color ?>; color: <?= $textColor ?>;">
       <div class="card-body d-flex flex-column">
