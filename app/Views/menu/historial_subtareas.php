@@ -91,7 +91,7 @@
   </div>
 </div>
 
-<!-- Botón para volver arriba -->
+
 <a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
   ⬆ Volver arriba
 </a>

@@ -168,9 +168,23 @@ class Subtareas extends BaseController{
     $vencimiento = $vencimiento->format('d-m-Y');
     
     // Agregar colaborador a la bd
-    $registroSubtareaModel->update($id,[
-        'colaborador' => $emailList,
+    $registro = $registroSubtareaModel->find($id);
+    $colaboradoresActuales = $registro['colaborador'] ?? '';
+
+     // Convertir ambos en arrays, limpiar y normalizar a minúsculas
+    $colaboradoresNuevos = array_filter(array_map('strtolower', array_map('trim', explode(',', $emailList))));
+    $colaboradoresExistentes = array_filter(array_map('strtolower', array_map('trim', explode(',', $colaboradoresActuales))));
+
+    // Unir y eliminar duplicados
+    $todosLosColaboradores = array_unique(array_merge($colaboradoresExistentes, $colaboradoresNuevos));
+
+    // Volver a string
+    $colaboradoresFinal = implode(',', $todosLosColaboradores);
+
+    $registroSubtareaModel->update($id, [
+    'colaborador' => $colaboradoresFinal
     ]);
+    // Agregar colaborador a la bd
 
     // Convertir lista de correos en array
     $destinatarios = array_map('trim', explode(',', $emailList));

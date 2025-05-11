@@ -193,9 +193,23 @@ class Tareas extends BaseController{
     $recordatorio = $recordatorio->format('d-m-Y');
 
     // Agregar colaborador a la bd
-    $registroTareaModel->update($id,[
-        'colaborador' => $emailList,
+    $registro = $registroTareaModel->find($id);
+    $colaboradoresActuales = $registro['colaborador'] ?? '';
+
+     // Convertir ambos en arrays, limpiar y normalizar a minúsculas
+    $colaboradoresNuevos = array_filter(array_map('strtolower', array_map('trim', explode(',', $emailList))));
+    $colaboradoresExistentes = array_filter(array_map('strtolower', array_map('trim', explode(',', $colaboradoresActuales))));
+
+    // Unir y eliminar duplicados
+    $todosLosColaboradores = array_unique(array_merge($colaboradoresExistentes, $colaboradoresNuevos));
+
+    // Volver a string
+    $colaboradoresFinal = implode(',', $todosLosColaboradores);
+
+    $registroTareaModel->update($id, [
+    'colaborador' => $colaboradoresFinal
     ]);
+
 
     // Convertir lista de correos en array
     $destinatarios = array_map('trim', explode(',', $emailList));
