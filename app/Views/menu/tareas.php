@@ -84,6 +84,8 @@ $correos="";
           <th>Estado</th>
           <th>Fecha Vencimiento</th>
           <th>Fecha Recordatorio</th>
+          <th >Responsable</th>
+          <th >Colaborador</th>
           <th colspan="4">Acciones</th>
         </tr>
       </thead>
@@ -114,6 +116,8 @@ $puedeArchivar = (
           <td>
             <?= ($t['fecha_recordatorio'] != '0000-00-00') ? (new DateTime($t['fecha_recordatorio']))->format('d-m-Y') : ''; ?>
           </td>
+          <td><?= $t['correo']; ?></td>
+        <td><?= $t['colaborador']; ?></td>
                 <?php
         if ($puedeArchivar):?> 
         <td>

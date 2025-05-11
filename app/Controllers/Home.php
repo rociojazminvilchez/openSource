@@ -230,7 +230,6 @@ class Home extends Controller{
                 'id'       => $tarea
             ]),
             'subtareas' => $RegistroSubtareaModel->mostrarSubtareaID([
-               
                 'tarea'       => $subtarea
             ]),
         ];

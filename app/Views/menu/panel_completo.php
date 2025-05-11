@@ -58,10 +58,12 @@
     <tr><td><strong>Fecha Recordatorio</strong></td>
       <td><?= $tareas[0]['fecha_recordatorio'] != '0000-00-00' ? (new DateTime($tareas[0]['fecha_recordatorio']))->format('d-m-Y') : ''; ?></td></tr>
     <tr><td><strong>Responsable</strong></td><td><?= $tareas[0]['correo']; ?></td></tr>
+    <tr><td><strong>Colaborador</strong></td><td><?= $tareas[0]['colaborador']; ?></td></tr>
 
 <!-- SUBTAREAS -->
   <?php foreach ($subtareas as $i => $s): ?>
     <tr><td colspan="2" class="table-secondary text-center"><strong>SUBTAREA <?= $i + 1 ?></strong></td></tr>
+    <tr><td><strong>ID</strong></td><td><?= $s['id']; ?></td></tr>
     <tr><td><strong>Descripción</strong></td><td><?= $s['descripcion']; ?></td></tr>
     <tr><td><strong>Prioridad</strong></td><td><?= $s['prioridad']; ?></td></tr>
     <tr><td><strong>Estado</strong></td><td><?= $s['estado']; ?></td></tr>
@@ -69,6 +71,7 @@
     <tr><td><strong>Fecha Vencimiento</strong></td>
       <td><?= $s['fecha_vencimiento'] != '0000-00-00' ? (new DateTime($s['fecha_vencimiento']))->format('d-m-Y') : ''; ?></td></tr>
     <tr><td><strong>Responsable</strong></td><td><?= $s['responsable']; ?></td></tr>
+    <tr><td><strong>Colaborador</strong></td><td><?= $s['colaborador']; ?></td></tr>
   <?php endforeach; ?>
 </tbody>
 </table> <br>

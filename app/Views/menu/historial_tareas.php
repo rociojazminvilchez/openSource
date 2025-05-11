@@ -59,6 +59,7 @@
       <th scope="col">Estado Actual</th>
       <th scope="col">Fecha Vencimiento</th>
       <th scope="col">Fecha Recordatorio</th>
+      <th scope="col">Responsable</th>
       <th scope="col">Colaborador</th>
       <th scope="col">SUBTAREA</th>
     </tr>
@@ -88,6 +89,7 @@
         <?php } else{ ?>
         <td> </td>
         <?php } ?>
+        <td><?= $t['correo']; ?></td>
         <td><?= $t['colaborador']; ?></td>
         <td>
         <?php

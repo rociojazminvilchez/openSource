@@ -63,6 +63,7 @@
             <th>Fecha Vencimiento</th>
             <th>Comentario</th>
             <th>Responsable</th>
+            <th scope="col">Colaborador</th>
             <th colspan="4">Acciones</th>
           </tr>
         </thead>
@@ -80,7 +81,7 @@
               </td>
               <td><?= $s['comentario']; ?></td>
               <td><?= $s['responsable']; ?></td>
-              
+              <td><?= $s['colaborador']; ?></td>
               <?php if($s['estado']!='Completada'){
                 ?> <td> <a href="<?= site_url('menu/subtareas/' . $s['id'] . '/' . $s['tarea']) ?>" class="btn btn-secondary btn-sm">✅ Completada</a></td>
                 <?php
