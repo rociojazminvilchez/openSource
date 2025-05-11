@@ -14,7 +14,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-  <!--ALERTA DE MENSAJES -->
+<!--ALERTA DE MENSAJES -->
 <?php if (session()->getFlashdata('mensajeError')): ?>
   <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
 <?php endif; 
@@ -111,12 +111,7 @@ $correos="";?>
   ⬆ Volver arriba
 </a>
 <?php endif; ?>
-
-
-
-
 <?= $this->include('plantilla/footer'); ?>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

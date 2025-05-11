@@ -12,11 +12,19 @@
 </head>
 <body>
 <?= $this->include('plantilla/navbar'); ?><br>
-<?php if (session()->getFlashdata('mensaje')): ?>
-    <div class="alert alert-success">
-        <?= session()->getFlashdata('mensaje') ?>
-    </div>
+<!--ALERTA DE MENSAJES -->
+<?php if (session()->getFlashdata('mensajeError')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
 <?php endif; ?>
+
+<?php if (session()->getFlashdata('mensaje')): ?>
+  <div class="alert alert-success"><?= session()->getFlashdata('mensaje') ?></div>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('error')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
+
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar y modificar las subtareas.
 </div>
@@ -96,7 +104,6 @@
 <?php endif; ?>
 
 <?= $this->include('plantilla/footer'); ?>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

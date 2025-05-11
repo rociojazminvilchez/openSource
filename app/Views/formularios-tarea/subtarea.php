@@ -12,12 +12,21 @@
 <body>
 
 <?= $this->include('plantilla/navbar') ?>
-<?php if (session()->getFlashdata('mensaje')): ?>
-    <div class="alert alert-success">
-      <?= session()->getFlashdata('mensaje') ?>
-    </div>
+<!--ALERTA DE MENSAJES -->
+<?php if (session()->getFlashdata('mensajeError')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
 <?php endif; ?>
+
+<?php if (session()->getFlashdata('mensaje')): ?>
+  <div class="alert alert-success"><?= session()->getFlashdata('mensaje') ?></div>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('error')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
+
 <div class="container mt-4 mb-5">
+  <!-- Errores de validación -->  
   <?php if (session()->get('errors')): ?>
     <div class="alert alert-danger">
       <ul class="mb-0">
@@ -97,7 +106,6 @@
 </div>
 
 <?= $this->include('plantilla/footer') ?>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

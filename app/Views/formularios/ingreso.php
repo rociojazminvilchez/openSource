@@ -11,7 +11,8 @@
 </head>
 <body class="bg-light">
 <?= $this->include('plantilla/navbar') ?>
-<div class="container mt-5">
+
+<!--ALERTA DE MENSAJES -->
 <?php if (session()->getFlashdata('mensajeError')): ?>
   <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
 <?php endif; ?>
@@ -24,6 +25,7 @@
   <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
 <?php endif; ?>
 
+<div class="container mt-5">
 <div class="d-flex justify-content-end">
   <a href="<?= base_url('/') ?>" class="btn-close" aria-label="Cerrar"></a>
 </div>

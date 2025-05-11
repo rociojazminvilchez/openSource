@@ -10,15 +10,17 @@ class RegistroSubtareaModel extends Model{
    protected $useSoftDeletes = false; 
    protected $allowedFields = ['id','tarea','descripcion','estado','estado_actualizado','prioridad','fecha_vencimiento','comentario','responsable','colaborador'];
 
+#MOSTRAR
    public function mostrarSubtarea($data){
-         $Usuario = $this->db->table('registro_subtarea');
-			if (isset($data['responsable'])) {
-            $Usuario->where('responsable', $data['responsable']);
-        }
-        if (isset($data['ordenar']) && in_array($data['ordenar'], ['fecha_vencimiento', 'prioridad', 'estado'])) {
-            $Usuario->orderBy($data['ordenar'], 'ASC');
-        }
-			return $Usuario->get()->getResultArray();
+    $Usuario = $this->db->table('registro_subtarea');
+	if (isset($data['responsable'])) {
+        $Usuario->where('responsable', $data['responsable']);
+    }
+
+    if (isset($data['ordenar']) && in_array($data['ordenar'], ['fecha_vencimiento', 'prioridad', 'estado'])) {
+        $Usuario->orderBy($data['ordenar'], 'ASC');
+    }
+	return $Usuario->get()->getResultArray();
    }
 
    public function mostrarSubtareaID($data){
@@ -27,16 +29,16 @@ class RegistroSubtareaModel extends Model{
         $Usuario->where('responsable', $data['responsable']);
         $Usuario->where('tarea', $data['tarea']);
     }
- return $Usuario->get()->getResultArray();
-}
+    return $Usuario->get()->getResultArray();
+   }
 
 #MODIFICAR
-public function mostrarSubtareaID2($data){
-    $Usuario = $this->db->table('registro_subtarea');
+    public function mostrarSubtareaID2($data){
+        $Usuario = $this->db->table('registro_subtarea');
     if (isset($data['id'])) {
         $Usuario->where('id', $data['id']);
     }
- return $Usuario->get()->getResultArray();
-}
+    return $Usuario->get()->getResultArray();
+    }
 }
 ?>

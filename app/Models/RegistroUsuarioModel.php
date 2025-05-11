@@ -11,9 +11,9 @@ class RegistroUsuarioModel extends Model{
    protected $allowedFields = ['correo','nombre','apellido','contra','contra2'];
 
    public function obtenerUsuario($data){
-         $Usuario = $this->db->table('registro_usuario');
-			$Usuario->where($data);
-			return $Usuario->get()->getResultArray();
+      $Usuario = $this->db->table('registro_usuario');
+		$Usuario->where($data);
+		return $Usuario->get()->getResultArray();
    }
 }
 ?>

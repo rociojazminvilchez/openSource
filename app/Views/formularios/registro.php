@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="<?= base_url('/css/formularios.css') ?>">
 </head>
 <body>
-
 <?= $this->include('plantilla/navbar') ?>
+
 <div class="container mt-4 mb-5">
   <?php if (session()->get('errors')): ?>
     <div class="alert alert-danger">

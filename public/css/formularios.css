@@ -40,27 +40,6 @@ html {
   }
   
   /* ============================================
-     FOOTER
-  ============================================ 
-  footer {
-    background-color: #f6fafa;
-    width: 100%;
-    margin-top: auto;
-  }
-  
-  .grid-container-footer {
-    color: #3366cc;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .grid-item-footer {
-    padding: 5px;
-  }
-  */
-  /* ============================================
      FORMULARIOS
   ============================================ */
   
@@ -157,7 +136,6 @@ html {
     input, select {
       font-size: 0.95rem;
     }
-
-    
-  }
+  
+}
   

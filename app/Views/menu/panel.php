@@ -14,7 +14,6 @@
 <div id="inicio"></div>
 
 <?= $this->include('plantilla/navbar'); ?><br>
-
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar las tareas destacadas.
 </div>
@@ -55,48 +54,47 @@
   }
   ?>
 
-  <!-- CONTENEDOR RESPONSIVE DE TARJETAS -->
-  <div class="container-fluid py-3">
-    <div class="row justify-content-center g-3">
-      <?php foreach ($tareas as $t) :
-        if ($t['estado_actualizado'] == '') {
-          $color = match($t['prioridad']) {
-            'Alta' => '#ED4545',
-            'Baja' => '#14DE68',
-            'Normal' => '#EBD723',
-            default => $t['color']
-          };
-          $textColor = getTextColor($color);
-      ?>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-          <div class="card flex-fill" style="background:<?= $color ?>; color: <?= $textColor ?>;">
-            <div class="card-body d-flex flex-column">
-              <p class="card-text text-start">
-                <?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>
-              </p>
-              <h5 class="card-title"><?= $t['tema']; ?></h5>
-              <p class="card-text"><?= $t['descripcion']; ?></p>
-              <h6><u>Prioridad: <?= $t['prioridad']; ?></u></h6>
-              <h6><u>Estado: <?= $t['estado']; ?></u></h6>
+ 
+<div class="container-fluid py-3">
+  <div class="row justify-content-center g-3">
+    <?php foreach ($tareas as $t) :
+      if ($t['estado_actualizado'] == '') {
+        $color = match($t['prioridad']) {
+          'Alta' => '#ED4545',
+          'Baja' => '#14DE68',
+          'Normal' => '#EBD723',
+          default => $t['color']
+        };
+        $textColor = getTextColor($color);
+    ?>
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+    <div class="card flex-fill" style="background:<?= $color ?>; color: <?= $textColor ?>;">
+      <div class="card-body d-flex flex-column">
+        <p class="card-text text-start">
+          <?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>
+        </p>
+        <h5 class="card-title"><?= $t['tema']; ?></h5>
+        <p class="card-text"><?= $t['descripcion']; ?></p>
+        <h6><u>Prioridad: <?= $t['prioridad']; ?></u></h6>
+        <h6><u>Estado: <?= $t['estado']; ?></u></h6>
 
-              <?php
-              $subtareasCount = [];
-              foreach ($subtareas as $s) {
-                if ($t['id'] == $s['tarea']) {
-                  if (!isset($subtareasCount[$t['id']])) {
-                    $subtareasCount[$t['id']] = 1;
-                  } else {
-                    $subtareasCount[$t['id']]++;
-                  }
-                }
-              }
-              if (isset($subtareasCount[$t['id']])) {
-                $count = $subtareasCount[$t['id']];
-              ?>
-                <a href="<?= base_url('/menu/panel_completo/' . $t['id'] . '/' . $t['id']); ?>" class="btn btn-light btn-sm fw-bold mt-auto">
-                  SUBTAREAS (<?= $count ?>)
-                </a>
-              <?php } ?>
+        <?php $subtareasCount = [];
+        foreach ($subtareas as $s) {
+          if ($t['id'] == $s['tarea']) {
+           if (!isset($subtareasCount[$t['id']])) {
+              $subtareasCount[$t['id']] = 1;
+            } else {
+             $subtareasCount[$t['id']]++;
+            }
+          }
+        }
+        if (isset($subtareasCount[$t['id']])) {
+          $count = $subtareasCount[$t['id']];
+        ?>
+        <a href="<?= base_url('/menu/panel_completo/' . $t['id'] . '/' . $t['id']); ?>" class="btn btn-light btn-sm fw-bold mt-auto">
+          SUBTAREAS (<?= $count ?>)
+        </a>
+        <?php } ?>
             </div>
           </div>
         </div>
@@ -108,9 +106,7 @@
 <a href="#inicio" class="btn btn-secondary" style="position: fixed; bottom: 20px; right: 20px;">
   ⬆ Volver arriba
 </a>
-
 <?php endif; ?>
-
 <?= $this->include('plantilla/footer'); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

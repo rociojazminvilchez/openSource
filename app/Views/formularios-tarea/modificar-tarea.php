@@ -12,8 +12,21 @@
 <body>
 
 <?= $this->include('plantilla/navbar') ?>
+<!--ALERTA DE MENSAJES -->
+<?php if (session()->getFlashdata('mensajeError')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('mensaje')): ?>
+  <div class="alert alert-success"><?= session()->getFlashdata('mensaje') ?></div>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('error')): ?>
+  <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<?php endif; ?>
 
 <div class="container mt-4 mb-5">
+<!-- Errores de validación -->  
   <?php if (session()->get('errors')): ?>
     <div class="alert alert-danger">
       <ul class="mb-0">
@@ -28,8 +41,8 @@
     <a href="<?= base_url('menu/tareas') ?>" class="btn-close" aria-label="Cerrar"></a>
   </div>
 
-  <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
-  <h4 class="text-start mb-4">Modificar Tarea</h4>
+<p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
+<h4 class="text-start mb-4">Modificar Tarea</h4>
 <?php $t = $tareas[0]; ?>
   <div class="row justify-content-center">
     <div class="col-md-8">

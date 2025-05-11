@@ -53,7 +53,6 @@
     <button type="submit" class="btn btn-dark" style="background-color: #262e5b; color: #fff; text-decoration-style: solid;">Ordenar</button>
   </form>
 
-  <!-- Tabla responsiva -->
   <div class="table-responsive">
     <table class="table encabezado-custom" aria-describedby="titulo">
       <thead>
