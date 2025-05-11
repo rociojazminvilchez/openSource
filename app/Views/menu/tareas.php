@@ -69,7 +69,9 @@ if (session()->getFlashdata('error')): ?>
   </form>
 </div>
 <?php 
-$correos="";?>
+$correos="";
+
+?>
 <div class="container-fluid mb-4">
   <div class="table-responsive">
     <table class="table table-hover encabezado-custom" aria-describedby="titulo">
@@ -82,11 +84,26 @@ $correos="";?>
           <th>Estado</th>
           <th>Fecha Vencimiento</th>
           <th>Fecha Recordatorio</th>
-          <th colspan="3">Acciones</th>
+          <th colspan="4">Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <?php  foreach ($tareas as $t): if (empty($t['estado_actualizado'])): ?>
+      <?php foreach ($tareas as $t): if (empty($t['estado_actualizado'])): ?>
+  <?php
+  //ARCHIVAR TAREA:
+    // Filtrar subtareas de esta tarea
+    $subtareasDeEstaTarea = array_filter($subtareas, fn($s) => $s['tarea'] == $t['id']);
+
+    // Verificar cuántas están completadas
+    $completadas = array_filter($subtareasDeEstaTarea, fn($s) => $s['estado'] === 'Completada');
+    
+    // Condición: o todas las subtareas están completadas, o no hay subtareas y la tarea está completada
+$puedeArchivar = (
+    (count($subtareasDeEstaTarea) > 0 && count($completadas) === count($subtareasDeEstaTarea)) ||
+    (count($subtareasDeEstaTarea) === 0 && $t['estado'] === 'Completada')
+) && trim($t['estado_actualizado']) !== 'Archivada';
+  ?>
+        
         <tr>
           <td><?= $t['id']; ?></td>
           <td><?= $t['tema']; ?></td>
@@ -97,6 +114,14 @@ $correos="";?>
           <td>
             <?= ($t['fecha_recordatorio'] != '0000-00-00') ? (new DateTime($t['fecha_recordatorio']))->format('d-m-Y') : ''; ?>
           </td>
+                <?php
+        if ($puedeArchivar):?> 
+        <td>
+        <a href="<?= site_url('menu/panel_completo/' . $t['id']); ?>"class="btn btn-secondary btn-sm">🗃️ Archivar</a>
+        </td>
+       <?php else:?>
+        <td> </td>
+        <?php endif; ?>
           <td><a href="<?= site_url('menu/tarea/' . $t['id']); ?>" class="btn btn-success btn-sm">✏️ Modificar</a></td>
           <td> <a href="<?= site_url('formularios-tarea/enviartarea/' . $t['id']); ?>" class="btn btn-primary btn-sm">🔗 Compartir</a></td>
            <?php if ($t['correo'] == session()->get('usuario')): ?>

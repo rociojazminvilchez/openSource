@@ -239,6 +239,8 @@ class Home extends Controller{
 
     public function tareas() {
         $RegistroTareaModel = new RegistroTareaModel();
+        $RegistroSubtareaModel = new RegistroSubtareaModel();
+
         $session = session();
         if (session()->has('usuario')) {
             $correo = $session->get('usuario');
@@ -254,7 +256,8 @@ class Home extends Controller{
     }
 
     $data = [
-        'tareas' => $RegistroTareaModel->mostrarTarea(['correo' => $correo, 'ordenar' => $ordenarPor])
+        'tareas' => $RegistroTareaModel->mostrarTarea(['correo' => $correo, 'ordenar' => $ordenarPor]),
+        'subtareas' => $RegistroSubtareaModel->mostrarSubtarea(['responsable'=>$correo]),
     ];
 
         return view('menu/tareas',$data);
