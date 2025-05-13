@@ -189,7 +189,8 @@ class Home extends Controller{
         }
 
         $data = [
-            'tareas' => $RegistroTareaModel->seleccionarTarea(['correo'=>$correo])
+            'tareas' => $RegistroTareaModel->seleccionarTarea(['correo'=>$correo]),
+            'estado_actualizado_vacio' => true
         ];
         return view('formularios-tarea/subtarea',$data);
     }  

@@ -39,10 +39,16 @@ class RegistroTareaModel extends Model{
     if (isset($data['correo'])) {
         $Usuario->where([
             'correo' => $data['correo'],
-            'estado !=' => 'Completada'
+            'estado !=' => 'Completada',
+            'estado_actualizado =' =>''
         ]);
     }
-    // Solo muestra tareas cuya fecha de vencimiento sea mayor o igual al día actual
+
+    //Tareas que no esten archivas|eliminadas
+    if (isset($data['estado_actualizado_vacio']) && $data['estado_actualizado_vacio'] === true) {
+        $Usuario->where('estado_actualizado', '');
+    }
+    //Tareas que no esten vencidad
     $Usuario->where('fecha_vencimiento >=', date('Y-m-d'));
     return $Usuario->get()->getResultArray();
    }
