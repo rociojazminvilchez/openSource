@@ -72,7 +72,7 @@
         <td><?= $t['descripcion']; ?></td>
         <td><?= $t['prioridad']; ?></td>
         <td><?= $t['estado']; ?></td>
-       <?php if ($t['estado_actualizado'] == 'Archivada'): ?>
+       <?php if ($t['estado_actualizado'] == 'Archivada' || $t['estado_actualizado'] == 'Vencida'): ?>
     <td>
         <?= $t['estado_actualizado']; ?><br>
         <?php if ($t['correo'] == session()->get('usuario')): ?>

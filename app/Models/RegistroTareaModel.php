@@ -52,5 +52,15 @@ class RegistroTareaModel extends Model{
     $Usuario->where('fecha_vencimiento >=', date('Y-m-d'));
     return $Usuario->get()->getResultArray();
    }
+
+   #EVENTOS
+   //Actualiza el estado solo de las tareas vencidas que no esten archivas o eliminadas
+   public function marcarTareasVencidas() {
+    $actualizar = $this->db->table('registro_tarea');
+    $actualizar->where('fecha_vencimiento <', date('Y-m-d'));
+    $actualizar->where('estado_actualizado', '');
+    return $actualizar->update(['estado_actualizado' => 'Vencida']);
+  }
+
 }
 ?>

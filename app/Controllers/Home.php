@@ -10,6 +10,9 @@ use App\Models\RegistroSubtareaModel;
 
 class Home extends Controller{
     public function index(): string{
+        //Activacion de evento
+        $registroTareaModel = new RegistroTareaModel();
+        $registroTareaModel->marcarTareasVencidas();
         return view('inicio');
     }
 
