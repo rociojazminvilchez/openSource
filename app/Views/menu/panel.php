@@ -54,7 +54,6 @@
   }
   ?>
 
- 
 <div class="container-fluid py-3">
   <div class="row justify-content-center g-3">
    <?php foreach ($tareas as $t) :
@@ -63,37 +62,28 @@
     $fechaVenc = new DateTime($t['fecha_vencimiento']);
     $diasVenc = $fechaHoy->diff($fechaVenc)->format('%r%a');
 
-    // Si no hay recordatorio, se asigna un valor alto para evitar coincidencias accidentales
+    // Si no hay recordatorio, se asigna un valor alto para evitar errores
     $diasRecordatorio = 99;
     if (!empty($t['fecha_recordatorio'])) {
       $fechaRec = new DateTime($t['fecha_recordatorio']);
       $diasRecordatorio = $fechaHoy->diff($fechaRec)->format('%r%a');
     }
 
-    // Aplicar color rojo si:
-    // - prioridad es Alta
-    // - o faltan menos de 3 días para vencimiento o recordatorio
     if ($t['estado_actualizado'] === 'Vencida') {
-    $color = '#FFA500'; // Naranja
-    $textColor = getTextColor($color);
-} elseif (
-    $t['prioridad'] === 'Alta' ||
-    ($diasVenc >= 0 && $diasVenc < 3) ||
-    ($diasRecordatorio >= 0)
-) {
-    $color = '#ED4545'; // Rojo
-    $textColor = getTextColor($color);
-} else {
-    $color = match($t['prioridad']) {
-        'Baja' => '#14DE68', //Verde
-        'Normal' => '#EBD723', //Amarillo
-        default => $t['color']
-    };
-    $textColor = getTextColor($color);
-}
-
-
-    
+      $color = '#FFA500'; // Naranja - Tareas vencidas 
+      $textColor = getTextColor($color);
+    } elseif (
+      $t['prioridad'] === 'Alta' || ($diasVenc >= 0 && $diasVenc < 3) || ($diasRecordatorio >= 0)
+    ) {
+      $color = '#ED4545'; // Rojo - Alta prioridad | recordatorio | faltan 3 dias del vencimiento
+      $textColor = getTextColor($color);
+    } else {
+      $color = match($t['prioridad']) {
+        'Baja' => '#14DE68', //Verde - Prioridad baja
+        'Normal' => '#EBD723', //Amarillo - Prioridad normal
+        default => $t['color'] };
+      $textColor = getTextColor($color);
+    }
 ?>
 
 
