@@ -30,6 +30,13 @@ class Subtareas extends BaseController{
                     'valid_email' => 'Debes proporcionar un correo electrónico válido.'
                 ]
             ],
+            'vencimiento' => [
+                'rules' => 'permit_empty|valid_date|fechaNoPasada',
+                'errors' => [
+                    'valid_date' => 'Por favor ingresa una fecha válida.',
+                    'fechaNoPasada' => 'La fecha de vencimiento no puede ser anterior a hoy.'
+                ]
+            ],
         ];
         
         // Si la validación falla, redirigir de vuelta con los datos ingresados
