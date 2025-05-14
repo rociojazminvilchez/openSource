@@ -9,13 +9,33 @@ use App\Models\RegistroTareaModel;
 use App\Models\RegistroSubtareaModel;
 
 class Home extends Controller{
-    public function index(): string{
-        //Activacion de evento
-        $registroTareaModel = new RegistroTareaModel();
-        $registroTareaModel->marcarTareasVencidas();
-      
+    
+   public function index(): string{
+    // Activación de evento: marcar tareas vencidas
+    $registroTareaModel = new RegistroTareaModel();
+    $registroTareaModel->marcarTareasVencidas();
+
+    // Inicialización de modelos y sesión
+    $registroSubtareaModel = new RegistroSubtareaModel();
+    $session = session();
+
+    // Verificar si hay usuario en sesión
+    if ($session->has('usuario')) {
+        $correo = $session->get('usuario');
+
+        // Obtener datos de tareas y subtareas
+        $data = [
+            'tareas' => $registroTareaModel->mostrarTarea(['correo' => $correo]),
+            'subtareas' => $registroSubtareaModel->mostrarSubtarea(['responsable' => $correo])
+        ];
+
+        return view('inicio', $data);
+    } else {
+        // Si no hay sesión, mostrar vista vacía
         return view('inicio');
     }
+}
+
 
 #USUARIO
     public function ingreso(){

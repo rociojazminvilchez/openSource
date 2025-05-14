@@ -25,6 +25,59 @@ if (session()->getFlashdata('error')): ?>
   <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
 <?php endif; ?>
 
+<!-- NOTIFICACION TAREA | SUBTAREA -->
+<?php if (session()->has('usuario')): ?>
+    <?php
+    $VencenEn3Dias = false;
+    $recordatorioHoy = false;
+    $fechaHoy = strtotime(date('Y-m-d')); // Fecha actual como timestamp
+
+    // TAREAS
+    foreach ($tareas as $t) :
+        $fechaVencimiento = strtotime($t['fecha_vencimiento']);
+        $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
+
+        if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+            $VencenEn3Dias = true;
+        }
+
+        if (!empty($t['fecha_recordatorio']) && strtotime($t['fecha_recordatorio']) === $fechaHoy) {
+            $recordatorioHoy = true;
+        }
+    endforeach;
+
+    // SUBTAREAS
+    $VencenEn3DiasSubtarea = false;
+    foreach ($subtareas as $s) :
+        $fechaVencimiento = strtotime($s['fecha_vencimiento']);
+        $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
+
+        if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+            $VencenEn3DiasSubtarea = true;
+        }
+    endforeach;
+    ?>
+
+    <?php if ($VencenEn3Dias): ?>
+        <div class="alert alert-danger mt-3">
+            ⚠️ ¡Atención! Tenés una tarea que vence en menos de 3 días. ¡Revisala!
+        </div>
+    <?php endif; ?>
+
+    <?php if ($recordatorioHoy): ?>
+        <div class="alert alert-primary mt-3">
+            ⚠️ ¡Recordatorio! Tenés una tarea que realizar hoy.
+        </div>
+    <?php endif; ?>
+
+    <?php if ($VencenEn3DiasSubtarea): ?>
+        <div class="alert alert-danger mt-3">
+            ⚠️ ¡Atención! Tenés una subtarea que vence en menos de 3 días. ¡Revisala!
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+
 <section style="text-align: center;">
   <h3>Organiz&aacute tus tareas como un profesional </h3>
   Bienvenida a tu nueva herramienta para la organización personal y en equipo.<br>
