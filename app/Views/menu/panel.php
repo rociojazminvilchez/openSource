@@ -1,3 +1,5 @@
+<?php date_default_timezone_set('America/Argentina/Buenos_Aires');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,34 +22,37 @@
 <?php
 $VencenEn3Dias = false;
 $recordatorioHoy = false;
+$fechaHoy = strtotime(date('Y-m-d')); // Fecha actual como timestamp
 
 foreach ($tareas as $t) :
+
     // Verificar vencimiento (3 días o menos)
     $fechaVencimiento = strtotime($t['fecha_vencimiento']);
-    $fechaActual = strtotime(date('Y-m-d'));
-    $diasRestantes = ($fechaVencimiento - $fechaActual) / (60 * 60 * 24); 
+    $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
     if ($diasRestantes <= 3 && $diasRestantes >= 0) {
         $VencenEn3Dias = true;
     }
 
     // Verificar recordatorio (si es hoy)
-    if ($t['fecha_recordatorio'] === date('Y-m-d')) {
+    if (!empty($t['fecha_recordatorio']) && strtotime($t['fecha_recordatorio']) === $fechaHoy) {
         $recordatorioHoy = true;
     }
 endforeach;
+?>
 
-if ($VencenEn3Dias): ?>
+<?php if ($VencenEn3Dias): ?>
     <div class="alert alert-danger mt-3">
         ⚠️ ¡Atención! Tenés una tarea que vence en menos de 3 días. ¡Revisala!
     </div>
-<?php endif;
+<?php endif; ?>
 
-if ($recordatorioHoy): ?>
-    <div class="alert alert-danger mt-3">
+<?php if ($recordatorioHoy): ?>
+    <div class="alert alert-primary mt-3">
         ⚠️ ¡Recordatorio! Tenés una tarea que realizar hoy.
     </div>
 <?php endif; ?>
+
 
 
 <div class="card text-center">
@@ -124,13 +129,12 @@ foreach ($tareas as $t) :
     <div class="card flex-fill" style="background:<?= $color ?>; color: <?= $textColor ?>;">
       <div class="card-body d-flex flex-column">
         <p class="card-text text-start">
-          <?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>
+          Vencimiento: <?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>
         </p>
         <h5 class="card-title"><?= $t['tema']; ?></h5>
         <p class="card-text"><?= $t['descripcion']; ?></p>
         <h6><u>Prioridad: <?= $t['prioridad']; ?></u></h6>
         <h6><u>Estado: <?= $t['estado']; ?></u></h6>
-
         <?php $subtareasCount = [];
         foreach ($subtareas as $s) {
           if ($t['id'] == $s['tarea']) {
