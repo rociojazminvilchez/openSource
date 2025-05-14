@@ -112,11 +112,15 @@ foreach ($tareas as $t) :
       $color = '#FFA500'; // Naranja - Tareas vencidas 
       $textColor = getTextColor($color);
     } elseif (
-      $t['prioridad'] === 'Alta' || ($diasVenc >= 0 && $diasVenc < 3) || ($diasRecordatorio >= 0)
+      $t['prioridad'] === 'Alta' || ($diasVenc >= 0 && $diasVenc < 3)
     ) {
-      $color = '#ED4545'; // Rojo - Alta prioridad | recordatorio | faltan 3 dias del vencimiento
+      $color = '#ED4545'; // Rojo - Alta prioridad | Faltan 3 dias del vencimiento
       $textColor = getTextColor($color);
-    } else {
+    } elseif (($diasRecordatorio >= 0)
+    ) {
+      $color = '#5182ED'; //Recordatorio 
+      $textColor = getTextColor($color);
+    }else {
       $color = match($t['prioridad']) {
         'Baja' => '#14DE68', //Verde - Prioridad baja
         'Normal' => '#EBD723', //Amarillo - Prioridad normal
