@@ -17,6 +17,38 @@
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar las tareas destacadas.
 </div>
+<?php
+$VencenEn3Dias = false;
+$recordatorioHoy = false;
+
+foreach ($tareas as $t) :
+    // Verificar vencimiento (3 días o menos)
+    $fechaVencimiento = strtotime($t['fecha_vencimiento']);
+    $fechaActual = strtotime(date('Y-m-d'));
+    $diasRestantes = ($fechaVencimiento - $fechaActual) / (60 * 60 * 24); 
+
+    if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+        $VencenEn3Dias = true;
+    }
+
+    // Verificar recordatorio (si es hoy)
+    if ($t['fecha_recordatorio'] === date('Y-m-d')) {
+        $recordatorioHoy = true;
+    }
+endforeach;
+
+if ($VencenEn3Dias): ?>
+    <div class="alert alert-danger mt-3">
+        ⚠️ ¡Atención! Tenés una tarea que vence en menos de 3 días. ¡Revisala!
+    </div>
+<?php endif;
+
+if ($recordatorioHoy): ?>
+    <div class="alert alert-danger mt-3">
+        ⚠️ ¡Recordatorio! Tenés una tarea que realizar hoy.
+    </div>
+<?php endif; ?>
+
 
 <div class="card text-center">
   <div class="card-header">
@@ -56,7 +88,9 @@
 
 <div class="container-fluid py-3">
   <div class="row justify-content-center g-3">
-   <?php foreach ($tareas as $t) :
+   
+   <?php  
+foreach ($tareas as $t) :
   if ($t['estado_actualizado'] == '' || $t['estado_actualizado']=='Vencida') {
     $fechaHoy = new DateTime();
     $fechaVenc = new DateTime($t['fecha_vencimiento']);
@@ -85,7 +119,6 @@
       $textColor = getTextColor($color);
     }
 ?>
-
 
   <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
     <div class="card flex-fill" style="background:<?= $color ?>; color: <?= $textColor ?>;">
