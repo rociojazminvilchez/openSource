@@ -74,8 +74,6 @@ endforeach;
     </div>
 <?php endif; ?>
 
-
-
 <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs justify-content-center">
