@@ -13,6 +13,7 @@ class Home extends Controller{
         //Activacion de evento
         $registroTareaModel = new RegistroTareaModel();
         $registroTareaModel->marcarTareasVencidas();
+      
         return view('inicio');
     }
 

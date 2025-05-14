@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('America/Argentina/Buenos_Aires'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +33,61 @@
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar las tareas y subtareas.
 </div>
+  <?php
+$VencenEn3Dias = false;
+$recordatorioHoy = false;
+$fechaHoy = strtotime(date('Y-m-d')); // Fecha actual como timestamp
+
+foreach ($tareas as $t) :
+
+    // Verificar vencimiento (3 días o menos)
+    $fechaVencimiento = strtotime($t['fecha_vencimiento']);
+    $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
+
+    if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+        $VencenEn3Dias = true;
+    }
+
+    // Verificar recordatorio (si es hoy)
+    if (!empty($t['fecha_recordatorio']) && strtotime($t['fecha_recordatorio']) === $fechaHoy) {
+        $recordatorioHoy = true;
+    }
+endforeach;
+?>
+
+<?php if ($VencenEn3Dias): ?>
+    <div class="alert alert-danger mt-3">
+        ⚠️ ¡Atención! Tenés una tarea que vence en menos de 3 días. ¡Revisala!
+    </div>
+<?php endif; ?>
+
+<?php if ($recordatorioHoy): ?>
+    <div class="alert alert-primary mt-3">
+        ⚠️ ¡Recordatorio! Tenés una tarea que realizar hoy.
+    </div>
+<?php endif;
+
+//SUBTAREA
+$VencenEn3DiasSubtarea = false;
+
+
+foreach ($subtareas as $s) :
+    // Verificar vencimiento (3 días o menos)
+    $fechaVencimiento = strtotime($s['fecha_vencimiento']);
+    $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
+
+    if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+        $VencenEn3DiasSubtarea = true;
+    }
+endforeach;
+?>
+
+<?php if ($VencenEn3DiasSubtarea): ?>
+    <div class="alert alert-danger mt-3">
+        ⚠️ ¡Atención! Tenés una subtarea que vence en menos de 3 días. ¡Revisala!
+    </div>
+<?php endif; ?>
+
 <div class="card text-center">
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs justify-content-center">

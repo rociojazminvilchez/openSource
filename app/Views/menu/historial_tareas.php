@@ -51,8 +51,28 @@ endforeach;
     <div class="alert alert-primary mt-3">
         ⚠️ ¡Recordatorio! Tenés una tarea que realizar hoy.
     </div>
-<?php endif; ?>
+<?php endif;
 
+//SUBTAREA
+$VencenEn3DiasSubtarea = false;
+
+
+foreach ($subtareas as $s) :
+    // Verificar vencimiento (3 días o menos)
+    $fechaVencimiento = strtotime($s['fecha_vencimiento']);
+    $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
+
+    if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+        $VencenEn3DiasSubtarea = true;
+    }
+endforeach;
+?>
+
+<?php if ($VencenEn3DiasSubtarea): ?>
+    <div class="alert alert-danger mt-3">
+        ⚠️ ¡Atención! Tenés una subtarea que vence en menos de 3 días. ¡Revisala!
+    </div>
+<?php endif; ?>
   <div class="card text-center">
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs justify-content-center flex-wrap">
