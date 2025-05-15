@@ -1,68 +1,37 @@
-# CodeIgniter 4 Application Starter
+# Sistema de Gestión de Tareas y Subtareas - OpenSource
 
-## What is CodeIgniter?
+## Inicio
+- Breve descripción de lo que puede realizar el sistema.
+- Muestra las **alertas** de tareas y subtareas (solo si se inició sesión).
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+##  Panel Principal
+- Se muestran **todas las tareas activas**, excluyendo las archivadas y eliminadas (estas se visualizan desde el historial).
+- Incluye **alertas visuales** para tareas y subtareas según prioridad o fechas clave:
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+  | Color     | Significado                                              |
+  |-----------|-----------------------------------------------------------|
+  | 🟧 Naranja | Tareas vencidas (se marcan automáticamente).             |
+  | 🔴 Rojo    | Prioridad alta o cuando faltan 3 días para el vencimiento.|
+  | 🔵 Celeste | Fecha del recordatorio asignado.                         |
+  | 🟡 Amarillo| Prioridad normal.                                        |
+  | 🟢 Verde   | Prioridad baja.                                          |
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Formulario de Subtareas
+- Solo permite crear subtareas asociadas a tareas **activas** (no completadas, archivadas ni vencidas).
+- **Los colaboradores no pueden crear subtareas** de las tareas en las que fueron invitados.
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+##  Historial de Tareas
+- Muestra todas las tareas: propias y en las que se colaboró.
+- Permite **editar tareas ARCHIVADAS o VENCIDAS** (solo si sos la persona que la creó).
+- Permite ordenarlas por:
+  - Fecha de vencimiento.
+  - Estado: `Definido`, `En proceso`, `Completada`.
+- Muestra solo las alertas de las tareas.
 
-## Installation & updates
-
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## 🗂️ Historial de Subtareas
+- Muestra todas las subtareas: propias y en las que se colaboró.
+- Permite ordenarlas por:
+  - Fecha de vencimiento.
+  - Estado: `Definido`, `En proceso`, `Completada`.
+  - Prioridad: `Baja`, `Normal`, `Alta`.
+- Muestra solo las alertas de las subtareas.
