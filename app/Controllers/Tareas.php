@@ -137,14 +137,21 @@ class Tareas extends BaseController{
            ]
         ],
         'vencimiento' => [
-            'rules' => 'required|valid_date',
+            'rules' => 'required|valid_date|fechaNoPasada',
             'errors' => [
                 'required' => 'El campo fecha es obligatorio.',
-                'valid_date' => 'Por favor ingresa una fecha válida.'
+                'valid_date' => 'Por favor ingresa una fecha válida.',
+                'fechaNoPasada' => 'La fecha de vencimiento no puede ser anterior a hoy.'
             ]
-        ],
-    ];
-    
+        ], 
+        'recordatorio' => [
+            'rules' => 'permit_empty|valid_date|validarRecordatorioVsVencimiento[vencimiento]',
+            'errors' => [
+                'valid_date' => 'Por favor ingresa una fecha válida.',
+                'validarRecordatorioVsVencimiento' => 'La fecha de recordatorio no puede ser posterior al vencimiento.'
+            ]
+     ],
+     ];
     // Si la validación falla, redirigir de vuelta con los datos ingresados
     if (!$this->validate($reglas)) {
         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());

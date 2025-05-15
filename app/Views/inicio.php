@@ -34,6 +34,7 @@ if (session()->getFlashdata('error')): ?>
   $tareasRecordatorio = [];
   
   foreach ($tareas as $t) :
+    if($t['estado_actualizado']===''):
     $fechaVencimiento = strtotime($t['fecha_vencimiento']);
     $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
@@ -47,6 +48,7 @@ if (session()->getFlashdata('error')): ?>
     if ($esHoy>= 0) {
       $tareasRecordatorio[] = $t['id'];  
     }
+  endif;
   endforeach;
 
 /* ALERTA TAREA VENCIMIENTO (Si faltan 3 dias o menos) */
@@ -74,12 +76,14 @@ if (session()->getFlashdata('error')): ?>
   $subtareasVencenPronto = [];
   
   foreach ($subtareas as $s) :
+    if($s['estado_actualizado']===''):
     $fechaVencimiento = strtotime($s['fecha_vencimiento']);
     $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
     if ($diasRestantes <= 3 && $diasRestantes >= 0) {
       $subtareasVencenPronto[] = $s['id'];
     }
+  endif;
   endforeach;
 
   if (!empty($subtareasVencenPronto)): 

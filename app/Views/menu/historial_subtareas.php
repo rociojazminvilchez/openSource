@@ -25,12 +25,14 @@
   $subtareasVencenPronto = [];
   
   foreach ($subtareas as $s) :
+    if($s['estado_actualizado']===''):
     $fechaVencimiento = strtotime($s['fecha_vencimiento']);
     $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
     if ($diasRestantes <= 3 && $diasRestantes >= 0) {
       $subtareasVencenPronto[] = $s['id'];
     }
+  endif;
   endforeach;
 
   if (!empty($subtareasVencenPronto)): 

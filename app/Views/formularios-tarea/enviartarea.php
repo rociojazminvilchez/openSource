@@ -68,15 +68,22 @@
 
     <div class="mb-3">
       <label class="form-label fw-bold">Fecha de vencimiento</label>
-      <div class="form-control-plaintext"><?= esc($t['fecha_vencimiento']) ?></div>
+      <div class="form-control-plaintext"> <?= esc(new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?></div>
       <input type="hidden" name="fecha_vencimiento" value="<?= esc($t['fecha_vencimiento']) ?>">
     </div>
 
     <div class="mb-3">
       <label class="form-label fw-bold">Fecha de recordatorio</label>
-      <div class="form-control-plaintext"><?= esc($t['fecha_recordatorio']) ?></div>
-      <input type="hidden" name="fecha_recordatorio" value="<?= esc($t['fecha_recordatorio']) ?>">
+      <div class="form-control-plaintext">
+        <?php if (!empty($t['fecha_recordatorio']) && $t['fecha_recordatorio'] !== '0000-00-00'): ?>
+          <?= esc((new DateTime($t['fecha_recordatorio']))->format('d-m-Y')); ?>
+          <?php else: ?>
+             <span class="text-muted">Sin recordatorio</span>
+    <?php endif; ?>
     </div>
+    <input type="hidden" name="fecha_recordatorio" value="<?= esc($t['fecha_recordatorio']) ?>">
+    </div>
+
 
     <div class="mb-4">
       <label for="recipients" class="form-label fw-bold">Colaboradores</label>

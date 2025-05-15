@@ -15,6 +15,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<?= $this->include('plantilla/navbar'); ?><br>  
 <!--ALERTA DE MENSAJES -->
 <?php if (session()->getFlashdata('mensajeError')): ?>
   <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
@@ -27,7 +28,6 @@ if (session()->getFlashdata('error')): ?>
 <?php endif; ?>
 
 <div id="inicio"></div>
-<?= $this->include('plantilla/navbar'); ?><br>
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar y modificar las tareas.
 </div>
@@ -39,6 +39,7 @@ if (session()->getFlashdata('error')): ?>
   $tareasRecordatorio = [];
   
   foreach ($tareas as $t) :
+    if($t['estado_actualizado']===''):
     $fechaVencimiento = strtotime($t['fecha_vencimiento']);
     $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
@@ -52,6 +53,7 @@ if (session()->getFlashdata('error')): ?>
     if ($esHoy>= 0) {
       $tareasRecordatorio[] = $t['id'];  
     }
+  endif;
   endforeach;
 /* ALERTA VENCIMIENTO (Si faltan 3 dias o menos) */
   if (!empty($tareasVencenPronto)): 

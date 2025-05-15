@@ -26,6 +26,7 @@
   $tareasRecordatorio = [];
   
   foreach ($tareas as $t) :
+    if($t['estado_actualizado']===''):
     $fechaVencimiento = strtotime($t['fecha_vencimiento']);
     $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
@@ -39,6 +40,7 @@
     if ($esHoy>= 0) {
       $tareasRecordatorio[] = $t['id'];  
     }
+  endif;
   endforeach;
 /* ALERTA VENCIMIENTO (Si faltan 3 dias o menos) */
   if (!empty($tareasVencenPronto)): 
