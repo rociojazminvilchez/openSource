@@ -25,56 +25,69 @@ if (session()->getFlashdata('error')): ?>
   <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
 <?php endif; ?>
 
-<!-- NOTIFICACION TAREA | SUBTAREA -->
+<!-- ALERTA TAREA | SUBTAREA -->
 <?php if (session()->has('usuario')): ?>
-    <?php
-    $VencenEn3Dias = false;
-    $recordatorioHoy = false;
-    $fechaHoy = strtotime(date('Y-m-d')); // Fecha actual como timestamp
 
-    // TAREAS
-    foreach ($tareas as $t) :
-        $fechaVencimiento = strtotime($t['fecha_vencimiento']);
-        $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
+<?php
+  $fechaHoy = strtotime(date('Y-m-d')); // Fecha actual 
+  $tareasVencenPronto = [];
+  $tareasRecordatorio = [];
+  
+  foreach ($tareas as $t) :
+    $fechaVencimiento = strtotime($t['fecha_vencimiento']);
+    $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
-        if ($diasRestantes <= 3 && $diasRestantes >= 0) {
-            $VencenEn3Dias = true;
-        }
+    $fechaRecordatorio = strtotime($t['fecha_recordatorio']);
+    $esHoy = ($fechaRecordatorio - $fechaHoy) / (60 * 60 * 24); 
 
-        if (!empty($t['fecha_recordatorio']) && strtotime($t['fecha_recordatorio']) === $fechaHoy) {
-            $recordatorioHoy = true;
-        }
-    endforeach;
+    if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+      $tareasVencenPronto[] = $t['id'];  
+    }
 
-    // SUBTAREAS
-    $VencenEn3DiasSubtarea = false;
-    foreach ($subtareas as $s) :
-        $fechaVencimiento = strtotime($s['fecha_vencimiento']);
-        $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
-
-        if ($diasRestantes <= 3 && $diasRestantes >= 0) {
-            $VencenEn3DiasSubtarea = true;
-        }
-    endforeach;
-    ?>
-
-    <?php if ($VencenEn3Dias): ?>
+    if ($esHoy>= 0) {
+      $tareasRecordatorio[] = $t['id'];  
+    }
+  endforeach;
+/* ALERTA TAREA VENCIMIENTO (Si faltan 3 dias o menos) */
+  if (!empty($tareasVencenPronto)): 
+     foreach ($tareasVencenPronto as $id_tarea): ?>
         <div class="alert alert-danger mt-3">
-            ⚠️ ¡Atención! Tenés una tarea que vence en menos de 3 días. ¡Revisala!
+          ⚠️ ¡Atención! La <strong>TAREA <?= $id_tarea ?></strong> vence en menos de 3 días. ¡Revisala!
         </div>
-    <?php endif; ?>
-
-    <?php if ($recordatorioHoy): ?>
+    <?php endforeach; 
+  endif; 
+/* ALERTA TAREA RECORDATORIO */
+  if (!empty($tareasRecordatorio)): 
+     foreach ($tareasRecordatorio as $id_tarea): ?>
         <div class="alert alert-primary mt-3">
-            ⚠️ ¡Recordatorio! Tenés una tarea que realizar hoy.
+          ⚠️ ¡Recordatorio! Tenes una <strong>TAREA <?= $id_tarea ?></strong> que realizar hoy.
         </div>
-    <?php endif; ?>
+    <?php endforeach; 
+  endif; 
+?>
 
-    <?php if ($VencenEn3DiasSubtarea): ?>
+<!-- ALERTA SUBTAREA VENCIMIENTO (Si faltan 3 dias o menos) -->
+<?php
+  $fechaHoy = strtotime(date('Y-m-d'));
+  $subtareasVencenPronto = [];
+  
+  foreach ($subtareas as $s) :
+    $fechaVencimiento = strtotime($s['fecha_vencimiento']);
+    $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
+
+    if ($diasRestantes <= 3 && $diasRestantes >= 0) {
+      $subtareasVencenPronto[] = $s['id'];
+    }
+  endforeach;
+
+  if (!empty($subtareasVencenPronto)): 
+     foreach ($subtareasVencenPronto as $id_subtarea): ?>
         <div class="alert alert-danger mt-3">
-            ⚠️ ¡Atención! Tenés una subtarea que vence en menos de 3 días. ¡Revisala!
+          ⚠️ ¡Atención! La <strong>SUBTAREA <?= $id_subtarea ?></strong> vence en menos de 3 días. ¡Revisala!
         </div>
-    <?php endif; ?>
+    <?php endforeach; 
+  endif; ?>
+
 <?php endif; ?>
 
 

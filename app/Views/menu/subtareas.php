@@ -9,10 +9,10 @@
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('/css/menu.css') ?>">
-
 </head>
 <body>
 <?= $this->include('plantilla/navbar'); ?><br>
+
 <!--ALERTA DE MENSAJES -->
 <?php if (session()->getFlashdata('mensajeError')): ?>
   <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
@@ -29,28 +29,29 @@
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar y modificar las subtareas.
 </div>
-  <?php
-$VencenEn3Dias = false;
-$fechaHoy = strtotime(date('Y-m-d')); // Fecha actual como timestamp
 
-foreach ($subtareas as $s) :
-
-    // Verificar vencimiento (3 días o menos)
+<!-- ALERTA VENCIMIENTO (Si faltan 3 dias o menos) -->
+<?php
+  $fechaHoy = strtotime(date('Y-m-d')); // Fecha actual 
+  $subtareasVencenPronto = [];
+  
+  foreach ($subtareas as $s) :
     $fechaVencimiento = strtotime($s['fecha_vencimiento']);
     $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
     if ($diasRestantes <= 3 && $diasRestantes >= 0) {
-        $VencenEn3Dias = true;
+      $subtareasVencenPronto[] = $s['id'];
     }
+  endforeach;
 
-endforeach;
-?>
+  if (!empty($subtareasVencenPronto)): 
+     foreach ($subtareasVencenPronto as $id_subtarea): ?>
+        <div class="alert alert-danger mt-3">
+          ⚠️ ¡Atención! La <strong>SUBTAREA <?= $id_subtarea ?></strong> vence en menos de 3 días. ¡Revisala!
+        </div>
+    <?php endforeach; 
+  endif; ?>
 
-<?php if ($VencenEn3Dias): ?>
-    <div class="alert alert-danger mt-3">
-        ⚠️ ¡Atención! Tenés una subtarea que vence en menos de 3 días. ¡Revisala!
-    </div>
-<?php endif; ?>
 <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs justify-content-center">
