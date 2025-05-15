@@ -11,7 +11,7 @@
 </head>
 <body>
 <?= $this->include('plantilla/navbar'); ?>
-<div class="alert alert-warning text-center" role="alert">
+<div class="alert alert-warning text-left" role="alert">
   <strong>Atención:</strong> Este panel es para actualizar información.
 </div>
 
@@ -19,7 +19,8 @@
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <form action="<?= base_url('/perfil'); ?>" method="POST" enctype="multipart/form-data" autocomplete="off" class="bg-light p-4 rounded shadow">
-        <div class="d-flex justify-content-end">
+      <?= csrf_field() ?>   
+      <div class="d-flex justify-content-end">
           <a href="<?= base_url('/') ?>" class="btn-close" aria-label="Cerrar"></a>
         </div>
 
@@ -34,7 +35,9 @@
         <?php endif; ?>
 
         <?php foreach ($usuario as $us): ?>
-          <h5 class="text-center text-danger">Actualizar información</h5>
+        
+          <h5 class="text-center" style="color:#262e5b;" >Actualizar información</h5>
+        
           <p class="text-start text-muted"><span class="text-danger">*</span> Campos obligatorios</p>
 
           <h4>Datos personales</h4>

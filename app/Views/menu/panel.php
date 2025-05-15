@@ -98,7 +98,7 @@
     </ul>
   </div><br>
 
-<?php if (empty($tareas) && empty($subtareas)): ?>
+<?php if (empty($tareas)): ?>
   <div class="d-flex justify-content-center mt-4">
     <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
         <i class="bi bi-info-circle-fill me-2"></i>

@@ -41,12 +41,12 @@
   <strong>Atención:</strong> Este panel es para crear una subtarea.
 </div>
 
-<?php if (empty($tareas)): ?>
+<?php if (empty($subtareas)): ?>
   <div class="d-flex justify-content-center mt-4">
     <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
       <i class="bi bi-info-circle-fill me-2"></i>
       <div>
-        En este momento no posee tareas activas.
+        En este momento no posee subtareas activas.
       </div>
     </div>
   </div>
