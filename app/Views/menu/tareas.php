@@ -12,7 +12,6 @@
   <link rel="shortcut icon" href="<?= base_url('/openSource/public/img/logo.png') ?>" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('/css/menu.css') ?>">
-  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -32,39 +31,45 @@ if (session()->getFlashdata('error')): ?>
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar y modificar las tareas.
 </div>
+
+<!-- ALERTA TAREAS -->
 <?php
-$VencenEn3Dias = false;
-$recordatorioHoy = false;
-$fechaHoy = strtotime(date('Y-m-d')); // Fecha actual como timestamp
-
-foreach ($tareas as $t) :
-
-    // Verificar vencimiento (3 días o menos)
+  $fechaHoy = strtotime(date('Y-m-d')); // Fecha actual 
+  $tareasVencenPronto = [];
+  $tareasRecordatorio = [];
+  
+  foreach ($tareas as $t) :
     $fechaVencimiento = strtotime($t['fecha_vencimiento']);
     $diasRestantes = ($fechaVencimiento - $fechaHoy) / (60 * 60 * 24); 
 
+    $fechaRecordatorio = strtotime($t['fecha_recordatorio']);
+    $esHoy = ($fechaRecordatorio - $fechaHoy) / (60 * 60 * 24); 
+
     if ($diasRestantes <= 3 && $diasRestantes >= 0) {
-        $VencenEn3Dias = true;
+      $tareasVencenPronto[] = $t['id'];  
     }
 
-    // Verificar recordatorio (si es hoy)
-    if (!empty($t['fecha_recordatorio']) && strtotime($t['fecha_recordatorio']) === $fechaHoy) {
-        $recordatorioHoy = true;
+    if ($esHoy>= 0) {
+      $tareasRecordatorio[] = $t['id'];  
     }
-endforeach;
+  endforeach;
+/* ALERTA VENCIMIENTO (Si faltan 3 dias o menos) */
+  if (!empty($tareasVencenPronto)): 
+     foreach ($tareasVencenPronto as $id_tarea): ?>
+        <div class="alert alert-danger mt-3">
+          ⚠️ ¡Atención! La <strong>TAREA <?= $id_tarea ?></strong> vence en menos de 3 días. ¡Revisala!
+        </div>
+    <?php endforeach; 
+  endif; 
+/* ALERTA RECORDATORIO */
+  if (!empty($tareasRecordatorio)): 
+     foreach ($tareasRecordatorio as $id_tarea): ?>
+        <div class="alert alert-primary mt-3">
+          ⚠️ ¡Recordatorio! Tenes una <strong>TAREA <?= $id_tarea ?></strong> que realizar hoy.
+        </div>
+    <?php endforeach; 
+  endif; 
 ?>
-
-<?php if ($VencenEn3Dias): ?>
-    <div class="alert alert-danger mt-3">
-        ⚠️ ¡Atención! Tenés una tarea que vence en menos de 3 días. ¡Revisala!
-    </div>
-<?php endif; ?>
-
-<?php if ($recordatorioHoy): ?>
-    <div class="alert alert-primary mt-3">
-        ⚠️ ¡Recordatorio! Tenés una tarea que realizar hoy.
-    </div>
-<?php endif; ?>
 
 
 <div class="card text-center">

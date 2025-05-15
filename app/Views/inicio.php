@@ -26,9 +26,8 @@ if (session()->getFlashdata('error')): ?>
 <?php endif; ?>
 
 <!-- ALERTA TAREA | SUBTAREA -->
-<?php if (session()->has('usuario')): ?>
+<?php if (session()->has('usuario')): 
 
-<?php
   $fechaHoy = strtotime(date('Y-m-d')); // Fecha actual 
   $tareasVencenPronto = [];
   $tareasRecordatorio = [];
@@ -48,6 +47,7 @@ if (session()->getFlashdata('error')): ?>
       $tareasRecordatorio[] = $t['id'];  
     }
   endforeach;
+
 /* ALERTA TAREA VENCIMIENTO (Si faltan 3 dias o menos) */
   if (!empty($tareasVencenPronto)): 
      foreach ($tareasVencenPronto as $id_tarea): ?>
@@ -56,6 +56,7 @@ if (session()->getFlashdata('error')): ?>
         </div>
     <?php endforeach; 
   endif; 
+
 /* ALERTA TAREA RECORDATORIO */
   if (!empty($tareasRecordatorio)): 
      foreach ($tareasRecordatorio as $id_tarea): ?>
@@ -86,9 +87,8 @@ if (session()->getFlashdata('error')): ?>
           ⚠️ ¡Atención! La <strong>SUBTAREA <?= $id_subtarea ?></strong> vence en menos de 3 días. ¡Revisala!
         </div>
     <?php endforeach; 
-  endif; ?>
-
-<?php endif; ?>
+  endif; 
+ endif; ?>
 
 
 <section style="text-align: center;">
