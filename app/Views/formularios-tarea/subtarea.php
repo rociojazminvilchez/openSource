@@ -41,12 +41,13 @@
   <strong>Atención:</strong> Este panel es para crear una subtarea.
 </div>
 
-<?php if (empty($subtareas)): ?>
+<?php $fechaVencimientoPrimeraTarea = null;
+if (empty($tareas)): ?>
   <div class="d-flex justify-content-center mt-4">
     <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
       <i class="bi bi-info-circle-fill me-2"></i>
       <div>
-        En este momento no posee subtareas activas.
+        En este momento no posee tareas propias activas.
       </div>
     </div>
   </div>
@@ -70,6 +71,7 @@
             <?php endforeach; ?>
           </select>
         </div>
+        <?php $fechaVencimientoPrimeraTarea = $tareas[0]['fecha_vencimiento']; ?>
 
         <div class="mb-3">
           <label class="form-label"><span class="text-danger">*</span> Descripción</label>
@@ -118,7 +120,29 @@
   </div>
 </div>
 <?php
-endif;  ?>
+endif;  
+?>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const fechaGuardada = '<?= esc((new DateTime($fechaVencimientoPrimeraTarea))->format('Y-m-d')) ?>';
+    const inputFecha = document.querySelector('input[name="vencimiento"]');
+
+    if (!inputFecha) {
+      console.warn('No se encontró el campo de vencimiento');
+      return;
+    }
+
+    inputFecha.addEventListener('change', function () {
+      const nuevaFecha = inputFecha.value;
+      if (nuevaFecha > fechaGuardada) {
+        alert('La nueva fecha no puede ser mayor que el vencimiento de la tarea: ' + fechaGuardada);
+        inputFecha.value = '';
+        inputFecha.focus();
+      }
+    });
+  });
+</script>
+
 <?= $this->include('plantilla/footer') ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -97,7 +97,8 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($subtareas as $s) : ?>
+          <?php foreach ($subtareas as $s) :
+            if ($s['estado'] != 'Completada' && empty($s['estado_actualizado'])):?>
             <tr>
               <td><?= $s['id']; ?></td>
               <td><?= $s['descripcion']; ?></td>
@@ -130,7 +131,7 @@
              <td><a href="<?= site_url('menu/subtareas/' . $s['id']); ?>" class="btn btn-danger btn-sm">🗑️ Eliminar</a></td>
              <?php  endif; ?>
             </tr>
-          <?php endforeach; ?>
+          <?php endif; endforeach; ?>
         </tbody>
       </table>
     </div>

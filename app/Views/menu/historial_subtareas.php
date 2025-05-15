@@ -88,6 +88,7 @@
           <th scope="col">ID</th>
           <th scope="col">Descripcion</th>
           <th scope="col">Estado</th>
+          <th scope="col">Estado actualizado</th>
           <th scope="col">Prioridad</th>
           <th scope="col">Fecha Vencimiento</th>
           <th scope="col">Comentario</th>
@@ -102,6 +103,7 @@
             <td><?= $s['id']; ?></td>
             <td><?= $s['descripcion']; ?></td>
             <td><?= $s['estado']; ?></td>
+            <td><?= $s['estado_actualizado']; ?></td>
             <td><?= $s['prioridad']; ?></td>
             <td>
               <?= ($s['fecha_vencimiento'] != '0000-00-00') ? (new DateTime($s['fecha_vencimiento']))->format('d-m-Y') : ''; ?>

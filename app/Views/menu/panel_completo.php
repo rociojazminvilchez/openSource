@@ -135,6 +135,7 @@
     <tr><td><strong>Descripción</strong></td><td><?= $s['descripcion']; ?></td></tr>
     <tr><td><strong>Prioridad</strong></td><td><?= $s['prioridad']; ?></td></tr>
     <tr><td><strong>Estado</strong></td><td><?= $s['estado']; ?></td></tr>
+     <tr><td><strong>Estado actual</strong></td><td><?= $s['estado_actualizado']; ?></td></tr>
     <tr><td><strong>Comentario</strong></td><td><?= $s['comentario']; ?></td></tr>
     <tr><td><strong>Fecha Vencimiento</strong></td>
       <td><?= $s['fecha_vencimiento'] != '0000-00-00' ? (new DateTime($s['fecha_vencimiento']))->format('d-m-Y') : ''; ?></td></tr>

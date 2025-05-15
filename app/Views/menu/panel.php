@@ -168,7 +168,7 @@ foreach ($tareas as $t) :
         <p class="card-text text-start">
           Vencimiento: <?= (new DateTime($t['fecha_vencimiento']))->format('d-m-Y'); ?>
         </p>
-        <h5 class="card-title"><?= $t['tema']; ?></h5>
+        <h5 class="card-title"><?= $t['id']." - ".$t['tema']; ?></h5>
         <p class="card-text"><?= $t['descripcion']; ?></p>
         <h6><u>Prioridad: <?= $t['prioridad']; ?></u></h6>
         <h6><u>Estado: <?= $t['estado']; ?></u></h6>

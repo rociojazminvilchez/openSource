@@ -245,9 +245,9 @@ class Tareas extends BaseController{
             <li><strong>Estado:</strong> $estado</li>
             <li><strong>Fecha de vencimiento:</strong> $vencimiento</li>
             <li><strong>Recordatorio:</strong> $recordatorio</li>
+            
         </ul>
-           <p><strong>Haz clic aquí para ver y gestionar la tarea: </strong><a href='http://localhost/openSource/public/'>Acceder a la tarea</a></p>
-    ";
+           <p><strong>Haz clic aquí para ver y gestionar la tarea: </strong><a href='http://localhost/openSource/public/'>Acceder a la tarea</a></p>";
 
     $email->setMessage($mensaje);
 

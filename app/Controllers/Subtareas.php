@@ -6,7 +6,7 @@ use App\Models\RegistroTareaModel;
 
 class Subtareas extends BaseController{
 
-#SUBTAREA - FORMULARIO
+#CREAR SUBTAREA 
     public function create(){
         $reglas = [
            'descripcion' => [
@@ -83,7 +83,27 @@ class Subtareas extends BaseController{
     
         return redirect()->to('/menu/subtareas')->with('mensaje', 'Subtarea actualizada correctamente');
     }
-    
+
+ #ELIMINAR SUBTAREA
+   public function eliminarSubtarea($id = null) {
+    if (!$id) {
+        return redirect()->to('/menu/subtareas')->with('error', 'ID de subtarea no válido');
+    }
+
+     $RegistroSubtareaModel = new RegistroSubtareaModel();
+
+    $result = $RegistroSubtareaModel->update($id, [
+           'estado_actualizado'=> 'Eliminada',
+       ]);      
+       
+   if ($result) {
+    return redirect()->to('/menu/subtareas')->with('mensaje', 'Subtarea eliminada correctamente.');
+     } else {
+    return redirect()->to('/menu/subtareas')->with('error', 'No se pudo eliminar la subtarea.');
+    }
+       return redirect()->to('/menu/subtareas');
+   }   
+
 #MODIFICAR SUBTAREA
     public function subtarea($id=null){
         $RegistroSubtareaModel = new RegistroSubtareaModel();
