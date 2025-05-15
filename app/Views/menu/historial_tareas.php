@@ -62,7 +62,7 @@
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs justify-content-center flex-wrap">
         <li>
-            <a class="nav-link active" href="<?= base_url('/menu/historial_tareas'); ?>"><label style="color:red; font-weight: bold;">TAREAS </label></a>
+            <a class="nav-link active" href="<?= base_url('/menu/historial_tareas'); ?>"><label style="color:#262e5b; font-weight: bold;">TAREAS </label></a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="<?= base_url('/menu/historial_subtareas'); ?>"> Subtareas </a>
@@ -70,11 +70,15 @@
         </ul>
     </div><br>
     <?php if (empty($tareas)): ?>
-    <div class="alert-info" role="alert">
-      En este momento no posee tareas registradas.
+    <div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      <div>
+        En este momento no posee tareas registradas.
+      </div>
     </div>
-    <?php
-    else:?>
+  </div>
+<?php else:?>
     <h3 class="text-center my-3" id="titulo" style="font-family: 'Times New Roman', serif;"> HISTORIAL TAREAS </h3> 
 
 <!-- Formulario de orden -->

@@ -14,6 +14,7 @@
 <?php
   echo $this->include('plantilla/navbar');
 ?><br>
+
 <!--ALERTA DE MENSAJES -->
 <?php if (session()->getFlashdata('mensajeError')): ?>
   <div class="alert alert-danger"><?= session()->getFlashdata('mensajeError') ?></div>
@@ -110,7 +111,7 @@ if (session()->getFlashdata('error')): ?>
     <div class="feature col text-center">
       <div class="fs-1 mb-3">📝</div>
       <h3 class="fs-4">Gesti&oacuten de tareas</h3>
-      <p>Generá tareas f&aacutecilmente, asignales prioridad, fechas de vencimiento y colores para una mejor visualizaci&oacuten.</p>
+      <p>Generá tareas f&aacutecilmente, asignales prioridad y fechas de vencimiento para una mejor visualizaci&oacuten.</p>
     </div>
 
     <!-- Creacion y gestion de subtareas -->
@@ -124,7 +125,7 @@ if (session()->getFlashdata('error')): ?>
     <div class="feature col text-center">
       <div class="fs-1 mb-3">🔄</div>
       <h3 class="fs-4">Cambio de estado</h3>
-      <p>Marc&aacute tareas como "en proceso" o "completadas" con un solo clic. Visualiz&aacute tu progreso en tiempo real.</p>
+      <p>Marc&aacute tareas como "en proceso" o "completadas". Visualiz&aacute tu progreso en tiempo real.</p>
     </div>
 
     <!-- Interaccion con colaboradores -->

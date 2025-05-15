@@ -50,18 +50,22 @@
         </li>
         <li class="nav-item">
           <a class="nav-link active" href="<?= base_url('/menu/historial_subtareas'); ?>">
-            <label style="color:red; font-weight: bold;">SUBTAREAS</label>
+            <label style="color:#262e5b; font-weight: bold;">SUBTAREAS</label>
           </a>
         </li>
       </ul>
     </div>
   </div><br>
   <?php if (empty($subtareas)): ?>
-    <div class="alert-info" role="alert">
-      En este momento no posee subtareas registradas.
+    <div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      <div>
+        En este momento no posee subtareas registradas.
+      </div>
     </div>
-    <?php
-    else:?>
+  </div>
+<?php else:?>
   <h3 class="text-center my-3" id="titulo" style="font-family: 'Times New Roman', serif;">HISTORIAL SUBTAREAS</h3>
 
 <!-- Formulario de ordenamiento -->

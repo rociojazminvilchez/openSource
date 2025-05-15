@@ -71,7 +71,6 @@ if (session()->getFlashdata('error')): ?>
   endif; 
 ?>
 
-
 <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs justify-content-center">
@@ -80,7 +79,7 @@ if (session()->getFlashdata('error')): ?>
       </li>
       <li class="nav-item">
         <a class="nav-link active" href="<?= base_url('/menu/tareas'); ?>">
-          <label style="color:red; font-weight: bold;">TAREAS</label>
+          <label style="color:#262e5b; font-weight: bold;">TAREAS</label>
         </a>
       </li>
       <li class="nav-item">
@@ -90,11 +89,15 @@ if (session()->getFlashdata('error')): ?>
   </div>
 </div><br>
 <?php if (empty($tareas)): ?>
-    <div class="alert-info" role="alert">
-      En este momento no posee tareas registradas.
+  <div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      <div>
+        En este momento no posee tareas registradas.
+      </div>
     </div>
-    <?php
-    else:?>
+  </div>
+<?php else:?>
 <h3 class="my-4 text-center" id="titulo" style="font-family: 'Times New Roman', serif;">TAREAS</h3>
 
 <!-- Filtro de orden -->

@@ -19,7 +19,6 @@
 <div class="alert alert-warning" role="alert">
   <strong>Atención:</strong> Este panel es para visualizar las tareas destacadas.
 </div>
-
 <!-- ALERTA TAREAS VENCIMIENTO -->
 <?php
   $fechaHoy = strtotime(date('Y-m-d')); // Fecha actual 
@@ -87,7 +86,7 @@
     <ul class="nav nav-tabs card-header-tabs justify-content-center">
       <li class="nav-item">
         <a class="nav-link active" href="<?= base_url('/menu/panel'); ?>">
-          <label style="color:red; font-weight: bold;">PANEL </label>
+          <label style="color:#262e5b; font-weight: bold;">PANEL </label>
         </a>
       </li>
       <li class="nav-item">
@@ -99,14 +98,17 @@
     </ul>
   </div><br>
 
-  <?php if (empty($tareas) && empty($subtareas)): ?>
-    <div class="alert-info" role="alert">
-      En este momento no posee tareas registradas.
+<?php if (empty($tareas) && empty($subtareas)): ?>
+  <div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        <div>
+          En este momento no posee tareas registradas.
+        </div>
     </div>
-    <?php
-    else:?>
+   </div>
+<?php else:?>
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> PANEL </h3>
-
   <?php
   function getTextColor($bgColor) {
     $hex = str_replace('#', '', $bgColor);

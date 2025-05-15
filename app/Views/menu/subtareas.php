@@ -62,16 +62,20 @@
         <a class="nav-link active" href="<?= base_url('/menu/tareas'); ?>"> Tareas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="<?= base_url('/menu/subtareas'); ?>"><label style="color:red; font-weight: bold;">SUBTAREAS</label></a>
+        <a class="nav-link active" href="<?= base_url('/menu/subtareas'); ?>"><label style="color:#262e5b; font-weight: bold;">SUBTAREAS</label></a>
       </li>
     </ul>
   </div><br>
   <?php if (empty($subtareas)): ?>
-    <div class="alert-info" role="alert">
-      En este momento no posee subtareas registradas.
+    <div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      <div>
+        En este momento no posee subtareas registradas.
+      </div>
     </div>
-    <?php
-    else:?>
+  </div>
+<?php else:?>
   <h3 class="my-3" id="titulo" style="margin: 20px;font-family: 'Times New Roman', serif;"> SUBTAREAS </h3> 
 
   <div class="container-fluid mb-4">

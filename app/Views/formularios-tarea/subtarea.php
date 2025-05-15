@@ -40,6 +40,18 @@
 <div class="alert alert-warning text-center" role="alert">
   <strong>Atención:</strong> Este panel es para crear una subtarea.
 </div>
+
+<?php if (empty($tareas)): ?>
+  <div class="d-flex justify-content-center mt-4">
+    <div class="alert alert-info d-flex align-items-center shadow-sm rounded text-center" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      <div>
+        En este momento no posee tareas activas.
+      </div>
+    </div>
+  </div>
+<?php else:?>
+
 <div class="d-flex justify-content-end">
   <a href="<?= base_url('/') ?>" class="btn-close" aria-label="Cerrar"></a>
 </div>
@@ -105,7 +117,8 @@
     </div>
   </div>
 </div>
-
+<?php
+endif;  ?>
 <?= $this->include('plantilla/footer') ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
